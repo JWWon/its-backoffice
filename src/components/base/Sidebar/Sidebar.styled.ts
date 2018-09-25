@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const SContainer = styled.div`
-  flex-basis: 36.2rem;
-  background-color: ${props => props.theme.color.white};
+export const Container = styled.div`
+  flex-basis: 20rem;
+  padding: ${({ theme }) => theme.space.normal}rem;
+  background-color: ${({ theme }) => theme.color.white};
+  border-right: 1px solid ${({ theme }) => theme.color.darkGray};
 `;

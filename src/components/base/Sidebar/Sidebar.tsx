@@ -1,9 +1,21 @@
 import React from 'react';
 import * as s from './Sidebar.styled';
+import SideMenu, { IProps as MenuProps } from './SideMenu';
 
-class Sidebar extends React.Component {
+interface IProps {
+  menuList: MenuProps[];
+}
+
+class Sidebar extends React.Component<IProps> {
   public render() {
-    return <s.SContainer />;
+    const { menuList } = this.props;
+    return (
+      <s.Container>
+        {menuList.map(menu => (
+          <SideMenu label={menu.label} items={menu.items} key={menu.label} />
+        ))}
+      </s.Container>
+    );
   }
 }
 

@@ -9,7 +9,8 @@
   },
   "rules": {
     "object-literal-sort-keys": false, // DISABLE FOR TYPESCRIPT
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "no-console": false
   },
   "jsRules": {
     "object-literal-sort-keys": false, // DISABLE FOR JAVASCRIPT

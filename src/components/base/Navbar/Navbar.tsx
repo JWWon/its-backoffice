@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import * as s from './Navbar.styled';
 
 interface IProps {
@@ -8,19 +8,26 @@ interface IProps {
 class Navbar extends React.Component<IProps> {
   public render() {
     return (
-      <s.NContainer>
-        <s.NWrapper>
-          <s.NLogo>It's 교정</s.NLogo>
-          <s.NAdmin>ADMIN</s.NAdmin>
-        </s.NWrapper>
+      <s.Container>
+        <s.Wrapper>
+          <s.LogoText>It's 교정</s.LogoText>
+          <s.Admin>ADMIN</s.Admin>
+        </s.Wrapper>
         {this.props.hasSession && (
-          <Fragment>
-            <s.NAdmin>박찬혁</s.NAdmin>
-          </Fragment>
+          <s.Wrapper>
+            <s.AuthName>박찬혁 님</s.AuthName>
+            <s.LogoutButton onClick={this.handleClick}>
+              <s.Logout>Logout</s.Logout>
+            </s.LogoutButton>
+          </s.Wrapper>
         )}
-      </s.NContainer>
+      </s.Container>
     );
   }
+
+  private handleClick = () => {
+    console.log('click');
+  };
 }
 
 export default Navbar;
