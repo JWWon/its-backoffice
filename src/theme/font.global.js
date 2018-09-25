@@ -1,5 +1,7 @@
 export default {
-  title: 3.2,
-  subtitle: 2.4,
-  content: 1.6,
+  title: '2.8rem',
+  subtitle: '2.2rem',
+  normal: '1.6rem',
+  small: '1.4rem',
+  smaller: '1.2rem',
 };
