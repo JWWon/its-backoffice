@@ -14,7 +14,7 @@ export const NContainer = styled.div`
   background-color: ${props => props.theme.color.darkBlue};
 `;
 
-export const NLogo = baseFont.extend`
+export const NLogo = styled(baseFont)`
   font-weight: bold;
   margin-right: ${props => props.theme.space.normal}rem;
 `;

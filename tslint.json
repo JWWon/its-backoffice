@@ -8,9 +8,11 @@
     ]
   },
   "rules": {
-    "object-literal-sort-keys": false // DISABLE FOR TYPESCRIPT
+    "object-literal-sort-keys": false, // DISABLE FOR TYPESCRIPT
+    "jsx-boolean-value": false
   },
   "jsRules": {
-    "object-literal-sort-keys": false // DISABLE FOR JAVASCRIPT
+    "object-literal-sort-keys": false, // DISABLE FOR JAVASCRIPT
+    "jsx-boolean-value": false
   }
 }
