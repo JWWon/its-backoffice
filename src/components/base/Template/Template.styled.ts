@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const TempContainer = styled.div`
   display: flex;
+  height: 100vh;
+  background-color: ${props => props.theme.color.background};
   flex-direction: column;
 `;
 

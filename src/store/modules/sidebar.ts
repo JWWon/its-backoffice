@@ -14,7 +14,7 @@ export interface ISidebarState {
 }
 
 const initState: ISidebarState = {
-  show: false,
+  show: true,
 };
 
 // *** REDUCER
