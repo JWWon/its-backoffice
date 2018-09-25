@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
-import auth from './auth';
-import sidebar from './sidebar';
+import auth, { IAuthState } from './auth';
+import sidebar, { ISidebarState } from './sidebar';
+
+export interface IStoreState {
+  auth: IAuthState;
+  sidebar: ISidebarState;
+}
 
 export default combineReducers({ auth, sidebar });

@@ -1,9 +1,19 @@
+import Sidebar from 'components/base/Sidebar';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class SidebarContainer extends Component {
+import { IStoreState } from 'store/modules';
+
+interface IProps {
+  visible: boolean;
+}
+
+class SidebarContainer extends Component<IProps> {
   public render() {
-    return <div />;
+    return this.props.visible ? <Sidebar /> : null;
   }
 }
 
-export default SidebarContainer;
+export default connect(({ sidebar }: IStoreState) => ({
+  visible: sidebar.show,
+}))(SidebarContainer);
