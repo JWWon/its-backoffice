@@ -11,6 +11,7 @@ export interface IProps {
   label: string;
   items?: IMenuItem[];
 }
+
 interface InnerProps extends RouteComponentProps<any>, IProps {}
 
 const SideMenuItem: React.SFC<IMenuItem> = ({ pageName, link }) => (

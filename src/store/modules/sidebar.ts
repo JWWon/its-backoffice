@@ -18,7 +18,7 @@ const initState: ISidebarState = {
 };
 
 // *** REDUCER
-export default handleActions<ISidebarState, any>(
+export default handleActions<ISidebarState>(
   {
     [SHOW_SIDEBAR]: state => ({ ...state, show: true }),
     [HIDE_SIDEBAR]: state => ({ ...state, show: false }),

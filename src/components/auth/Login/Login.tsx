@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import * as s from './Login.styled';
 
-class Login extends React.Component {
+interface IProps {
+  children: ReactNode;
+}
+
+class Login extends React.Component<IProps> {
   public render() {
-    return <div />;
+    const { children } = this.props;
+    return (
+      <s.Container>
+        <s.LoginSection>
+          <s.Title>Login</s.Title>
+          {children}
+        </s.LoginSection>
+      </s.Container>
+    );
   }
 }
 

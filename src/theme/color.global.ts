@@ -2,7 +2,7 @@ export default {
   // *** BASIC
   white: '#FFFFFF',
   black: '#121212',
-  background: '#F9F9F9',
+  background: '#F2F2F2',
   // *** GRAY
   gray: '#D8D6D6',
   darkGray: '#898989',

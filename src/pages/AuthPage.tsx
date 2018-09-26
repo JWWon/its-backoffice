@@ -1,11 +1,20 @@
-import HideSidebar from 'containers/base/SidebarContainer';
-import React from 'react';
+import React, { Fragment } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-const AuthPage = () => (
-  <div>
-    <HideSidebar />
-    auth page
-  </div>
-);
+import LoginContainer from 'containers/auth/LoginContainer';
+import HideSidebar from 'containers/base/HideSidebar';
+
+interface IProps extends RouteComponentProps<any> {}
+
+const AuthPage: React.SFC<IProps> = ({ location }) => {
+  const isLogin = location.pathname === '/login';
+
+  return (
+    <Fragment>
+      <HideSidebar />
+      {isLogin ? <LoginContainer /> : <div>register</div>}
+    </Fragment>
+  );
+};
 
 export default AuthPage;
