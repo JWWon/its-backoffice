@@ -8,13 +8,13 @@ interface IProps {
 }
 
 const Template: React.SFC<IProps> = ({ navbar, sidebar, children }) => (
-  <s.TempContainer>
+  <s.Container>
     {navbar}
-    <s.TempWrapper>
+    <s.Wrapper>
       {sidebar}
-      <s.TempChildWrapper>{children}</s.TempChildWrapper>
-    </s.TempWrapper>
-  </s.TempContainer>
+      <s.Wrapper>{children}</s.Wrapper>
+    </s.Wrapper>
+  </s.Container>
 );
 
 export default Template;

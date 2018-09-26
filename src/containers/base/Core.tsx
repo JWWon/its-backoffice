@@ -29,8 +29,10 @@ class Core extends Component<IProps> {
   private checkAuth = (auth: IAuth) => {
     const { history } = this.props;
     if (auth && auth.info) {
-      this.props.setAuth(auth);
-      history.push('/main/slides');
+      if (history.location.pathname === '/login') {
+        this.props.setAuth(auth);
+        history.push('/main/slides');
+      }
     } else {
       history.push('/login');
     }

@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 
-export const TempContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   height: 100vh;
   background-color: ${props => props.theme.color.background};
   flex-direction: column;
 `;
 
-export const TempWrapper = styled.div`
+export const Wrapper = styled.div`
   flex: 1;
   display: flex;
-`;
-
-export const TempChildWrapper = styled.div`
-  flex: 1;
 `;
