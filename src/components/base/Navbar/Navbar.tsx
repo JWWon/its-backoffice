@@ -3,9 +3,13 @@ import * as s from './Navbar.styled';
 
 import { IInfo } from 'store/modules/auth';
 
-class Navbar extends React.Component<IInfo> {
+interface IProps extends IInfo {
+  handleLogout: () => void;
+}
+
+class Navbar extends React.Component<IProps> {
   public render() {
-    const { info } = this.props;
+    const { info, handleLogout } = this.props;
     return (
       <s.Container>
         <s.Wrapper>
@@ -15,7 +19,7 @@ class Navbar extends React.Component<IInfo> {
         {info && (
           <s.Wrapper>
             <s.AuthName>{info.name}</s.AuthName>
-            <s.LogoutButton onClick={this.handleClick}>
+            <s.LogoutButton onClick={handleLogout}>
               <s.Logout>Logout</s.Logout>
             </s.LogoutButton>
           </s.Wrapper>
@@ -23,10 +27,6 @@ class Navbar extends React.Component<IInfo> {
       </s.Container>
     );
   }
-
-  private handleClick = () => {
-    console.log('click');
-  };
 }
 
 export default Navbar;

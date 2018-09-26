@@ -1,38 +1,33 @@
 import produce from 'immer';
-import moment, { Moment } from 'moment';
+import { Moment } from 'moment';
 import { Dispatch } from 'redux';
 import { handleActions } from 'redux-actions';
 
 import { IState as IData } from 'containers/auth/LoginContainer';
-import { saveAuth } from 'lib/storage/auth';
+import { login as loginAction } from 'lib/networks/auth';
+import { clearAuth, saveAuth } from 'lib/storage/auth';
 
 // *** ACTION TYPE
 const LOGIN = 'auth/LOGIN';
 const LOGOUT = 'auth/LOGOUT';
 
 // *** ACTION FUNCTION
-export const login = (data: IData) => (dispatch: Dispatch) => {
+export const login = (data: IData) => async (dispatch: Dispatch) => {
   const { email, password } = data;
-  if (email && password) {
-    const response = {
-      info: {
-        name: '박찬혁',
-        thumbnail: null,
-      },
-      tokenExp: moment().add(14, 'days'),
-    };
-
+  const response = await loginAction({ email, password });
+  if (response) {
     saveAuth(response);
     setAuth(response)(dispatch);
   }
 };
 
-export const logout = () => (dispatch: Dispatch) => {
+export const logout = (dispatch: Dispatch) => {
+  clearAuth();
   dispatch({ type: LOGOUT });
 };
 
-export const setAuth = (info: IAuthState) => (dispatch: Dispatch) => {
-  dispatch({ type: LOGIN, payload: info });
+export const setAuth = (auth: IAuthState) => (dispatch: Dispatch) => {
+  dispatch({ type: LOGIN, payload: auth });
 };
 
 // *** INITIAL STATE

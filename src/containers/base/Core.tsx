@@ -9,12 +9,12 @@ import { IAuthState as IAuth, setAuth } from 'store/modules/auth';
 
 interface IProps extends RouteComponentProps<any> {
   auth: IAuth;
-  setAuth: (i: IAuth) => void;
+  setAuth: (a: IAuth) => void;
 }
 
 class Core extends Component<IProps> {
   public componentDidMount() {
-    console.log('INIT CALLED');
+    console.log('*** CORE');
     this.initialize();
   }
 
@@ -46,7 +46,7 @@ export default compose(
   connect(
     ({ auth }: IStoreState) => ({ auth }),
     dispatch => ({
-      setAuth: (info: IAuth) => setAuth(info)(dispatch),
+      setAuth: (auth: IAuth) => setAuth(auth)(dispatch),
     })
   ),
   withRouter

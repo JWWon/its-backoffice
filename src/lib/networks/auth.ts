@@ -9,8 +9,10 @@ export const login = async ({ email, password }: ILogin) => {
   let response = null;
   if (email && password) {
     response = {
-      name: '박찬혁',
-      thumbnail: null,
+      info: {
+        name: '박찬혁',
+        thumbnail: null,
+      },
       tokenExp: moment().add(14, 'days'),
     };
   }
