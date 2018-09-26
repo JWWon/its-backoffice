@@ -24,8 +24,5 @@ class HideSidebar extends Component<IProps> {
 
 export default connect(
   () => ({}),
-  {
-    hide,
-    show,
-  }
+  { hide, show }
 )(HideSidebar);

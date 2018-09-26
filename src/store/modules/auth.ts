@@ -1,25 +1,54 @@
 import produce from 'immer';
-import { createAction, handleActions } from 'redux-actions';
+import moment, { Moment } from 'moment';
+import { Dispatch } from 'redux';
+import { handleActions } from 'redux-actions';
+
+import { IState as IData } from 'containers/auth/LoginContainer';
+import { saveAuth } from 'lib/storage/auth';
 
 // *** ACTION TYPE
 const LOGIN = 'auth/LOGIN';
 const LOGOUT = 'auth/LOGOUT';
 
 // *** ACTION FUNCTION
-export const login = createAction(LOGIN);
-export const logout = createAction(LOGOUT);
+export const login = (data: IData) => (dispatch: Dispatch) => {
+  const { email, password } = data;
+  if (email && password) {
+    const response = {
+      info: {
+        name: '박찬혁',
+        thumbnail: null,
+      },
+      tokenExp: moment().add(14, 'days'),
+    };
+
+    saveAuth(response);
+    setAuth(response)(dispatch);
+  }
+};
+
+export const logout = () => (dispatch: Dispatch) => {
+  dispatch({ type: LOGOUT });
+};
+
+export const setAuth = (info: IAuthState) => (dispatch: Dispatch) => {
+  dispatch({ type: LOGIN, payload: info });
+};
 
 // *** INITIAL STATE
-export interface IAuthState {
-  auth: {
+export interface IInfo {
+  info: {
     name: string;
-    thumbnail: string;
+    thumbnail: string | null;
   } | null;
-  tokenExp: Date | null;
+}
+
+export interface IAuthState extends IInfo {
+  tokenExp: Moment | null;
 }
 
 const initState: IAuthState = {
-  auth: null,
+  info: null,
   tokenExp: null,
 };
 
@@ -27,15 +56,15 @@ const initState: IAuthState = {
 export default handleActions<IAuthState, any>(
   {
     [LOGIN]: (state, action) => {
-      const { auth, tokenExp } = action.payload.data;
+      const { info, tokenExp } = action.payload;
       return produce(state, draft => {
-        draft.auth = auth;
+        draft.info = info;
         draft.tokenExp = tokenExp;
       });
     },
     [LOGOUT]: (state, action) =>
       produce(state, draft => {
-        (draft.auth = null), (draft.tokenExp = null);
+        (draft.info = null), (draft.tokenExp = null);
       }),
   },
   initState

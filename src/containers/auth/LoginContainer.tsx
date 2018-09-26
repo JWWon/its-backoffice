@@ -1,14 +1,21 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Login from 'components/auth/Login';
 import ButtonRound from 'components/common/ButtonRound';
 import InputRound from 'components/common/InputRound';
-import React, { Component } from 'react';
+import { login } from 'store/modules/auth';
 
-interface IState {
+export interface IState {
   email: string;
   password: string;
 }
 
-class LoginContainer extends Component<{}, IState> {
+interface IProps {
+  login: (d: IState) => void;
+}
+
+class LoginContainer extends Component<IProps, IState> {
   public state: IState = {
     email: '',
     password: '',
@@ -42,10 +49,13 @@ class LoginContainer extends Component<{}, IState> {
 
   private handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const { email, password } = this.state;
-    console.log(email, password);
+    this.props.login(this.state);
   };
 }
 
-export default LoginContainer;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    login: (data: IState) => login(data)(dispatch),
+  })
+)(LoginContainer);

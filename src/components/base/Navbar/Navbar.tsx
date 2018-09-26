@@ -1,21 +1,20 @@
 import React from 'react';
 import * as s from './Navbar.styled';
 
-interface IProps {
-  hasSession: boolean;
-}
+import { IInfo } from 'store/modules/auth';
 
-class Navbar extends React.Component<IProps> {
+class Navbar extends React.Component<IInfo> {
   public render() {
+    const { info } = this.props;
     return (
       <s.Container>
         <s.Wrapper>
           <s.LogoText>It's 교정</s.LogoText>
           <s.Admin>ADMIN</s.Admin>
         </s.Wrapper>
-        {this.props.hasSession && (
+        {info && (
           <s.Wrapper>
-            <s.AuthName>박찬혁 님</s.AuthName>
+            <s.AuthName>{info.name}</s.AuthName>
             <s.LogoutButton onClick={this.handleClick}>
               <s.Logout>Logout</s.Logout>
             </s.LogoutButton>

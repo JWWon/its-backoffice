@@ -1,15 +1,20 @@
 import Navbar from 'components/base/Navbar';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-interface IState {
-  email: string;
-  password: string;
+import { IStoreState } from 'store/modules';
+import { IAuthState as IAuth } from 'store/modules/auth';
+
+interface IProps {
+  auth: IAuth;
 }
 
-class NavbarContainer extends Component<{}, IState> {
+class NavbarContainer extends Component<IProps> {
   public render() {
-    return <Navbar hasSession={true} />;
+    console.log(this.props);
+    const { info } = this.props.auth;
+    return <Navbar info={info} />;
   }
 }
 
-export default NavbarContainer;
+export default connect(({ auth }: IStoreState) => ({ auth }))(NavbarContainer);

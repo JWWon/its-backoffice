@@ -1,8 +1,8 @@
-import { IAuthState } from 'store/modules/auth';
+import { IAuthState as IAuth } from 'store/modules/auth';
 
 const AUTH = 'auth/AUTH';
 
-export const saveAuth = (auth: IAuthState) => {
+export const saveAuth = (auth: IAuth) => {
   if (typeof localStorage === 'undefined') {
     return null;
   }
