@@ -10,7 +10,8 @@
   "rules": {
     "object-literal-sort-keys": false, // DISABLE FOR TYPESCRIPT
     "jsx-boolean-value": false,
-    "no-console": false
+    "no-console": false,
+    "interface-name": [false]
   },
   "jsRules": {
     "object-literal-sort-keys": false, // DISABLE FOR JAVASCRIPT

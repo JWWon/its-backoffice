@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 import { IStoreState } from 'store/modules';
 
-interface IProps {
+interface Props {
   visible: boolean;
 }
 
-class SidebarContainer extends Component<IProps> {
+class SidebarContainer extends Component<Props> {
   private menuList = [
     {
       label: '메인',
