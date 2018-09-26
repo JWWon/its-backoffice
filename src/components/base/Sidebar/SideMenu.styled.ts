@@ -1,6 +1,9 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-top: ${({ theme }) => theme.space.normal}rem;
   &:first-of-type {
     margin-top: 0;
@@ -19,20 +22,18 @@ export const Label = styled.p`
   color: ${({ theme }) => theme.color.darkGray};
 `;
 
-export const ItemWrapper = styled.div`
+// SideMenu
+export const ItemWrapper = styled(NavLink).attrs({
+  activeStyle: { color: 'red' },
+})`
   margin: 0.4rem 0;
   padding: 0.6rem 0 0.6rem ${({ theme }) => theme.space.small}rem;
   background-color: ${({ theme }) => theme.color.white};
+  font-size: ${({ theme }) => theme.font.small};
+  color: ${({ theme }) => theme.color.darkGray};
   &:hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.color.gray};
-    p {
-      color: ${({ theme }) => theme.color.white};
-    }
+    color: ${({ theme }) => theme.color.white};
   }
-`;
-
-export const Item = styled.p`
-  font-size: ${({ theme }) => theme.font.small};
-  color: ${({ theme }) => theme.color.darkGray};
 `;

@@ -1,23 +1,23 @@
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import * as s from './SideMenu.styled';
 
 interface IMenuItem {
   pageName: string;
-  onClick: () => void;
+  link: string;
 }
 
 export interface IProps {
   label: string;
   items?: IMenuItem[];
 }
+interface InnerProps extends RouteComponentProps<any>, IProps {}
 
-const SideMenuItem: React.SFC<IMenuItem> = ({ pageName, onClick }) => (
-  <s.ItemWrapper onClick={onClick}>
-    <s.Item>{pageName}</s.Item>
-  </s.ItemWrapper>
+const SideMenuItem: React.SFC<IMenuItem> = ({ pageName, link }) => (
+  <s.ItemWrapper to={link}>{pageName}</s.ItemWrapper>
 );
 
-const SideMenu: React.SFC<IProps> = ({ label, items }) => (
+const SideMenu: React.SFC<InnerProps> = ({ label, items }) => (
   <s.Container>
     <s.LabelWrapper>
       <s.Label>{label}</s.Label>
@@ -27,11 +27,11 @@ const SideMenu: React.SFC<IProps> = ({ label, items }) => (
       items.map(item => (
         <SideMenuItem
           pageName={item.pageName}
-          onClick={item.onClick}
+          link={item.link}
           key={item.pageName}
         />
       ))}
   </s.Container>
 );
 
-export default SideMenu;
+export default withRouter(SideMenu);

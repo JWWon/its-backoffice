@@ -12,10 +12,7 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <Template navbar={<NavbarContainer />} sidebar={<SidebarContainer />}>
       <Route exact path="/" component={DashboardPage} />
-      <Route
-        path="/dashboard/:type(main|about|hospital|notice|other)/:detail"
-        component={DashboardPage}
-      />
+      <Route path="/:type/:detail" component={DashboardPage} />
       <Route path="/:type(login|register)" component={AuthPage} />
     </Template>
   </ThemeProvider>

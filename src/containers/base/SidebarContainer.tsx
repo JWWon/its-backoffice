@@ -15,15 +15,15 @@ class SidebarContainer extends Component<IProps> {
       items: [
         {
           pageName: '슬라이드 리스트',
-          onClick: () => console.log('슬라이드 리스트'),
+          link: '/main/slides',
         },
         {
           pageName: '왜 잇츠 교정인가',
-          onClick: () => console.log('왜 잇츠 교정인가'),
+          link: '/main/about',
         },
         {
           pageName: '잇츠교정 뉴스',
-          onClick: () => console.log('잇츠교정 뉴스'),
+          link: '/main/news',
         },
       ],
     },
@@ -32,15 +32,15 @@ class SidebarContainer extends Component<IProps> {
       items: [
         {
           pageName: '병원 리스트',
-          onClick: () => console.log('병원 리스트'),
+          link: '/clients/active',
         },
         {
           pageName: '입점 신청 리스트',
-          onClick: () => console.log('입점 신청 리스트'),
+          link: '/clients/proposal',
         },
         {
           pageName: '신규 병원 등록',
-          onClick: () => console.log('신규 병원 등록'),
+          link: '/client/new',
         },
       ],
     },
@@ -49,11 +49,11 @@ class SidebarContainer extends Component<IProps> {
       items: [
         {
           pageName: '공지사항 리스트',
-          onClick: () => console.log('공지사항 리스트'),
+          link: '/notices/active',
         },
         {
           pageName: '신규 공지사항',
-          onClick: () => console.log('신규 공지사항'),
+          link: '/notice/new',
         },
       ],
     },
@@ -62,11 +62,11 @@ class SidebarContainer extends Component<IProps> {
       items: [
         {
           pageName: '잇츠교정이란',
-          onClick: () => console.log('잇츠교정이란'),
+          link: '/other/about',
         },
         {
           pageName: 'Footer',
-          onClick: () => console.log('Footer'),
+          link: '/other/footer',
         },
       ],
     },
