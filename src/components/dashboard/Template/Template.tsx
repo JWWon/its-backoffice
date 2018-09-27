@@ -5,7 +5,7 @@ interface Props {
   readonly label: string;
   children: ReactNode;
   message?: string;
-  handleClick?: () => void;
+  handleClick?: (e: React.FormEvent<HTMLButtonElement>) => void;
   buttonText?: string;
 }
 

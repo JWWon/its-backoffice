@@ -32,12 +32,15 @@ export const Message = styled.p`
 `;
 
 export const Button = styled.button`
-  width: 17.2rem;
-  height: 4.8rem;
+  width: 14rem;
+  height: 3.6rem;
   background-color: ${({ theme }) => theme.color.green};
-  border-radius: 2.4rem;
+  border-radius: 1.8rem;
   color: ${({ theme }) => theme.color.white};
   font-size: ${({ theme }) => theme.font.normal};
+  &:hover {
+    background-color: ${({ theme }) => theme.color.darkGreen};
+  }
 `;
 
 export const ContentWrapper = styled.div`

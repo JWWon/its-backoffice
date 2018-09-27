@@ -9,4 +9,5 @@ export default {
   // *** OTHER
   darkBlue: '#232F3E',
   green: '#43BA88',
+  darkGreen: '#297656',
 };
