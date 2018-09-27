@@ -1,9 +1,16 @@
-import { ISerach } from 'pages/DashboardPage';
 import React, { Component } from 'react';
 
-class MainNews extends Component<ISerach> {
+import Template from 'components/dashboard/Template';
+import { IParams } from 'pages/DashboardPage';
+
+class MainNews extends Component<IParams> {
   public render() {
-    return <div>/main/news</div>;
+    const { type, detail } = this.props.params;
+    return (
+      <Template label="잇츠교정 뉴스">
+        /{type}/{detail}
+      </Template>
+    );
   }
 }
 

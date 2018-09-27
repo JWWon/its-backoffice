@@ -32,15 +32,15 @@ class SidebarContainer extends Component<Props> {
       items: [
         {
           pageName: '병원 리스트',
-          link: '/client/list',
+          link: '/client/lists',
         },
         {
           pageName: '입점 신청 리스트',
-          link: '/client/list?mode=proposal',
+          link: '/client/proposals',
         },
         {
           pageName: '신규 병원 등록',
-          link: '/client/edit?mode=new',
+          link: '/client/new',
         },
       ],
     },
@@ -49,11 +49,11 @@ class SidebarContainer extends Component<Props> {
       items: [
         {
           pageName: '공지사항 리스트',
-          link: '/notice/list',
+          link: '/notice/lists',
         },
         {
           pageName: '신규 공지사항',
-          link: '/notice/edit?mode=new',
+          link: '/notice/new',
         },
       ],
     },

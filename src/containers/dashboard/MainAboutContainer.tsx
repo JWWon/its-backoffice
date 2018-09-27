@@ -1,9 +1,16 @@
-import { ISerach } from 'pages/DashboardPage';
 import React, { Component } from 'react';
 
-class AboutContainer extends Component<ISerach> {
+import Template from 'components/dashboard/Template';
+import { IParams } from 'pages/DashboardPage';
+
+class AboutContainer extends Component<IParams> {
   public render() {
-    return <div>/main/about</div>;
+    const { type, detail } = this.props.params;
+    return (
+      <Template label="왜 잇츠 교정인가">
+        /{type}/{detail}
+      </Template>
+    );
   }
 }
 
