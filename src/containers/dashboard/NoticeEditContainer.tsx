@@ -7,7 +7,10 @@ class NoticeEditContainer extends Component<IParams> {
   public render() {
     const { type, detail } = this.props.params;
     return (
-      <Template label="공지사항 편집">
+      <Template
+        label={
+          detail.toString() === 'new' ? '신규 공지사항 등록' : '공지사항 편집'
+        }>
         /{type}/{detail}
       </Template>
     );

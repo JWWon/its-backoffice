@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { RouteComponentProps } from 'react-router-dom';
 
-interface Param {
-  type: string;
+export interface Param {
+  type: 'main' | 'client' | 'notice' | 'other';
   detail: string;
 }
 export interface IParams {
@@ -53,34 +53,30 @@ const OtherFooter = Loadable({
 
 class DashboardPage extends Component<RouteComponentProps> {
   public render() {
-    const { pathname } = this.props.location;
-    const { params } = this.props.match;
+    const { location, match } = this.props;
 
-    switch (pathname) {
+    switch (location.pathname) {
       case '/main/slides':
-        return <MainSlides params={params} />;
+        return <MainSlides params={match.params} />;
       case '/main/about':
-        return <MainAbout params={params} />;
+        return <MainAbout params={match.params} />;
       case '/main/news':
-        return <MainNews params={params} />;
+        return <MainNews params={match.params} />;
       case '/client/lists':
-        return <ClientList params={params} />;
       case '/client/proposals':
-        return <ClientList params={params} />;
+        return <ClientList params={match.params} />;
       case '/client/new':
-        return <ClientEdit params={params} />;
       case '/client/edit':
-        return <ClientEdit params={params} />;
+        return <ClientEdit params={match.params} />;
       case '/notice/lists':
-        return <NoticeList params={params} />;
+        return <NoticeList params={match.params} />;
       case '/notice/new':
-        return <NoticeEdit params={params} />;
       case '/notice/edit':
-        return <NoticeEdit params={params} />;
+        return <NoticeEdit params={match.params} />;
       case '/other/about':
-        return <OtherAbout params={params} />;
+        return <OtherAbout params={match.params} />;
       case '/other/footer':
-        return <OtherFooter params={params} />;
+        return <OtherFooter params={match.params} />;
       default:
         return null;
     }

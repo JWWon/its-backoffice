@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -23,9 +23,7 @@ export const Label = styled.p`
 `;
 
 // SideMenu
-export const ItemWrapper = styled(NavLink).attrs({
-  activeStyle: { color: 'red' },
-})`
+export const ItemWrapper = styled(Link)`
   margin: 0.4rem 0;
   padding: 0.6rem 0 0.6rem ${({ theme }) => theme.space.small}rem;
   background-color: ${({ theme }) => theme.color.white};

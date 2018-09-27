@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { IStoreState } from 'store/modules';
 
 interface Props {
-  visible: boolean;
+  show: boolean;
 }
 
 class SidebarContainer extends Component<Props> {
@@ -73,10 +73,10 @@ class SidebarContainer extends Component<Props> {
   ];
 
   public render() {
-    return this.props.visible ? <Sidebar menuList={this.menuList} /> : null;
+    return this.props.show ? <Sidebar menuList={this.menuList} /> : null;
   }
 }
 
 export default connect(({ sidebar }: IStoreState) => ({
-  visible: sidebar.show,
+  show: sidebar.show,
 }))(SidebarContainer);

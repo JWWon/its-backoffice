@@ -6,8 +6,12 @@ import { IParams } from 'pages/DashboardPage';
 class ClientEditContainer extends Component<IParams> {
   public render() {
     const { type, detail } = this.props.params;
+
     return (
-      <Template label="병원 편집">
+      <Template
+        label={
+          detail.toString() === 'new' ? '신규 병원 등록' : '병원정보 편집'
+        }>
         /{type}/{detail}
       </Template>
     );
