@@ -14,10 +14,6 @@ export interface IParams {
 
 const Loading = () => <div>loading...</div>;
 
-const ClientEdit = Loadable({
-  loader: () => import('../containers/dashboard/ClientEditContainer'),
-  loading: Loading,
-});
 const ClientList = Loadable({
   loader: () => import('../containers/dashboard/ClientListContainer'),
   loading: Loading,
@@ -36,10 +32,6 @@ const MainSlides = Loadable({
 });
 const NoticeList = Loadable({
   loader: () => import('../containers/dashboard/NoticeListContainer'),
-  loading: Loading,
-});
-const NoticeEdit = Loadable({
-  loader: () => import('../containers/dashboard/NoticeEditContainer'),
   loading: Loading,
 });
 const OtherAbout = Loadable({
@@ -65,14 +57,8 @@ class DashboardPage extends Component<RouteComponentProps> {
       case '/client/lists':
       case '/client/proposals':
         return <ClientList params={match.params} />;
-      case '/client/new':
-      case '/client/edit':
-        return <ClientEdit params={match.params} />;
       case '/notice/lists':
         return <NoticeList params={match.params} />;
-      case '/notice/new':
-      case '/notice/edit':
-        return <NoticeEdit params={match.params} />;
       case '/other/about':
         return <OtherAbout params={match.params} />;
       case '/other/footer':

@@ -9,16 +9,16 @@ export const show = createAction(SHOW_SIDEBAR);
 export const hide = createAction(HIDE_SIDEBAR);
 
 // *** INITIAL STATE
-export interface ISidebarState {
+export interface SidebarState {
   show: boolean;
 }
 
-const initState: ISidebarState = {
+const initState: SidebarState = {
   show: true,
 };
 
 // *** REDUCER
-export default handleActions<ISidebarState>(
+export default handleActions<SidebarState>(
   {
     [SHOW_SIDEBAR]: state => ({ ...state, show: true }),
     [HIDE_SIDEBAR]: state => ({ ...state, show: false }),

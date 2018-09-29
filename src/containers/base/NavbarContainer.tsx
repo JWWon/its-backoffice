@@ -2,8 +2,8 @@ import Navbar from 'components/base/Navbar';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { IStoreState } from 'store/modules';
-import { IAuthState as IAuth, logout } from 'store/modules/auth';
+import { StoreState } from 'store/modules';
+import { AuthState as IAuth, logout } from 'store/modules/auth';
 
 interface IProps {
   auth: IAuth;
@@ -22,6 +22,6 @@ class NavbarContainer extends Component<IProps> {
 }
 
 export default connect(
-  ({ auth }: IStoreState) => ({ auth }),
+  ({ auth }: StoreState) => ({ auth }),
   dispatch => ({ logout: () => logout(dispatch) })
 )(NavbarContainer);

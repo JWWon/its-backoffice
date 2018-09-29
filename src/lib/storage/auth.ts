@@ -1,4 +1,4 @@
-import { IAuthState as IAuth } from 'store/modules/auth';
+import { AuthState as IAuth } from 'store/modules/auth';
 
 const AUTH = 'auth/AUTH';
 

@@ -3,7 +3,7 @@ import { Moment } from 'moment';
 import { Dispatch } from 'redux';
 import { handleActions } from 'redux-actions';
 
-import { IState as IData } from 'containers/auth/LoginContainer';
+import { IState as Data } from 'containers/auth/LoginContainer';
 import { login as loginAction } from 'lib/networks/auth';
 import { clearAuth, saveAuth } from 'lib/storage/auth';
 
@@ -12,7 +12,7 @@ const LOGIN = 'auth/LOGIN';
 const LOGOUT = 'auth/LOGOUT';
 
 // *** ACTION FUNCTION
-export const login = (data: IData) => async (dispatch: Dispatch) => {
+export const login = (data: Data) => async (dispatch: Dispatch) => {
   const { email, password } = data;
   const response = await loginAction({ email, password });
   if (response) {
@@ -26,29 +26,29 @@ export const logout = (dispatch: Dispatch) => {
   dispatch({ type: LOGOUT });
 };
 
-export const setAuth = (auth: IAuthState) => (dispatch: Dispatch) => {
+export const setAuth = (auth: AuthState) => (dispatch: Dispatch) => {
   dispatch({ type: LOGIN, payload: auth });
 };
 
 // *** INITIAL STATE
-export interface IInfo {
+export interface Info {
   info: {
     name: string;
     thumbnail: string | null;
   } | null;
 }
 
-export interface IAuthState extends IInfo {
+export interface AuthState extends Info {
   tokenExp: Moment | null;
 }
 
-const initState: IAuthState = {
+const initState: AuthState = {
   info: null,
   tokenExp: null,
 };
 
 // *** REDUCER
-export default handleActions<IAuthState, any>(
+export default handleActions<AuthState, any>(
   {
     [LOGIN]: (state, action) => {
       const { info, tokenExp } = action.payload;

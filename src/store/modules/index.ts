@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import auth, { IAuthState } from './auth';
-import sidebar, { ISidebarState } from './sidebar';
+import auth, { AuthState } from './auth';
+import modal, { ModalState } from './modal';
+import sidebar, { SidebarState } from './sidebar';
 
-export interface IStoreState {
-  auth: IAuthState;
-  sidebar: ISidebarState;
+export interface StoreState {
+  auth: AuthState;
+  sidebar: SidebarState;
+  modal: ModalState;
 }
 
-export default combineReducers({ auth, sidebar });
+export default combineReducers({ auth, modal, sidebar });

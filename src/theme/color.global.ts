@@ -1,6 +1,7 @@
 export default {
   // *** BASIC
   white: '#FFFFFF',
+  blackOpacity: 'rgba(44, 44, 44, 0.55)',
   black: '#121212',
   background: '#F2F2F2',
   // *** GRAY

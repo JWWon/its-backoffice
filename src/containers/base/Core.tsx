@@ -4,8 +4,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 import * as storage from 'lib/storage/auth';
-import { IStoreState } from 'store/modules';
-import { IAuthState as IAuth, setAuth } from 'store/modules/auth';
+import { StoreState } from 'store/modules';
+import { AuthState as IAuth, setAuth } from 'store/modules/auth';
 
 interface IProps extends RouteComponentProps<any> {
   auth: IAuth;
@@ -48,7 +48,7 @@ class Core extends Component<IProps> {
 
 export default compose(
   connect(
-    ({ auth }: IStoreState) => ({ auth }),
+    ({ auth }: StoreState) => ({ auth }),
     dispatch => ({
       setAuth: (auth: IAuth) => setAuth(auth)(dispatch),
     })

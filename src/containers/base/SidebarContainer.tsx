@@ -2,7 +2,7 @@ import Sidebar from 'components/base/Sidebar';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { IStoreState } from 'store/modules';
+import { StoreState } from 'store/modules';
 
 interface Props {
   show: boolean;
@@ -31,16 +31,12 @@ class SidebarContainer extends Component<Props> {
       label: '병원',
       items: [
         {
-          pageName: '병원 리스트',
+          pageName: '병원 목록',
           link: '/client/lists',
         },
         {
-          pageName: '입점 신청 리스트',
+          pageName: '입점 신청 목록',
           link: '/client/proposals',
-        },
-        {
-          pageName: '신규 병원 등록',
-          link: '/client/new',
         },
       ],
     },
@@ -48,12 +44,8 @@ class SidebarContainer extends Component<Props> {
       label: '공지사항',
       items: [
         {
-          pageName: '공지사항 리스트',
+          pageName: '공지사항 목록',
           link: '/notice/lists',
-        },
-        {
-          pageName: '신규 공지사항',
-          link: '/notice/new',
         },
       ],
     },
@@ -77,6 +69,6 @@ class SidebarContainer extends Component<Props> {
   }
 }
 
-export default connect(({ sidebar }: IStoreState) => ({
+export default connect(({ sidebar }: StoreState) => ({
   show: sidebar.show,
 }))(SidebarContainer);

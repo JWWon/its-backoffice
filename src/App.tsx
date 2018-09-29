@@ -1,15 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import Template from 'components/base/Template';
+import Modal from 'components/common/Modal';
 import Core from 'containers/base/Core';
 import NavbarContainer from 'containers/base/NavbarContainer';
 import SidebarContainer from 'containers/base/SidebarContainer';
 import { AuthPage, DashboardPage } from 'pages';
+import { StoreState } from 'store/modules';
+import { ModalState } from 'store/modules/modal';
 import theme from './theme';
 
-const App = () => (
+interface Props {
+  modal: ModalState;
+}
+
+const App: React.SFC<Props> = ({ modal }) => (
   <ThemeProvider theme={theme}>
     <Template navbar={<NavbarContainer />} sidebar={<SidebarContainer />}>
       <Route exact path="/" component={DashboardPage} />
@@ -19,8 +27,9 @@ const App = () => (
       />
       <Route path="/:type(login|register)" component={AuthPage} />
       <Core />
+      {modal.label && <Modal modal={modal} />}
     </Template>
   </ThemeProvider>
 );
 
-export default App;
+export default connect(({ modal }: StoreState) => ({ modal }))(App);

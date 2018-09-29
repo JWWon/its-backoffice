@@ -1,9 +1,9 @@
 import React from 'react';
 import * as s from './Navbar.styled';
 
-import { IInfo } from 'store/modules/auth';
+import { Info } from 'store/modules/auth';
 
-interface IProps extends IInfo {
+interface IProps extends Info {
   handleLogout: () => void;
 }
 
