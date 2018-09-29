@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "draft-js": "^0.10.5",
     "immer": "^1.7.2",
     "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-draft-wysiwyg": "^1.12.13",
     "react-loadable": "^5.5.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
@@ -23,6 +25,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/draft-js": "^0.10.25",
     "@types/jest": "^23.3.2",
     "@types/node": "^10.10.3",
     "@types/react": "^16.4.14",

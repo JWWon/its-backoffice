@@ -26,14 +26,16 @@ class Core extends Component<Props> {
   }
 
   private initialize = async () => {
-    this.syncStoreAuth();
+    await this.syncStoreAuth();
     this.checkAuth();
   };
 
   private checkAuth = () => {
     const { history, location, auth } = this.props;
-    if (auth.info && auth.tokenExp && location.pathname === '/login') {
-      history.push('/main/slides');
+    if (auth.info && auth.tokenExp) {
+      if (location.pathname === '/login') {
+        history.push('/main/slides');
+      }
     } else {
       history.push('/login');
     }
