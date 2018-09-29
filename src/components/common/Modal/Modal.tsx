@@ -21,7 +21,7 @@ class Modal extends Component<Props> {
               <s.Label>{label}</s.Label>
               <s.DismissButton onClick={this.handleDismiss} />
             </s.Header>
-            {component}
+            <s.ComponentWrapper>{component}</s.ComponentWrapper>
           </s.Container>
         </s.Background>
       )

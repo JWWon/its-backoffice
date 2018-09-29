@@ -19,6 +19,8 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.color.white};
   box-sizing: border-box;
   padding: ${({ theme }) => theme.space.narrow}rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Header = styled.div`
@@ -38,4 +40,8 @@ export const DismissButton = styled.button`
   width: 2.4rem;
   height: 2.4rem;
   border: none;
+`;
+
+export const ComponentWrapper = styled.div`
+  flex: 1;
 `;
