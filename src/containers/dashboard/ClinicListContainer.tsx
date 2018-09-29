@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Template from 'components/dashboard/Template';
 import { IParams } from 'pages/DashboardPage';
 
-class ClientListContainer extends Component<IParams> {
+class ClinicListContainer extends Component<IParams> {
   public render() {
     const { type, detail } = this.props.params;
     return (
@@ -17,4 +17,4 @@ class ClientListContainer extends Component<IParams> {
   }
 }
 
-export default ClientListContainer;
+export default ClinicListContainer;

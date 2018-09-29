@@ -1,7 +1,8 @@
 import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 
-import Table from 'components/dashboard/Table';
+import ImageEdit from 'components/dashboard/ImageEdit';
+import ImageTable from 'components/dashboard/ImageTable';
 import Template from 'components/dashboard/Template';
 import { IParams } from 'pages/DashboardPage';
 import { show } from 'store/modules/modal';
@@ -38,15 +39,17 @@ class MainSlidesContainer extends Component<Props> {
         label="슬라이드 목록"
         buttonText="생성하기"
         handleClick={this.handleCreate}>
-        <Table list={tempList} />
+        <ImageTable list={tempList} />
       </Template>
     );
   }
 
   private handleCreate = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const component = <div>hello</div>;
-    this.props.show('메인 슬라이드 등록하기', component);
+    this.props.show(
+      '메인 슬라이드 등록하기',
+      <ImageEdit id="1" type="slide" />
+    );
   };
 }
 

@@ -22,7 +22,7 @@ const App: React.SFC<Props> = ({ modal }) => (
     <Template navbar={<NavbarContainer />} sidebar={<SidebarContainer />}>
       <Route exact path="/" component={DashboardPage} />
       <Route
-        path="/:type(main|client|notice|other)/:detail"
+        path="/:type(main|clinic|notice|other)/:detail"
         component={DashboardPage}
       />
       <Route path="/:type(login|register)" component={AuthPage} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as s from './Table.styled';
+import * as s from './ImageTable.styled';
 
 interface DataInterface {
   index: number;
@@ -13,7 +13,7 @@ interface Props {
   list: DataInterface[];
 }
 
-class Table extends React.Component<Props> {
+class ImageTable extends React.Component<Props> {
   public render() {
     const { list } = this.props;
     return (
@@ -65,4 +65,4 @@ class Table extends React.Component<Props> {
   );
 }
 
-export default Table;
+export default ImageTable;

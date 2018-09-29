@@ -32,11 +32,11 @@ class SidebarContainer extends Component<Props> {
       items: [
         {
           pageName: '병원 목록',
-          link: '/client/lists',
+          link: '/clinic/lists',
         },
         {
           pageName: '입점 신청 목록',
-          link: '/client/proposals',
+          link: '/clinic/proposals',
         },
       ],
     },

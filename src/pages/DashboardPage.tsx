@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 // import { Route } from 'react-router-dom';
 
 export interface Param {
-  type: 'main' | 'client' | 'notice' | 'other';
+  type: 'main' | 'clinic' | 'notice' | 'other';
   detail: string;
 }
 export interface IParams {
@@ -15,8 +15,8 @@ export interface IParams {
 
 const Loading = () => <div>loading...</div>;
 
-const ClientList = Loadable({
-  loader: () => import('../containers/dashboard/ClientListContainer'),
+const ClinicList = Loadable({
+  loader: () => import('containers/dashboard/ClinicListContainer'),
   loading: Loading,
 });
 const MainAbout = Loadable({
@@ -54,9 +54,9 @@ class DashboardPage extends Component<RouteComponentProps> {
         return <MainAbout params={match.params} />;
       case '/main/news':
         return <MainNews params={match.params} />;
-      case '/client/lists':
-      case '/client/proposals':
-        return <ClientList params={match.params} />;
+      case '/clinic/lists':
+      case '/clinic/proposals':
+        return <ClinicList params={match.params} />;
       case '/notice/lists':
         return <NoticeList params={match.params} />;
       case '/other/about':
