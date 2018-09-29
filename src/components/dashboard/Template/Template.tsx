@@ -4,6 +4,7 @@ import * as s from './Template.styled';
 interface Props {
   readonly label: string;
   children: ReactNode;
+  count?: number;
   message?: string;
   handleClick?: (e: React.FormEvent<HTMLButtonElement>) => void;
   buttonText?: string;
@@ -12,6 +13,7 @@ interface Props {
 const Template: React.SFC<Props> = ({
   label,
   children,
+  count,
   message,
   handleClick,
   buttonText,
@@ -19,7 +21,10 @@ const Template: React.SFC<Props> = ({
   <s.Container>
     <s.HeaderWrapper>
       <s.TextWrapper>
-        <s.Label>{label}</s.Label>
+        <s.Label>
+          {label}
+          {count && `(${count}개)`}
+        </s.Label>
         {message && <s.Message>{message}</s.Message>}
       </s.TextWrapper>
       <s.ActionWrapper>

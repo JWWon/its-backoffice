@@ -27,6 +27,7 @@ export const Label = styled.p`
 `;
 
 export const Message = styled.p`
+  margin-left: ${({ theme }) => theme.space.smaller}rem;
   color: ${({ theme }) => theme.color.gray};
   font-size: ${({ theme }) => theme.font.small};
 `;
