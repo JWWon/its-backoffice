@@ -1,3 +1,4 @@
+import ic_delete from 'lib/icons/ic_delete.svg';
 import styled from 'styled-components';
 
 export const Background = styled.div`
@@ -17,12 +18,24 @@ export const Container = styled.div`
   height: 75%;
   background: ${({ theme }) => theme.color.white};
   box-sizing: border-box;
-  padding: ${({ theme }) => theme.space.normal};
+  padding: ${({ theme }) => theme.space.narrow}rem;
 `;
 
 export const Header = styled.div`
   display: flex;
-  margin-bottom: ${({ theme }) => theme.space.normal};
+  margin-bottom: ${({ theme }) => theme.space.normal}rem;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const Label = styled.h2`
+  font-size: ${({ theme }) => theme.font.subtitle};
+  color: ${({ theme }) => theme.color.black};
+`;
+
+export const DismissButton = styled.button`
+  background: url(${ic_delete});
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
 `;

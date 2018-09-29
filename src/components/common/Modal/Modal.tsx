@@ -14,22 +14,24 @@ class Modal extends Component<Props> {
   public render() {
     const { label, component } = this.props.modal;
     return (
-      <s.Background>
-        <s.Container>
-          <s.Header>
-            <p>{label}</p>
-            <button onClick={this.handleDismiss}>닫기</button>
-          </s.Header>
-          {component}
-        </s.Container>
-      </s.Background>
+      label && (
+        <s.Background>
+          <s.Container>
+            <s.Header>
+              <s.Label>{label}</s.Label>
+              <s.DismissButton onClick={this.handleDismiss} />
+            </s.Header>
+            {component}
+          </s.Container>
+        </s.Background>
+      )
     );
   }
 
-  private handleDismiss(e: React.FormEvent<HTMLButtonElement>) {
+  private handleDismiss = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     this.props.dismiss();
-  }
+  };
 }
 
 export default connect(

@@ -16,7 +16,7 @@ class NavbarContainer extends Component<IProps> {
     return <Navbar info={info} handleLogout={this.handleLogout} />;
   }
 
-  private handleLogout = () => {
+  private handleLogout = (e: React.FormEvent<HTMLDivElement>) => {
     this.props.logout();
   };
 }

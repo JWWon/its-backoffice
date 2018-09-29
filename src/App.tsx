@@ -27,9 +27,16 @@ const App: React.SFC<Props> = ({ modal }) => (
       />
       <Route path="/:type(login|register)" component={AuthPage} />
       <Core />
-      {modal.label && <Modal modal={modal} />}
+      <Modal modal={modal} />
     </Template>
   </ThemeProvider>
 );
 
-export default connect(({ modal }: StoreState) => ({ modal }))(App);
+export default connect(
+  ({ modal }: StoreState) => ({ modal }),
+  null,
+  null,
+  {
+    pure: false,
+  }
+)(App);

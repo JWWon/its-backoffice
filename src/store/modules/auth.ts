@@ -59,7 +59,8 @@ export default handleActions<AuthState, any>(
     },
     [LOGOUT]: (state, action) =>
       produce(state, draft => {
-        (draft.info = null), (draft.tokenExp = null);
+        draft.info = null;
+        draft.tokenExp = null;
       }),
   },
   initState

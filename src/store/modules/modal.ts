@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { ReactNode } from 'react';
 import { Dispatch } from 'redux';
-import { handleActions } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 
 // *** ACTION TYPE
 const SHOW_MODAL = 'modal/CREATE_MODAL';
@@ -14,9 +14,7 @@ export const show = (label: string, component: ReactNode) => (
   dispatch({ type: SHOW_MODAL, payload: { label, component } });
 };
 
-export const dismiss = (dispatch: Dispatch) => {
-  dispatch({ type: DISMISS_MODAL });
-};
+export const dismiss = createAction(DISMISS_MODAL);
 
 // *** INITIAL STATE
 export interface ModalState {
@@ -40,6 +38,7 @@ export default handleActions<ModalState, any>(
       }),
     [DISMISS_MODAL]: (state, action) =>
       produce(state, draft => {
+        draft.label = null;
         draft.component = null;
       }),
   },

@@ -4,7 +4,7 @@ import * as s from './Navbar.styled';
 import { Info } from 'store/modules/auth';
 
 interface IProps extends Info {
-  handleLogout: () => void;
+  handleLogout: (e: React.FormEvent<HTMLDivElement>) => void;
 }
 
 class Navbar extends React.Component<IProps> {

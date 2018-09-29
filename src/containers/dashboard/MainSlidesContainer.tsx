@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
+import { connect } from 'react-redux';
 
 import Table from 'components/dashboard/Table';
 import Template from 'components/dashboard/Template';
 import { IParams } from 'pages/DashboardPage';
+import { show } from 'store/modules/modal';
 
 const tempList = [
   {
@@ -25,22 +27,33 @@ const tempList = [
   },
 ];
 
-class MainSlidesContainer extends Component<IParams> {
+interface Props extends IParams {
+  show: (label: string, component: ReactNode) => void;
+}
+
+class MainSlidesContainer extends Component<Props> {
   public render() {
     return (
       <Template
         label="슬라이드 목록"
         buttonText="생성하기"
-        handleClick={this.handleClick}>
+        handleClick={this.handleCreate}>
         <Table list={tempList} />
       </Template>
     );
   }
 
-  private handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
+  private handleCreate = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('click!');
+    const component = <div>hello</div>;
+    this.props.show('메인 슬라이드 등록하기', component);
   };
 }
 
-export default MainSlidesContainer;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    show: (label: string, component: ReactNode) =>
+      show(label, component)(dispatch),
+  })
+)(MainSlidesContainer);

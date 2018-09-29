@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { RouteComponentProps } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 
 export interface Param {
   type: 'main' | 'client' | 'notice' | 'other';
@@ -46,7 +47,6 @@ const OtherFooter = Loadable({
 class DashboardPage extends Component<RouteComponentProps> {
   public render() {
     const { location, match } = this.props;
-
     switch (location.pathname) {
       case '/main/slides':
         return <MainSlides params={match.params} />;
