@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { RouteComponentProps } from 'react-router-dom';
-// import { Route } from 'react-router-dom';
+
+import Spinner from 'components/common/Spinner';
 
 export interface Param {
   type: 'main' | 'clinic' | 'notice' | 'other';
@@ -13,35 +14,33 @@ export interface IParams {
   };
 }
 
-const Loading = () => <div>loading...</div>;
-
 const ClinicList = Loadable({
   loader: () => import('containers/dashboard/ClinicListContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 const MainAbout = Loadable({
   loader: () => import('../containers/dashboard/MainAboutContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 const MainNews = Loadable({
   loader: () => import('../containers/dashboard/MainNewsContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 const MainSlides = Loadable({
   loader: () => import('../containers/dashboard/MainSlidesContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 const NoticeList = Loadable({
   loader: () => import('../containers/dashboard/NoticeListContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 const OtherAbout = Loadable({
   loader: () => import('../containers/dashboard/OtherAboutContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 const OtherFooter = Loadable({
   loader: () => import('../containers/dashboard/OtherFooterContainer'),
-  loading: Loading,
+  loading: Spinner,
 });
 
 class DashboardPage extends Component<RouteComponentProps> {

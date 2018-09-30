@@ -1,0 +1,6 @@
+.custom-spinner {
+  width: 6rem;
+  height: 6rem;
+  animation: sk-fade-in 1s;
+  margin: auto;
+}
