@@ -49,7 +49,7 @@ class ImageEdit extends Component<Props, State> {
     const { value } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <s.Form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
           <InputText
             label="하이퍼링크"
@@ -78,7 +78,10 @@ class ImageEdit extends Component<Props, State> {
             handleImageChange={this.handleImageChange}
           />
         </s.RowWrapper>
-      </form>
+        <s.ButtonWrapper>
+          <s.SubmitButton>등록</s.SubmitButton>
+        </s.ButtonWrapper>
+      </s.Form>
     );
   }
 
