@@ -5,17 +5,13 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './editor-style.css';
 
-interface State {
+interface Props {
   editorState: EditorState;
+  handleChange: (e: EditorState) => void;
 }
 
-class TextEditor extends Component<{}, State> {
-  public state: State = {
-    editorState: EditorState.createEmpty(),
-  };
-
+class TextEditor extends Component<Props> {
   public render() {
-    const { editorState } = this.state;
     const toolbar = {
       options: [
         'inline',
@@ -37,7 +33,12 @@ class TextEditor extends Component<{}, State> {
       },
       image: {
         urlEnabled: false,
+        previewImage: true,
         uploadCallback: this.handleUploadImage,
+        defaultSize: {
+          height: '400px',
+          width: 'auto',
+        },
       },
     };
 
@@ -45,30 +46,21 @@ class TextEditor extends Component<{}, State> {
       <Editor
         wrapperClassName="wrapperClass"
         editorClassName="editorClass"
-        editorState={editorState}
-        onEditorStateChange={this.handleChange}
+        editorState={this.props.editorState}
+        onEditorStateChange={this.props.handleChange}
         localization={{ locale: 'ko' }}
         toolbar={toolbar}
       />
     );
   }
 
-  private handleUploadImage = (file: any) =>
+  private handleUploadImage = (file: FileList) =>
     new Promise<any>((resolve, reject) => {
-      console.log(file);
-      const response = {
-        data: {
-          link:
-            'http://kstatic.inven.co.kr/upload/2016/12/08/bbs/i15748881270.jpg',
-        },
-      };
-
+      const previewSrc = URL.createObjectURL(file);
+      console.log(previewSrc);
+      const response = { data: { link: previewSrc } };
       resolve(response);
     });
-
-  private handleChange = (editorState: EditorState) => {
-    this.setState({ editorState });
-  };
 }
 
 export default TextEditor;

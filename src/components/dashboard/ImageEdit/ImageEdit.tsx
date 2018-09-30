@@ -95,7 +95,7 @@ class ImageEdit extends Component<Props, State> {
     const { name, files } = e.target;
     this.setState(state =>
       produce(state, (draft: State) => {
-        draft[`${name}Files`] = files;
+        draft[`${name}Files`] = files[0];
       })
     );
   };
