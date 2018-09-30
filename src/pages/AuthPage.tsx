@@ -6,15 +6,11 @@ import HideSidebar from 'containers/base/HideSidebar';
 
 interface IProps extends RouteComponentProps<any> {}
 
-const AuthPage: React.SFC<IProps> = ({ location }) => {
-  const isLogin = location.pathname === '/login';
-
-  return (
-    <Fragment>
-      <HideSidebar />
-      {isLogin ? <LoginContainer /> : <div>register</div>}
-    </Fragment>
-  );
-};
+const AuthPage: React.SFC<IProps> = ({ location }) => (
+  <Fragment>
+    <HideSidebar />
+    {location.pathname === '/login' ? <LoginContainer /> : <div>register</div>}
+  </Fragment>
+);
 
 export default AuthPage;

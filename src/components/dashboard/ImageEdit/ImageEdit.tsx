@@ -1,6 +1,8 @@
+import produce from 'immer';
 import React, { Component } from 'react';
 import * as s from './ImageEdit.styled';
 
+import InputImage from 'components/common/InputImage';
 import InputText from 'components/common/InputText';
 
 interface Props {
@@ -15,25 +17,37 @@ interface Props {
 }
 
 interface State {
-  desktopSrc: string;
-  mobileSrc: string;
   href: string;
   alt: string;
+  desktopFiles: FileList | null;
+  mobileFiles: FileList | null;
 }
 
 class ImageEdit extends Component<Props, State> {
   public constructor(props: Props) {
     super(props);
+    let state: State = {
+      desktopFiles: null,
+      mobileFiles: null,
+      href: '',
+      alt: '',
+    };
+
     if (props.value) {
-      const { desktopSrc, mobileSrc, href, alt } = props.value;
-      this.state = { desktopSrc, mobileSrc, href, alt };
-    } else {
-      this.state = { desktopSrc: '', mobileSrc: '', href: '', alt: '' };
+      const { href, alt } = props.value;
+      state = produce(state, draft => {
+        draft.href = href;
+        draft.alt = alt;
+      });
     }
+
+    this.state = state;
   }
 
   public render() {
-    const { desktopSrc, mobileSrc, href, alt } = this.state;
+    const { href, alt } = this.state;
+    const { value } = this.props;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
@@ -51,31 +65,43 @@ class ImageEdit extends Component<Props, State> {
           />
         </s.RowWrapper>
         <s.RowWrapper>
-          <InputText
+          <InputImage
             label="데스크탑 이미지"
-            name="desktopSrc"
-            value={desktopSrc}
-            handleChange={this.handleChange}
+            name="desktop"
+            defaultSrc={value ? value.desktopSrc : null}
+            handleImageChange={this.handleImageChange}
           />
-          <InputText
+          <InputImage
             label="모바일 이미지"
-            name="mobileSrc"
-            value={mobileSrc}
-            handleChange={this.handleChange}
+            name="mobile"
+            defaultSrc={value ? value.mobileSrc : null}
+            handleImageChange={this.handleImageChange}
           />
         </s.RowWrapper>
       </form>
     );
   }
 
-  private handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.currentTarget;
     this.setState(prevState => ({ ...prevState, [name]: value }));
   };
 
+  private handleImageChange = (e: React.ChangeEvent<any>) => {
+    const { name, files } = e.target;
+    this.setState(state =>
+      produce(state, (draft: State) => {
+        draft[`${name}Files`] = files;
+      })
+    );
+  };
+
   private handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    /**
+     *  State에 있는 src는 S3에 업로드 후에 서버로 전송
+     */
   };
 }
 

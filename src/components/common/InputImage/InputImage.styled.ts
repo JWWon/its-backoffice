@@ -11,11 +11,10 @@ export const Label = styled.h5`
 `;
 
 export const Input = styled.input.attrs({
-  type: 'text',
-})`
+  type: 'file',
+})``;
+
+export const Preview = styled.img`
   width: 100%;
-  padding: ${({ theme }) => theme.space.small}rem 0;
-  font-size: ${({ theme }) => theme.font.small};
-  border-bottom: 1px solid ${({ theme }) => theme.color.darkGray};
-  color: ${({ theme }) => theme.color.black};
+  object-fit: contain;
 `;
