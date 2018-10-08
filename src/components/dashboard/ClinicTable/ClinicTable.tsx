@@ -1,17 +1,24 @@
 /* tslint:disable:jsx-no-lambda */
-import React, { ReactNode } from 'react';
+import { Moment } from 'moment';
+import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
-import * as s from './ImageTable.styled';
 
-import ImageEdit from 'components/dashboard/ImageEdit';
 import { show } from 'store/modules/modal';
+import * as s from './ClinicTable.styled';
 
 interface DataInterface {
   id: string;
-  desktopSrc: string;
-  mobileSrc: string;
-  href: string;
-  alt: string;
+  name: string;
+  grade: string;
+  certificates: {
+    specialist: boolean;
+    association: boolean;
+    invisalign: boolean;
+  };
+  phone: string;
+  createdAt: Moment;
+  hits: number;
+  hidden: boolean;
 }
 
 interface Props {
@@ -19,7 +26,7 @@ interface Props {
   showModal: (label: string, component: ReactNode) => void;
 }
 
-class ImageTable extends React.Component<Props> {
+class ClinicTable extends Component<Props> {
   public render() {
     const { list } = this.props;
     return (
@@ -27,11 +34,13 @@ class ImageTable extends React.Component<Props> {
         <s.Table>
           <s.Head>
             <tr>
-              <th>번호</th>
-              <th>데스크탑</th>
-              <th>모바일</th>
-              <th>하이퍼링크</th>
-              <th>SEO 텍스트</th>
+              <th>병원명</th>
+              <th>등급</th>
+              <th>자격증</th>
+              <th>연락처</th>
+              <th>등록일</th>
+              <th>누적 조회수</th>
+              <th>노출여부</th>
               <th />
             </tr>
           </s.Head>
@@ -46,17 +55,13 @@ class ImageTable extends React.Component<Props> {
 
   private Body = (value: DataInterface) => (
     <tr key={value.id}>
-      <td>{value.id}</td>
-      <td>
-        <s.ImageDesktop
-          style={{ backgroundImage: `url(${value.desktopSrc})` }}
-        />
-      </td>
-      <td>
-        <s.ImageMobile style={{ backgroundImage: `url(${value.mobileSrc})` }} />
-      </td>
-      <td>{value.href}</td>
-      <td>{value.alt}</td>
+      <td>{value.name}</td>
+      <td>{value.grade}</td>
+      <td />
+      <td>{value.phone}</td>
+      <td>{value.createdAt.format('YYYY.MM.DD')}</td>
+      <td>{value.hits}</td>
+      <td>{value.hidden ? 'false' : 'true'}</td>
       <td>
         <s.ButtonWrapper>
           <s.EditButton onClick={e => this.handleEdit(e, value)}>
@@ -73,11 +78,7 @@ class ImageTable extends React.Component<Props> {
     value: DataInterface
   ) => {
     e.preventDefault();
-    const { id, ...other } = value;
-    this.props.showModal(
-      '슬라이드 편집',
-      <ImageEdit id={id} type="slide" value={other} />
-    );
+    console.log(value);
   };
 }
 
@@ -87,4 +88,4 @@ export default connect(
     showModal: (label: string, component: ReactNode) =>
       show(label, component)(dispatch),
   })
-)(ImageTable);
+)(ClinicTable);
