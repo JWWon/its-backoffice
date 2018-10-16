@@ -34,8 +34,10 @@ class AboutContainer extends Component<IParams, State> {
 
   private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const currentContent = this.state.editorState.getCurrentContent();
-    console.log(convertToRaw(currentContent));
+    const contentHTML = convertToRaw(
+      this.state.editorState.getCurrentContent()
+    );
+    console.log(contentHTML);
   };
 }
 

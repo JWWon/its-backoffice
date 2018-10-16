@@ -20,7 +20,7 @@ const tempList = [
     id: '2',
     name: '강남미인 치과',
     grade: 'B',
-    certificates: { specialist: true, association: false, invisalign: true },
+    certificates: { specialist: true, association: false, invisalign: false },
     phone: '02-365-2810',
     createdAt: moment(),
     hits: 27816,

@@ -57,7 +57,28 @@ class ClinicTable extends Component<Props> {
     <tr key={value.id}>
       <td>{value.name}</td>
       <td>{value.grade}</td>
-      <td />
+      <td>
+        <s.CertifWrapper>
+          <s.CertifIcon
+            theme={{
+              type: 'specialist',
+              active: value.certificates.specialist,
+            }}
+          />
+          <s.CertifIcon
+            theme={{
+              type: 'association',
+              active: value.certificates.association,
+            }}
+          />
+          <s.CertifIcon
+            theme={{
+              type: 'invisalign',
+              active: value.certificates.invisalign,
+            }}
+          />
+        </s.CertifWrapper>
+      </td>
       <td>{value.phone}</td>
       <td>{value.createdAt.format('YYYY.MM.DD')}</td>
       <td>{value.hits}</td>
