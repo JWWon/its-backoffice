@@ -13,14 +13,13 @@ interface State {
 }
 
 class AboutContainer extends Component<IParams, State> {
-  public state: State = {
-    editorState: EditorState.createEmpty(),
-  };
-
-  public componentDidMount() {
+  public constructor(props: IParams) {
+    super(props);
     const editor = loadState(MAIN_ABOUT);
     if (editor) {
-      this.setState({ editorState: EditorState.createWithContent(editor) });
+      this.state = { editorState: EditorState.createWithContent(editor) };
+    } else {
+      this.state = { editorState: EditorState.createEmpty() };
     }
   }
 
