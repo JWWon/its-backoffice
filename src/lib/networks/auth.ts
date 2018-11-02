@@ -1,21 +1,16 @@
-import moment from 'moment';
+import axios from 'axios';
 
-interface ILogin {
+interface LoginInterface {
   email: string;
   password: string;
 }
 
-export const login = async ({ email, password }: ILogin) => {
-  let response = null;
-  if (email && password) {
-    response = {
-      info: {
-        name: '박찬혁',
-        thumbnail: null,
-      },
-      tokenExp: moment().add(14, 'days'),
-    };
+export const login = async (loginData: LoginInterface) => {
+  try {
+    const data = JSON.stringify(loginData);
+    const response = await axios.post('/signin', data);
+    return response.data;
+  } catch (e) {
+    throw 500;
   }
-
-  return response;
 };

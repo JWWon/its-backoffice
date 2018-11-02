@@ -1,24 +1,25 @@
 import React from 'react';
 import * as s from './Navbar.styled';
 
-import { Info } from 'store/modules/auth';
+import { AuthState } from 'store/modules/auth';
 
-interface IProps extends Info {
+interface IProps {
+  auth: AuthState;
   handleLogout: (e: React.FormEvent<HTMLDivElement>) => void;
 }
 
 class Navbar extends React.Component<IProps> {
   public render() {
-    const { info, handleLogout } = this.props;
+    const { auth, handleLogout } = this.props;
     return (
       <s.Container>
         <s.Wrapper>
           <s.LogoText>It's 교정</s.LogoText>
           <s.Admin>ADMIN</s.Admin>
         </s.Wrapper>
-        {info && (
+        {auth.nickname && (
           <s.Wrapper>
-            <s.AuthName>{info.name}</s.AuthName>
+            <s.AuthName>{auth.nickname}</s.AuthName>
             <s.LogoutButton onClick={handleLogout}>
               <s.Logout>Logout</s.Logout>
             </s.LogoutButton>

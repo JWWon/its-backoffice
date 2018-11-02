@@ -1,5 +1,3 @@
-import produce from 'immer';
-import { Moment } from 'moment';
 import { Dispatch } from 'redux';
 import { handleActions } from 'redux-actions';
 
@@ -31,37 +29,23 @@ export const setAuth = (auth: AuthState) => (dispatch: Dispatch) => {
 };
 
 // *** INITIAL STATE
-export interface Info {
-  info: {
-    name: string;
-    thumbnail: string | null;
-  } | null;
-}
-
-export interface AuthState extends Info {
-  tokenExp: Moment | null;
+export interface AuthState {
+  email: string | null;
+  nickname: string | null;
+  token: string | null;
 }
 
 const initState: AuthState = {
-  info: null,
-  tokenExp: null,
+  email: null,
+  nickname: null,
+  token: null,
 };
 
 // *** REDUCER
 export default handleActions<AuthState, any>(
   {
-    [LOGIN]: (state, action) => {
-      const { info, tokenExp } = action.payload;
-      return produce(state, draft => {
-        draft.info = info;
-        draft.tokenExp = tokenExp;
-      });
-    },
-    [LOGOUT]: (state, action) =>
-      produce(state, draft => {
-        draft.info = null;
-        draft.tokenExp = null;
-      }),
+    [LOGIN]: (state, action) => ({ ...state, ...action.payload }),
+    [LOGOUT]: () => ({ email: null, nickname: null, token: null }),
   },
   initState
 );

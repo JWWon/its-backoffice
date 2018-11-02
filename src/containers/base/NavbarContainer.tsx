@@ -12,8 +12,8 @@ interface IProps {
 
 class NavbarContainer extends Component<IProps> {
   public render() {
-    const { info } = this.props.auth;
-    return <Navbar info={info} handleLogout={this.handleLogout} />;
+    const { auth } = this.props;
+    return <Navbar auth={auth} handleLogout={this.handleLogout} />;
   }
 
   private handleLogout = (e: React.FormEvent<HTMLDivElement>) => {

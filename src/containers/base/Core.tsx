@@ -1,3 +1,4 @@
+import 'lib/networks/axios';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -32,7 +33,7 @@ class Core extends Component<Props> {
 
   private checkAuth = () => {
     const { history, location, auth } = this.props;
-    if (auth.info && auth.tokenExp) {
+    if (auth.token) {
       if (location.pathname === '/login') {
         history.push('/main/slides');
       }
@@ -45,7 +46,7 @@ class Core extends Component<Props> {
     const { auth } = this.props;
     const storageAuth = await storage.loadAuth();
 
-    if (storageAuth && (!auth.info || !auth.tokenExp)) {
+    if (storageAuth && !auth.token) {
       this.props.setAuth(storageAuth);
     }
   };

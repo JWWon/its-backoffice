@@ -11,7 +11,8 @@
     "object-literal-sort-keys": false, // DISABLE FOR TYPESCRIPT
     "jsx-boolean-value": false,
     "no-console": false,
-    "interface-name": [false]
+    "interface-name": [false],
+    "curly": [true, "ignore-same-line"]
   },
   "jsRules": {
     "object-literal-sort-keys": false, // DISABLE FOR JAVASCRIPT
