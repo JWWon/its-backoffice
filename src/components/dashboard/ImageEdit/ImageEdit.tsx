@@ -1,3 +1,4 @@
+import AWS from 'aws-sdk';
 import produce from 'immer';
 import React, { Component } from 'react';
 import * as s from './ImageEdit.styled';
@@ -19,16 +20,16 @@ interface Props {
 interface State {
   href: string;
   alt: string;
-  desktopFiles: FileList | null;
-  mobileFiles: FileList | null;
+  desktopFile: File | null;
+  mobileFile: File | null;
 }
 
 class ImageEdit extends Component<Props, State> {
   public constructor(props: Props) {
     super(props);
     let state: State = {
-      desktopFiles: null,
-      mobileFiles: null,
+      desktopFile: null,
+      mobileFile: null,
       href: '',
       alt: '',
     };
@@ -95,16 +96,33 @@ class ImageEdit extends Component<Props, State> {
     const { name, files } = e.target;
     this.setState(state =>
       produce(state, (draft: State) => {
-        draft[`${name}Files`] = files[0];
+        draft[`${name}File`] = files[0];
       })
     );
   };
 
-  private handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /**
-     *  State에 있는 src는 S3에 업로드 후에 서버로 전송
-     */
+    const { desktopFile, mobileFile } = this.state;
+
+    if (desktopFile) await this.uploadImage(desktopFile);
+    if (mobileFile) await this.uploadImage(mobileFile);
+  };
+
+  private uploadImage = (file: File) => {
+    const bucket = new AWS.S3();
+    const params = {
+      Bucket: 'itso-o',
+      Key: `images/${this.props.type}/${file.name}`,
+      ContentType: file.type,
+      Body: file,
+      ACL: 'public-read',
+    };
+
+    bucket.putObject(params, (err, data) => {
+      console.log(err);
+      console.log(data);
+    });
   };
 }
 

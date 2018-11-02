@@ -1,3 +1,4 @@
+import AWS from 'aws-sdk';
 import 'lib/networks/axios';
 import { Component } from 'react';
 import { connect } from 'react-redux';
@@ -15,6 +16,11 @@ interface Props extends RouteComponentProps<any> {
 
 class Core extends Component<Props> {
   public componentDidMount() {
+    AWS.config.update({
+      region: 'ap-northeast-2',
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    });
     this.initialize();
   }
 
