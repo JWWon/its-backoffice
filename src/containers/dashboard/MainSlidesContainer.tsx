@@ -4,43 +4,35 @@ import { connect } from 'react-redux';
 import ImageEdit from 'components/dashboard/ImageEdit';
 import ImageTable from 'components/dashboard/ImageTable';
 import Template from 'components/dashboard/Template';
+import { getSlides, ImageInterface } from 'lib/networks/image';
 import { IParams } from 'pages/DashboardPage';
 import { show } from 'store/modules/modal';
-
-const tempList = [
-  {
-    id: '1',
-    desktopSrc:
-      'https://www.allkpop.com/upload/2017/09/af_org/03114342/bts.jpg',
-    mobileSrc:
-      'https://0.soompi.io/wp-content/uploads/2017/12/26225639/BTS20.jpg?s=900x600&e=t',
-    href: 'https://www.naver.com',
-    alt: '카투사좀 제발 보내주세요...',
-  },
-  {
-    id: '2',
-    desktopSrc:
-      'https://www.allkpop.com/upload/2017/09/af_org/03114342/bts.jpg',
-    mobileSrc:
-      'https://0.soompi.io/wp-content/uploads/2017/12/26225639/BTS20.jpg?s=900x600&e=t',
-    href: 'https://www.naver.com',
-    alt: '카투사좀 제발 보내주세요...',
-  },
-];
 
 interface Props extends IParams {
   showModal: (label: string, component: ReactNode) => void;
 }
 
-class MainSlidesContainer extends Component<Props> {
+interface State {
+  list: ImageInterface[];
+}
+
+class MainSlidesContainer extends Component<Props, State> {
+  public state: State = { list: [] };
+
+  public async componentDidMount() {
+    const list = await getSlides();
+    this.setState({ list });
+  }
+
   public render() {
+    const { list } = this.state;
     return (
       <Template
         label="슬라이드 목록"
         buttonText="생성하기"
-        count={tempList.length}
+        count={list.length}
         handleClick={this.handleCreate}>
-        <ImageTable list={tempList} />
+        <ImageTable list={list} />
       </Template>
     );
   }

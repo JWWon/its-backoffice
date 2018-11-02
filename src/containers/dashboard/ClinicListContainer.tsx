@@ -6,12 +6,23 @@ import { ClinicInterface, getCount, getList } from 'lib/networks/clinic';
 import { IParams } from 'pages/DashboardPage';
 
 interface State {
+  label: string;
   count: number;
   list: ClinicInterface[];
 }
 
 class ClinicListContainer extends Component<IParams, State> {
-  public state: State = { count: 0, list: [] };
+  public constructor(props: IParams) {
+    super(props);
+    this.state = {
+      label:
+        this.props.params.detail.toString() === 'proposals'
+          ? '입점 신청 목록'
+          : '병원 목록',
+      count: 0,
+      list: [],
+    };
+  }
 
   public async componentDidMount() {
     const count = await getCount();
@@ -20,13 +31,10 @@ class ClinicListContainer extends Component<IParams, State> {
   }
 
   public render() {
-    const { detail } = this.props.params;
+    const { label, count, list } = this.state;
     return (
-      <Template
-        label={
-          detail.toString() === 'proposals' ? '입점 신청 목록' : '병원 목록'
-        }>
-        <ClinicTable list={this.state.list} />
+      <Template label={`${label} (${count}개)`}>
+        <ClinicTable count={count} list={list} />
       </Template>
     );
   }

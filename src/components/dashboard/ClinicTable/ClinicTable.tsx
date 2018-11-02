@@ -7,7 +7,9 @@ import { show } from 'store/modules/modal';
 import * as s from './ClinicTable.styled';
 
 interface Props {
+  count: number;
   list: ClinicInterface[];
+  // store
   showModal: (label: string, component: ReactNode) => void;
 }
 
@@ -41,25 +43,25 @@ class ClinicTable extends Component<Props> {
   private Body = (clinic: ClinicInterface) => (
     <tr key={clinic.id}>
       <td>{clinic.name}</td>
-      <td>{clinic.grade}</td>
+      <td>{this.parseGrade(clinic.grade)}</td>
       <td>
         <s.CertifWrapper>
           <s.CertifIcon
             theme={{
               type: 'specialist',
-              active: clinic.certificates.specialist,
+              active: clinic.certificates.specialist.image,
             }}
           />
           <s.CertifIcon
             theme={{
               type: 'association',
-              active: clinic.certificates.association,
+              active: clinic.certificates.association.image,
             }}
           />
           <s.CertifIcon
             theme={{
               type: 'invisalign',
-              active: clinic.certificates.invisalign,
+              active: clinic.certificates.invisalign.image,
             }}
           />
         </s.CertifWrapper>
@@ -78,6 +80,19 @@ class ClinicTable extends Component<Props> {
       </td>
     </tr>
   );
+
+  private parseGrade = (grade: number) => {
+    switch (grade) {
+      case 2:
+        return 'A';
+      case 1:
+        return 'B';
+      case 0:
+        return 'C';
+      default:
+        return 'D';
+    }
+  };
 
   private handleEdit = (
     e: React.FormEvent<HTMLButtonElement>,
