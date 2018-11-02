@@ -39,7 +39,7 @@ class MainSlidesContainer extends Component<Props, State> {
 
   private handleCreate = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    this.props.showModal('슬라이드 등록', <ImageEdit id="1" type="slide" />);
+    this.props.showModal('슬라이드 등록', <ImageEdit type="slide" />);
   };
 }
 

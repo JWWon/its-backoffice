@@ -6,8 +6,8 @@ import InputImage from 'components/common/InputImage';
 import InputText from 'components/common/InputText';
 
 interface Props {
-  id: string;
   type: 'slide' | 'news';
+  id?: string;
   value?: {
     desktopSrc: string;
     mobileSrc: string;

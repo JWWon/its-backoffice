@@ -1,42 +1,52 @@
-import { convertToRaw, EditorState } from 'draft-js';
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
+import { connect } from 'react-redux';
 
+import ImageEdit from 'components/dashboard/ImageEdit';
+import ImageTable from 'components/dashboard/ImageTable';
 import Template from 'components/dashboard/Template';
-import TextEditor from 'components/dashboard/TextEditor';
+import { getNews, ImageInterface } from 'lib/networks/image';
 import { IParams } from 'pages/DashboardPage';
+import { show } from 'store/modules/modal';
 
-interface State {
-  editorState: EditorState;
+interface Props extends IParams {
+  showModal: (label: string, component: ReactNode) => void;
 }
 
-class MainNews extends Component<IParams, State> {
-  public state: State = {
-    editorState: EditorState.createEmpty(),
-  };
+interface State {
+  list: ImageInterface[];
+}
+
+class MainNews extends Component<Props, State> {
+  public state: State = { list: [] };
+
+  public async componentDidMount() {
+    const list = await getNews();
+    this.setState({ list });
+  }
 
   public render() {
+    const { list } = this.state;
     return (
       <Template
         label="잇츠교정 뉴스"
         buttonText="저장하기"
-        handleClick={this.handleSubmit}>
-        <TextEditor
-          editorState={this.state.editorState}
-          handleChange={this.handleChange}
-        />
+        count={list.length}
+        handleClick={this.handleCreate}>
+        <ImageTable list={list} />
       </Template>
     );
   }
 
-  private handleChange = (editorState: EditorState) => {
-    this.setState({ editorState });
-  };
-
-  private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  private handleCreate = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const currentContent = this.state.editorState.getCurrentContent();
-    console.log(convertToRaw(currentContent));
+    this.props.showModal('뉴스 등록', <ImageEdit type="news" />);
   };
 }
 
-export default MainNews;
+export default connect(
+  () => ({}),
+  dispatch => ({
+    showModal: (label: string, component: ReactNode) =>
+      show(label, component)(dispatch),
+  })
+)(MainNews);
