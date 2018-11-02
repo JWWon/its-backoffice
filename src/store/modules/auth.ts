@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Dispatch } from 'redux';
 import { handleActions } from 'redux-actions';
 
@@ -21,10 +22,12 @@ export const login = (data: Data) => async (dispatch: Dispatch) => {
 
 export const logout = (dispatch: Dispatch) => {
   clearAuth();
+  delete axios.defaults.headers.common.authorization;
   dispatch({ type: LOGOUT });
 };
 
 export const setAuth = (auth: AuthState) => (dispatch: Dispatch) => {
+  axios.defaults.headers.common.authorization = auth.token;
   dispatch({ type: LOGIN, payload: auth });
 };
 

@@ -6,6 +6,6 @@ if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = 'http://localhost:5000/';
 }
 
-axios.defaults.headers = {
-  'Content-Type': 'application/json',
-};
+axios.defaults.headers.post.Accept = 'application/json';
+axios.defaults.headers.post['Content-Type'] =
+  'application/x-www-form-urlencoded';

@@ -1,28 +1,13 @@
 /* tslint:disable:jsx-no-lambda */
-import { Moment } from 'moment';
+import { ClinicInterface } from 'lib/networks/clinic';
 import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 
 import { show } from 'store/modules/modal';
 import * as s from './ClinicTable.styled';
 
-interface DataInterface {
-  id: string;
-  name: string;
-  grade: string;
-  certificates: {
-    specialist: boolean;
-    association: boolean;
-    invisalign: boolean;
-  };
-  phone: string;
-  createdAt: Moment;
-  hits: number;
-  hidden: boolean;
-}
-
 interface Props {
-  list: DataInterface[];
+  list: ClinicInterface[];
   showModal: (label: string, component: ReactNode) => void;
 }
 
@@ -53,39 +38,39 @@ class ClinicTable extends Component<Props> {
     );
   }
 
-  private Body = (value: DataInterface) => (
-    <tr key={value.id}>
-      <td>{value.name}</td>
-      <td>{value.grade}</td>
+  private Body = (clinic: ClinicInterface) => (
+    <tr key={clinic.id}>
+      <td>{clinic.name}</td>
+      <td>{clinic.grade}</td>
       <td>
         <s.CertifWrapper>
           <s.CertifIcon
             theme={{
               type: 'specialist',
-              active: value.certificates.specialist,
+              active: clinic.certificates.specialist,
             }}
           />
           <s.CertifIcon
             theme={{
               type: 'association',
-              active: value.certificates.association,
+              active: clinic.certificates.association,
             }}
           />
           <s.CertifIcon
             theme={{
               type: 'invisalign',
-              active: value.certificates.invisalign,
+              active: clinic.certificates.invisalign,
             }}
           />
         </s.CertifWrapper>
       </td>
-      <td>{value.phone}</td>
-      <td>{value.createdAt.format('YYYY.MM.DD')}</td>
-      <td>{value.hits}</td>
-      <td>{value.hidden ? 'false' : 'true'}</td>
+      <td>{clinic.phone}</td>
+      <td>{clinic.createdAt}</td>
+      <td>{clinic.hits}</td>
+      <td>{clinic.hidden ? 'false' : 'true'}</td>
       <td>
         <s.ButtonWrapper>
-          <s.EditButton onClick={e => this.handleEdit(e, value)}>
+          <s.EditButton onClick={e => this.handleEdit(e, clinic)}>
             Edit
           </s.EditButton>
           <s.DeleteButton>Delete</s.DeleteButton>
@@ -96,10 +81,10 @@ class ClinicTable extends Component<Props> {
 
   private handleEdit = (
     e: React.FormEvent<HTMLButtonElement>,
-    value: DataInterface
+    clinic: ClinicInterface
   ) => {
     e.preventDefault();
-    console.log(value);
+    console.log(clinic);
   };
 }
 
