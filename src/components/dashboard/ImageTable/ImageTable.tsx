@@ -16,6 +16,7 @@ interface DataInterface {
 
 interface Props {
   list: DataInterface[];
+  type: 'slide' | 'news';
   showModal: (label: string, component: ReactNode) => void;
 }
 
@@ -76,7 +77,7 @@ class ImageTable extends React.Component<Props> {
     const { id, ...other } = value;
     this.props.showModal(
       '슬라이드 편집',
-      <ImageEdit id={id} type="slide" value={other} />
+      <ImageEdit id={id} type={this.props.type} value={other} />
     );
   };
 }

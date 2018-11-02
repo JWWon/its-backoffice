@@ -32,7 +32,7 @@ class MainSlidesContainer extends Component<Props, State> {
         buttonText="생성하기"
         count={list.length}
         handleClick={this.handleCreate}>
-        <ImageTable list={list} />
+        <ImageTable list={list} type="slide" />
       </Template>
     );
   }

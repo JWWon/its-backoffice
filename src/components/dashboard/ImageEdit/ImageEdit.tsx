@@ -5,6 +5,10 @@ import * as s from './ImageEdit.styled';
 
 import InputImage from 'components/common/InputImage';
 import InputText from 'components/common/InputText';
+import {
+  InputInterface as SubmitInterface,
+  updateImage,
+} from 'lib/networks/image';
 
 interface Props {
   type: 'slide' | 'news';
@@ -20,29 +24,35 @@ interface Props {
 interface State {
   href: string;
   alt: string;
-  desktopFile: File | null;
-  mobileFile: File | null;
+  desktop: {
+    file: File | null;
+    src: string | null;
+  };
+  mobile: {
+    file: File | null;
+    src: string | null;
+  };
 }
 
 class ImageEdit extends Component<Props, State> {
-  public constructor(props: Props) {
-    super(props);
-    let state: State = {
-      desktopFile: null,
-      mobileFile: null,
-      href: '',
-      alt: '',
-    };
+  public state: State = {
+    desktop: { file: null, src: null },
+    mobile: { file: null, src: null },
+    href: '',
+    alt: '',
+  };
 
-    if (props.value) {
-      const { href, alt } = props.value;
-      state = produce(state, draft => {
-        draft.href = href;
-        draft.alt = alt;
-      });
+  public componentDidMount() {
+    console.log(this.props.type);
+    if (this.props.value) {
+      const { href, alt } = this.props.value;
+      this.setState(state =>
+        produce(state, draft => {
+          if (typeof href === 'string') draft.href = href;
+          if (typeof alt === 'string') draft.alt = alt;
+        })
+      );
     }
-
-    this.state = state;
   }
 
   public render() {
@@ -96,33 +106,49 @@ class ImageEdit extends Component<Props, State> {
     const { name, files } = e.target;
     this.setState(state =>
       produce(state, (draft: State) => {
-        draft[`${name}File`] = files[0];
+        draft[name].file = files[0];
       })
     );
   };
 
   private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { desktopFile, mobileFile } = this.state;
+    const { desktop, mobile, href, alt } = this.state;
 
-    if (desktopFile) await this.uploadImage(desktopFile);
-    if (mobileFile) await this.uploadImage(mobileFile);
+    if (desktop.file) await this.uploadImage('desktop', desktop.file);
+    if (mobile.file) await this.uploadImage('mobile', mobile.file);
+
+    const { id, type } = this.props;
+    const data: SubmitInterface = { type, href, alt };
+    if (desktop.src) data.desktopSrc = desktop.src;
+    if (mobile.src) data.mobileSrc = mobile.src;
+    if (id) data.id = id;
+    await updateImage(data);
   };
 
-  private uploadImage = (file: File) => {
+  private uploadImage = (name: string, file: File) => {
     const bucket = new AWS.S3();
     const params = {
-      Bucket: 'itso-o',
+      Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME || '',
       Key: `images/${this.props.type}/${file.name}`,
       ContentType: file.type,
       Body: file,
       ACL: 'public-read',
     };
 
-    bucket.putObject(params, (err, data) => {
-      console.log(err);
-      console.log(data);
-    });
+    bucket
+      .upload(params)
+      .on('httpUploadProgress', evt => {
+        console.log((evt.loaded * 100) / evt.total);
+      })
+      .send((e: any, data: any) => {
+        if (e) throw e;
+        this.setState(state =>
+          produce(state, (draft: State) => {
+            draft[name].file = data.Location;
+          })
+        );
+      });
   };
 }
 

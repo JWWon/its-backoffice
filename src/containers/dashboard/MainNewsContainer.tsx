@@ -32,7 +32,7 @@ class MainNews extends Component<Props, State> {
         buttonText="저장하기"
         count={list.length}
         handleClick={this.handleCreate}>
-        <ImageTable list={list} />
+        <ImageTable list={list} type="news" />
       </Template>
     );
   }

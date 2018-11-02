@@ -11,7 +11,12 @@ interface Props {
 const InputText: React.SFC<Props> = ({ label, name, handleChange, value }) => (
   <s.Container>
     <s.Label>{label}</s.Label>
-    <s.Input name={name} value={value} onChange={handleChange} />
+    <s.Input
+      name={name}
+      placeholder="입력하세요"
+      value={value}
+      onChange={handleChange}
+    />
   </s.Container>
 );
 
