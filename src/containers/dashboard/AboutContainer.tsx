@@ -26,7 +26,7 @@ class AboutContainer extends Component<IParams, State> {
   public render() {
     return (
       <Template
-        label="왜 잇츠 교정인가"
+        label="잇츠교정이란"
         buttonText="저장하기"
         handleClick={this.handleSubmit}>
         <TextEditor

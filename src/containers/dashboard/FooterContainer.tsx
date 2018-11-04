@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Template from 'components/dashboard/Template';
 import { IParams } from 'pages/DashboardPage';
 
-class OtherFooterContainer extends Component<IParams> {
+class FooterContainer extends Component<IParams> {
   public render() {
     const { type, detail } = this.props.params;
     return (
@@ -14,4 +14,4 @@ class OtherFooterContainer extends Component<IParams> {
   }
 }
 
-export default OtherFooterContainer;
+export default FooterContainer;

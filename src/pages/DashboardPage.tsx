@@ -18,10 +18,6 @@ const ClinicList = Loadable({
   loader: () => import('containers/dashboard/ClinicListContainer'),
   loading: Spinner,
 });
-const MainAbout = Loadable({
-  loader: () => import('../containers/dashboard/MainAboutContainer'),
-  loading: Spinner,
-});
 const MainNews = Loadable({
   loader: () => import('../containers/dashboard/MainNewsContainer'),
   loading: Spinner,
@@ -34,12 +30,12 @@ const NoticeList = Loadable({
   loader: () => import('../containers/dashboard/NoticeListContainer'),
   loading: Spinner,
 });
-const OtherAbout = Loadable({
-  loader: () => import('../containers/dashboard/OtherAboutContainer'),
+const About = Loadable({
+  loader: () => import('../containers/dashboard/AboutContainer'),
   loading: Spinner,
 });
-const OtherFooter = Loadable({
-  loader: () => import('../containers/dashboard/OtherFooterContainer'),
+const Footer = Loadable({
+  loader: () => import('../containers/dashboard/FooterContainer'),
   loading: Spinner,
 });
 
@@ -49,8 +45,6 @@ class DashboardPage extends Component<RouteComponentProps> {
     switch (location.pathname) {
       case '/main/slides':
         return <MainSlides params={match.params} />;
-      case '/main/about':
-        return <MainAbout params={match.params} />;
       case '/main/news':
         return <MainNews params={match.params} />;
       case '/clinic/lists':
@@ -60,9 +54,9 @@ class DashboardPage extends Component<RouteComponentProps> {
       case '/notice/lists':
         return <NoticeList params={match.params} />;
       case '/other/about':
-        return <OtherAbout params={match.params} />;
+        return <About params={match.params} />;
       case '/other/footer':
-        return <OtherFooter params={match.params} />;
+        return <Footer params={match.params} />;
       default:
         return null;
     }

@@ -18,10 +18,6 @@ class SidebarContainer extends Component<Props> {
           link: '/main/slides',
         },
         {
-          pageName: '왜 잇츠 교정인가',
-          link: '/main/about',
-        },
-        {
           pageName: '잇츠교정 뉴스',
           link: '/main/news',
         },
