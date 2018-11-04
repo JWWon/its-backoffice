@@ -29,7 +29,7 @@ class MainNews extends Component<Props, State> {
     return (
       <Template
         label="잇츠교정 뉴스"
-        buttonText="저장하기"
+        buttonText="생성하기"
         count={list.length}
         handleClick={this.handleCreate}>
         <ImageTable list={list} type="news" />

@@ -43,6 +43,7 @@ export const updateImage = async (imgData: InputInterface) => {
     const data = JSON.stringify(imgData);
     if (imgData.id) response = await axios.patch(`/images/${imgData.id}`, data);
     else response = await axios.post('/images', data);
+
     return response.data;
   } catch (e) {
     throw e;

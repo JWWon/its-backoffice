@@ -24,26 +24,27 @@ interface Props {
 interface State {
   href: string;
   alt: string;
-  desktop: {
-    file: File | null;
-    src: string | null;
-  };
-  mobile: {
-    file: File | null;
-    src: string | null;
-  };
+  desktopSrc: string;
+  desktopFile: File | null;
+  mobileSrc: string;
+  mobileFile: File | null;
 }
 
 class ImageEdit extends Component<Props, State> {
-  public state: State = {
-    desktop: { file: null, src: null },
-    mobile: { file: null, src: null },
-    href: '',
-    alt: '',
-  };
+  public constructor(props: Props) {
+    super(props);
+    const { value } = props;
+    this.state = {
+      href: '',
+      alt: '',
+      desktopSrc: (value && value.desktopSrc) || '',
+      desktopFile: null,
+      mobileSrc: (value && value.mobileSrc) || '',
+      mobileFile: null,
+    };
+  }
 
   public componentDidMount() {
-    console.log(this.props.type);
     if (this.props.value) {
       const { href, alt } = this.props.value;
       this.setState(state =>
@@ -78,13 +79,13 @@ class ImageEdit extends Component<Props, State> {
         <s.RowWrapper>
           <InputImage
             label="데스크탑 이미지"
-            name="desktop"
+            name="desktopFile"
             defaultSrc={value ? value.desktopSrc : null}
             handleImageChange={this.handleImageChange}
           />
           <InputImage
             label="모바일 이미지"
-            name="mobile"
+            name="mobileFile"
             defaultSrc={value ? value.mobileSrc : null}
             handleImageChange={this.handleImageChange}
           />
@@ -104,52 +105,54 @@ class ImageEdit extends Component<Props, State> {
 
   private handleImageChange = (e: React.ChangeEvent<any>) => {
     const { name, files } = e.target;
-    this.setState(state =>
-      produce(state, (draft: State) => {
-        draft[name].file = files[0];
-      })
-    );
+    this.setState(state => ({ ...state, [name]: files[0] }));
   };
 
   private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { desktop, mobile, href, alt } = this.state;
+    const { desktopFile, mobileFile } = this.state;
 
-    if (desktop.file) await this.uploadImage('desktop', desktop.file);
-    if (mobile.file) await this.uploadImage('mobile', mobile.file);
+    try {
+      if (desktopFile) await this.uploadImage(desktopFile, 'desktopSrc');
+      if (mobileFile) await this.uploadImage(mobileFile, 'mobileSrc');
 
-    const { id, type } = this.props;
-    const data: SubmitInterface = { type, href, alt };
-    if (desktop.src) data.desktopSrc = desktop.src;
-    if (mobile.src) data.mobileSrc = mobile.src;
-    if (id) data.id = id;
-    await updateImage(data);
+      const { href, alt, desktopSrc, mobileSrc } = this.state;
+      const { id, type } = this.props;
+      const data: SubmitInterface = { type, href, alt, desktopSrc, mobileSrc };
+      if (id) data.id = id;
+
+      await updateImage(data);
+      alert('저장 완료!');
+    } catch (e) {
+      throw e;
+    }
   };
 
-  private uploadImage = (name: string, file: File) => {
-    const bucket = new AWS.S3();
-    const params = {
-      Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME || '',
-      Key: `images/${this.props.type}/${file.name}`,
-      ContentType: file.type,
-      Body: file,
-      ACL: 'public-read',
-    };
+  private uploadImage = (file: File, srcType: string) =>
+    new Promise((resolve, reject) => {
+      const bucket = new AWS.S3();
+      const params = {
+        Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME || '',
+        Key: `images/${this.props.type}/${file.name}`,
+        ContentType: file.type,
+        Body: file,
+        ACL: 'public-read',
+      };
 
-    bucket
-      .upload(params)
-      .on('httpUploadProgress', evt => {
-        console.log((evt.loaded * 100) / evt.total);
-      })
-      .send((e: any, data: any) => {
-        if (e) throw e;
-        this.setState(state =>
-          produce(state, (draft: State) => {
-            draft[name].file = data.Location;
-          })
-        );
-      });
-  };
+      bucket
+        .upload(params)
+        .on('httpUploadProgress', evt => {
+          console.log((evt.loaded * 100) / evt.total);
+        })
+        .send(async (e: any, data: { Location: string }) => {
+          if (e) throw e;
+          await this.setState(state => ({
+            ...state,
+            [srcType]: data.Location,
+          }));
+          resolve(data.Location);
+        });
+    });
 }
 
 export default ImageEdit;
