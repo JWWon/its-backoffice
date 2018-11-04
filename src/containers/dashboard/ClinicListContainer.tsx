@@ -12,7 +12,6 @@ interface Props extends IParams {
 }
 
 interface State {
-  label: string;
   count: number;
   list: ClinicInterface[];
 }
@@ -21,10 +20,6 @@ class ClinicListContainer extends Component<Props, State> {
   public constructor(props: Props) {
     super(props);
     this.state = {
-      label:
-        this.props.params.detail.toString() === 'proposals'
-          ? '입점 신청 목록'
-          : '병원 목록',
       count: 0,
       list: [],
     };
@@ -37,7 +32,12 @@ class ClinicListContainer extends Component<Props, State> {
   }
 
   public render() {
-    const { label, count, list } = this.state;
+    const { count, list } = this.state;
+    const label =
+      this.props.params.detail.toString() === 'proposals'
+        ? '입점 신청 목록'
+        : '병원 목록';
+
     return (
       <Template
         label={`${label} (${count}개)`}

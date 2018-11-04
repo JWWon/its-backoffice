@@ -54,6 +54,7 @@ class DashboardPage extends Component<RouteComponentProps> {
       case '/main/news':
         return <MainNews params={match.params} />;
       case '/clinic/lists':
+        return <ClinicList params={match.params} />;
       case '/clinic/proposals':
         return <ClinicList params={match.params} />;
       case '/notice/lists':
