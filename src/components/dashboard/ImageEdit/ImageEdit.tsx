@@ -1,5 +1,4 @@
 import AWS from 'aws-sdk';
-import produce from 'immer';
 import React, { Component } from 'react';
 import * as s from './ImageEdit.styled';
 
@@ -10,55 +9,35 @@ import {
   updateImage,
 } from 'lib/networks/image';
 
-interface Props {
-  type: 'slide' | 'news';
-  id?: string;
-  value?: {
-    desktopSrc: string;
-    mobileSrc: string;
-    href: string;
-    alt: string;
-  };
-}
-
 interface State {
   href: string;
   alt: string;
-  desktopSrc: string;
+  desktopSrc: string | null;
   desktopFile: File | null;
-  mobileSrc: string;
+  mobileSrc: string | null;
   mobileFile: File | null;
+  title: string;
+  content: string;
 }
 
-class ImageEdit extends Component<Props, State> {
-  public constructor(props: Props) {
+class ImageEdit extends Component<SubmitInterface, State> {
+  public constructor(props: SubmitInterface) {
     super(props);
-    const { value } = props;
     this.state = {
-      href: '',
-      alt: '',
-      desktopSrc: (value && value.desktopSrc) || '',
+      href: props.href || '',
+      alt: props.alt || '',
+      desktopSrc: props.desktopSrc || null,
       desktopFile: null,
-      mobileSrc: (value && value.mobileSrc) || '',
+      mobileSrc: props.mobileSrc || null,
       mobileFile: null,
+      title: props.title || '',
+      content: props.content || '',
     };
   }
 
-  public componentDidMount() {
-    if (this.props.value) {
-      const { href, alt } = this.props.value;
-      this.setState(state =>
-        produce(state, draft => {
-          if (typeof href === 'string') draft.href = href;
-          if (typeof alt === 'string') draft.alt = alt;
-        })
-      );
-    }
-  }
-
   public render() {
-    const { href, alt } = this.state;
-    const { value } = this.props;
+    const { href, alt, desktopSrc, mobileSrc, title, content } = this.state;
+    const { type } = this.props;
 
     return (
       <s.Form onSubmit={this.handleSubmit}>
@@ -76,17 +55,33 @@ class ImageEdit extends Component<Props, State> {
             handleChange={this.handleChange}
           />
         </s.RowWrapper>
+        {type === 'news' && (
+          <s.RowWrapper>
+            <InputText
+              label="제목"
+              name="title"
+              value={title}
+              handleChange={this.handleChange}
+            />
+            <InputText
+              label="내용"
+              name="content"
+              value={content}
+              handleChange={this.handleChange}
+            />
+          </s.RowWrapper>
+        )}
         <s.RowWrapper>
           <InputImage
             label="데스크탑 이미지"
             name="desktopFile"
-            defaultSrc={value ? value.desktopSrc : null}
+            defaultSrc={desktopSrc}
             handleImageChange={this.handleImageChange}
           />
           <InputImage
             label="모바일 이미지"
             name="mobileFile"
-            defaultSrc={value ? value.mobileSrc : null}
+            defaultSrc={mobileSrc}
             handleImageChange={this.handleImageChange}
           />
         </s.RowWrapper>
@@ -119,11 +114,18 @@ class ImageEdit extends Component<Props, State> {
       const { href, alt, desktopSrc, mobileSrc } = this.state;
       const { id, type } = this.props;
       const data: SubmitInterface = { href, alt };
+      // ** APPEND REQUEST DATA
       if (id) data.id = id;
       else data.type = type;
 
       if (desktopSrc) data.desktopSrc = desktopSrc;
       if (mobileSrc) data.mobileSrc = mobileSrc;
+
+      if (type === 'news') {
+        data.title = this.state.title;
+        data.content = this.state.content;
+      }
+      // ** APPEND DATA END
 
       await updateImage(data);
       alert('저장 완료');

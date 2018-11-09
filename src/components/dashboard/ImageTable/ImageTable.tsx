@@ -4,25 +4,18 @@ import { connect } from 'react-redux';
 import * as s from './ImageTable.styled';
 
 import ImageEdit from 'components/dashboard/ImageEdit';
+import { ImageInterface } from 'lib/networks/image';
 import { show } from 'store/modules/modal';
 
-interface DataInterface {
-  id: string;
-  desktopSrc: string;
-  mobileSrc: string;
-  href: string;
-  alt: string;
-}
-
 interface Props {
-  list: DataInterface[];
+  list: ImageInterface[];
   type: 'slide' | 'news';
   showModal: (label: string, component: ReactNode) => void;
 }
 
 class ImageTable extends React.Component<Props> {
   public render() {
-    const { list } = this.props;
+    const { list, type } = this.props;
     return (
       <s.Container>
         <s.Table>
@@ -33,6 +26,12 @@ class ImageTable extends React.Component<Props> {
               <th>모바일</th>
               <th>하이퍼링크</th>
               <th>SEO 텍스트</th>
+              {type === 'news' && (
+                <>
+                  <th>제목</th>
+                  <th>내용</th>
+                </>
+              )}
               <th />
             </tr>
           </s.Head>
@@ -45,7 +44,7 @@ class ImageTable extends React.Component<Props> {
     );
   }
 
-  private Body = (value: DataInterface) => (
+  private Body = (value: ImageInterface) => (
     <tr key={value.id}>
       <td>{value.id}</td>
       <td>
@@ -58,6 +57,12 @@ class ImageTable extends React.Component<Props> {
       </td>
       <td>{value.href}</td>
       <td>{value.alt}</td>
+      {this.props.type === 'news' && (
+        <>
+          <td>{value.title}</td>
+          <td>{value.content}</td>
+        </>
+      )}
       <td>
         <s.ButtonWrapper>
           <s.EditButton onClick={e => this.handleEdit(e, value)}>
@@ -71,13 +76,12 @@ class ImageTable extends React.Component<Props> {
 
   private handleEdit = (
     e: React.FormEvent<HTMLButtonElement>,
-    value: DataInterface
+    value: ImageInterface
   ) => {
     e.preventDefault();
-    const { id, ...other } = value;
     this.props.showModal(
       '슬라이드 편집',
-      <ImageEdit id={id} type={this.props.type} value={other} />
+      <ImageEdit type={this.props.type} {...value} />
     );
   };
 }

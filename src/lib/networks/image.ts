@@ -1,12 +1,15 @@
 import axios from 'axios';
 
 export interface InputInterface {
-  alt: string;
-  href: string;
+  alt?: string;
+  href?: string;
   type?: 'slide' | 'news';
   id?: string;
   desktopSrc?: string;
   mobileSrc?: string;
+  // only on news
+  title?: string;
+  content?: string;
 }
 
 export interface ImageInterface {
@@ -16,6 +19,8 @@ export interface ImageInterface {
   mobileSrc: string;
   alt: string;
   href: string;
+  title?: string;
+  content?: string;
 }
 
 export const getSlides = async () => {

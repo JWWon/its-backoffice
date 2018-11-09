@@ -21,6 +21,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  margin-top: 2rem;
 `;
 
 export const SubmitButton = styled.button`
