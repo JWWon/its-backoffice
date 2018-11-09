@@ -118,11 +118,15 @@ class ImageEdit extends Component<Props, State> {
 
       const { href, alt, desktopSrc, mobileSrc } = this.state;
       const { id, type } = this.props;
-      const data: SubmitInterface = { type, href, alt, desktopSrc, mobileSrc };
+      const data: SubmitInterface = { href, alt };
       if (id) data.id = id;
+      else data.type = type;
+
+      if (desktopSrc) data.desktopSrc = desktopSrc;
+      if (mobileSrc) data.mobileSrc = mobileSrc;
 
       await updateImage(data);
-      alert('저장 완료!');
+      alert('저장 완료');
     } catch (e) {
       throw e;
     }

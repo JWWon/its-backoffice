@@ -5,12 +5,11 @@ interface LoginInterface {
   password: string;
 }
 
-export const login = async (loginData: LoginInterface) => {
+export const login = async (data: LoginInterface) => {
   try {
-    const data = JSON.stringify(loginData);
     const response = await axios.post('/signin', data);
     return response.data;
   } catch (e) {
-    throw 500;
+    throw e;
   }
 };

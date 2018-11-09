@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk';
-import 'lib/networks/axios';
+import setAxios from 'lib/networks/axios';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -33,6 +33,7 @@ class Core extends Component<Props> {
   }
 
   private initialize = async () => {
+    await setAxios();
     await this.syncStoreAuth();
     this.checkAuth();
   };

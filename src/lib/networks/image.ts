@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export interface InputInterface {
-  type: 'slide' | 'news';
   alt: string;
   href: string;
+  type?: 'slide' | 'news';
   id?: string;
   desktopSrc?: string;
   mobileSrc?: string;
@@ -39,9 +39,8 @@ export const getNews = async () => {
 export const updateImage = async (imgData: InputInterface) => {
   try {
     let response;
-
-    const data = JSON.stringify(imgData);
-    if (imgData.id) response = await axios.patch(`/images/${imgData.id}`, data);
+    const { id, ...data } = imgData;
+    if (id) response = await axios.patch(`/images/${id}`, data);
     else response = await axios.post('/images', data);
 
     return response.data;
