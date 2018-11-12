@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import * as s from './ImageTable.styled';
 
+import Table from 'components/base/Table';
 import ImageEdit from 'components/dashboard/ImageEdit';
 import { deleteImage, ImageInterface } from 'lib/networks/image';
 import { show } from 'store/modules/modal';
@@ -16,36 +17,22 @@ interface Props {
 class ImageTable extends React.Component<Props> {
   public render() {
     const { list, type } = this.props;
+    const header = ['번호', '데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
+    if (type === 'news') header.push('제목', '내용');
+
     return (
-      <s.Container>
-        <s.Table>
-          <s.Head>
-            <tr>
-              <th>번호</th>
-              <th>데스크탑</th>
-              <th>모바일</th>
-              <th>하이퍼링크</th>
-              <th>SEO 텍스트</th>
-              {type === 'news' && (
-                <>
-                  <th>제목</th>
-                  <th>내용</th>
-                </>
-              )}
-              <th />
-            </tr>
-          </s.Head>
-          <s.Body>
-            {list.map(this.Body)}
-            <tr />
-          </s.Body>
-        </s.Table>
-      </s.Container>
+      <Table
+        header={header}
+        list={list}
+        body={this.Body}
+        handleEdit={this.handleEdit}
+        handleDelete={this.handleDelete}
+      />
     );
   }
 
   private Body = (value: ImageInterface) => (
-    <tr key={value.id}>
+    <>
       <td>{value.id}</td>
       <td>
         <s.ImageDesktop
@@ -63,17 +50,7 @@ class ImageTable extends React.Component<Props> {
           <td>{value.content}</td>
         </>
       )}
-      <td>
-        <s.ButtonWrapper>
-          <s.EditButton onClick={e => this.handleEdit(e, value)}>
-            Edit
-          </s.EditButton>
-          <s.DeleteButton onClick={e => this.handleDelete(e, value.id)}>
-            Delete
-          </s.DeleteButton>
-        </s.ButtonWrapper>
-      </td>
-    </tr>
+    </>
   );
 
   private handleEdit = (
