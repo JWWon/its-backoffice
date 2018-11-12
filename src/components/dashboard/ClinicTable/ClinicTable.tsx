@@ -3,6 +3,7 @@ import { ClinicInterface } from 'lib/networks/clinic';
 import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 
+import Table from 'components/base/Table';
 import { show } from 'store/modules/modal';
 import * as s from './ClinicTable.styled';
 
@@ -17,31 +18,26 @@ class ClinicTable extends Component<Props> {
   public render() {
     const { list } = this.props;
     return (
-      <s.Container>
-        <s.Table>
-          <s.Head>
-            <tr>
-              <th>병원명</th>
-              <th>등급</th>
-              <th>자격증</th>
-              <th>연락처</th>
-              <th>등록일</th>
-              <th>누적 조회수</th>
-              <th>노출여부</th>
-              <th />
-            </tr>
-          </s.Head>
-          <s.Body>
-            {list.map(this.Body)}
-            <tr />
-          </s.Body>
-        </s.Table>
-      </s.Container>
+      <Table
+        header={[
+          '병원명',
+          '등급',
+          '자격증',
+          '연락처',
+          '등록일',
+          '누적 조회수',
+          '노출 여부',
+        ]}
+        body={this.Body}
+        list={list}
+        handleEdit={this.handleEdit}
+        handleDelete={this.handleDelete}
+      />
     );
   }
 
   private Body = (clinic: ClinicInterface) => (
-    <tr key={clinic.id}>
+    <>
       <td>{clinic.name}</td>
       <td>{this.parseGrade(clinic.grade)}</td>
       <td>
@@ -70,15 +66,7 @@ class ClinicTable extends Component<Props> {
       <td>{clinic.createdAt}</td>
       <td>{clinic.hits}</td>
       <td>{clinic.hidden ? 'false' : 'true'}</td>
-      <td>
-        <s.ButtonWrapper>
-          <s.EditButton onClick={e => this.handleEdit(e, clinic)}>
-            Edit
-          </s.EditButton>
-          <s.DeleteButton>Delete</s.DeleteButton>
-        </s.ButtonWrapper>
-      </td>
-    </tr>
+    </>
   );
 
   private parseGrade = (grade: number) => {
@@ -100,6 +88,14 @@ class ClinicTable extends Component<Props> {
   ) => {
     e.preventDefault();
     console.log(clinic);
+  };
+
+  private handleDelete = (
+    e: React.FormEvent<HTMLButtonElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+    console.log(id);
   };
 }
 
