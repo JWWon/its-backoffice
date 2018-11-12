@@ -53,3 +53,14 @@ export const updateImage = async (imgData: InputInterface) => {
     throw e;
   }
 };
+
+export const deleteImage = async (id: string) => {
+  try {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      await axios.delete(`/images/${id}`);
+      alert('삭제되었습니다');
+    }
+  } catch (e) {
+    throw e;
+  }
+};

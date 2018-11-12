@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as s from './ImageTable.styled';
 
 import ImageEdit from 'components/dashboard/ImageEdit';
-import { ImageInterface } from 'lib/networks/image';
+import { deleteImage, ImageInterface } from 'lib/networks/image';
 import { show } from 'store/modules/modal';
 
 interface Props {
@@ -68,7 +68,9 @@ class ImageTable extends React.Component<Props> {
           <s.EditButton onClick={e => this.handleEdit(e, value)}>
             Edit
           </s.EditButton>
-          <s.DeleteButton>Delete</s.DeleteButton>
+          <s.DeleteButton onClick={e => this.handleDelete(e, value.id)}>
+            Delete
+          </s.DeleteButton>
         </s.ButtonWrapper>
       </td>
     </tr>
@@ -83,6 +85,14 @@ class ImageTable extends React.Component<Props> {
       '슬라이드 편집',
       <ImageEdit type={this.props.type} {...value} />
     );
+  };
+
+  private handleDelete = (
+    e: React.FormEvent<HTMLButtonElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+    deleteImage(id);
   };
 }
 
