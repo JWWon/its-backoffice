@@ -1,5 +1,5 @@
 /* tslint:disable:jsx-no-lambda */
-import { ClinicInterface } from 'lib/networks/clinic';
+import { ClinicInterface, deleteClinic } from 'lib/networks/clinic';
 import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 
@@ -16,7 +16,8 @@ interface Props {
 
 class ClinicTable extends Component<Props> {
   public render() {
-    const { list } = this.props;
+    const { list, count } = this.props;
+    const pageLength = Math.ceil(count / 10);
     return (
       <Table
         header={[
@@ -32,6 +33,7 @@ class ClinicTable extends Component<Props> {
         list={list}
         handleEdit={this.handleEdit}
         handleDelete={this.handleDelete}
+        count={pageLength}
       />
     );
   }
@@ -95,7 +97,7 @@ class ClinicTable extends Component<Props> {
     id: string
   ) => {
     e.preventDefault();
-    console.log(id);
+    deleteClinic(id);
   };
 }
 

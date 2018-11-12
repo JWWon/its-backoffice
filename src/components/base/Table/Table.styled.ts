@@ -5,11 +5,12 @@ export const Container = styled.div`
   height: 100%;
   padding: ${({ theme }) => theme.space.narrow}rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Table = styled.table`
-  width: 100%;
-  height: 100%;
+  flex: 1;
   text-align: left;
   border-collapse: collapse;
   th,
@@ -40,7 +41,7 @@ export const Body = styled.tbody`
   font-weight: lighter;
   color: ${({ theme }) => theme.color.black};
   tr {
-    &:last-of-type {
+    &:nth-last-of-type(2) {
       td {
         border-bottom: none;
       }

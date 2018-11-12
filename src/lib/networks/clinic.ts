@@ -56,3 +56,14 @@ export const getList = async () => {
 // export const create = async () => {
 
 // }
+
+export const deleteClinic = async (id: string) => {
+  try {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      await axios.delete(`/clinics/${id}`);
+      alert('삭제되었습니다');
+    }
+  } catch (e) {
+    throw e;
+  }
+};
