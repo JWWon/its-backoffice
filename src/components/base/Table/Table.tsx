@@ -49,8 +49,10 @@ class Table extends Component<Props, State> {
             pageCount={count}
             breakLabel={<a href="">...</a>}
             pageRangeDisplayed={10}
-            marginPagesDisplayed={0}
+            marginPagesDisplayed={2}
             onPageChange={this.handlePageClick}
+            containerClassName="page-container"
+            pageClassName="page-item"
           />
         )}
       </s.Container>

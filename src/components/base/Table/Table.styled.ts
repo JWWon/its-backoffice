@@ -7,6 +7,24 @@ export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  .page-container {
+    align-self: center;
+    padding: 0;
+    li {
+      display: inline-block;
+      margin: 0 1.2rem;
+      font-size: ${({ theme }) => theme.font.small};
+    }
+  }
+  .page-item {
+    color: ${({ theme }) => theme.color.gray};
+  }
+  .disabled {
+    display: none !important;
+  }
+  .selected {
+    color: ${({ theme }) => theme.color.black};
+  }
 `;
 
 export const Table = styled.table`
