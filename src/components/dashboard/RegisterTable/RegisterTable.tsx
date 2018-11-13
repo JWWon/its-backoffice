@@ -45,20 +45,22 @@ const Body: React.SFC<RegisterInterface> = clinic => (
   </>
 );
 
-const handleEdit = (
-  e: React.FormEvent<HTMLButtonElement>,
-  clinic: RegisterInterface
-) => {
-  e.preventDefault();
-  console.log(clinic);
-};
-
-const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
-  e.preventDefault();
-};
-
+// Stateless Component
 const RegisterTable: React.SFC<Props> = ({ count, list, showModal }) => {
   const pageLength = Math.ceil(count / 10);
+
+  const handleEdit = (
+    e: React.FormEvent<HTMLButtonElement>,
+    clinic: RegisterInterface
+  ) => {
+    e.preventDefault();
+    console.log(clinic);
+  };
+
+  const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
+    e.preventDefault();
+  };
+
   return (
     <Table
       header={['병원명', '자격증', '연락처', '주소', '담당자', '담당자 연락처']}

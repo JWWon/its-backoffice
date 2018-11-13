@@ -1,6 +1,6 @@
 /* tslint:disable:jsx-no-lambda */
 import { ClinicInterface, deleteClinic } from 'lib/networks/clinic';
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 
 import Table from 'components/base/Table';
@@ -14,34 +14,24 @@ interface Props {
   showModal: (label: string, component: ReactNode) => void;
 }
 
-class ClinicTable extends Component<Props> {
-  public render() {
-    const { list, count } = this.props;
-    const pageLength = Math.ceil(count / 10);
-    return (
-      <Table
-        header={[
-          '병원명',
-          '등급',
-          '자격증',
-          '연락처',
-          '등록일',
-          '누적 조회수',
-          '노출 여부',
-        ]}
-        body={this.Body}
-        list={list}
-        handleEdit={this.handleEdit}
-        handleDelete={this.handleDelete}
-        count={pageLength}
-      />
-    );
-  }
+const Body = (clinic: ClinicInterface) => {
+  const parseGrade = (grade: number) => {
+    switch (grade) {
+      case 2:
+        return 'A';
+      case 1:
+        return 'B';
+      case 0:
+        return 'C';
+      default:
+        return 'D';
+    }
+  };
 
-  private Body = (clinic: ClinicInterface) => (
+  return (
     <>
       <td>{clinic.name}</td>
-      <td>{this.parseGrade(clinic.grade)}</td>
+      <td>{parseGrade(clinic.grade)}</td>
       <td>
         <s.CertifWrapper>
           <s.CertifIcon
@@ -70,21 +60,13 @@ class ClinicTable extends Component<Props> {
       <td>{clinic.hidden ? 'false' : 'true'}</td>
     </>
   );
+};
 
-  private parseGrade = (grade: number) => {
-    switch (grade) {
-      case 2:
-        return 'A';
-      case 1:
-        return 'B';
-      case 0:
-        return 'C';
-      default:
-        return 'D';
-    }
-  };
+// Stateless Component
+const ClinicTable: React.SFC<Props> = ({ count, list, showModal }) => {
+  const pageLength = Math.ceil(count / 10);
 
-  private handleEdit = (
+  const handleEdit = (
     e: React.FormEvent<HTMLButtonElement>,
     clinic: ClinicInterface
   ) => {
@@ -92,14 +74,30 @@ class ClinicTable extends Component<Props> {
     console.log(clinic);
   };
 
-  private handleDelete = (
-    e: React.FormEvent<HTMLButtonElement>,
-    id: string
-  ) => {
+  const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
     deleteClinic(id);
   };
-}
+
+  return (
+    <Table
+      header={[
+        '병원명',
+        '등급',
+        '자격증',
+        '연락처',
+        '등록일',
+        '누적 조회수',
+        '노출 여부',
+      ]}
+      body={Body}
+      list={list}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      count={pageLength}
+    />
+  );
+};
 
 export default connect(
   () => ({}),
