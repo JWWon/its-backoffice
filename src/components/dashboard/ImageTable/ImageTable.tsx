@@ -14,64 +14,55 @@ interface Props {
   showModal: (label: string, component: ReactNode) => void;
 }
 
-class ImageTable extends React.Component<Props> {
-  public render() {
-    const { list, type } = this.props;
-    const header = ['번호', '데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
-    if (type === 'news') header.push('제목', '내용');
+const ImageTable: React.SFC<Props> = ({ list, type, showModal }) => {
+  const header = ['번호', '데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
+  if (type === 'news') header.push('제목', '내용');
 
-    return (
-      <Table
-        header={header}
-        list={list}
-        body={this.Body}
-        handleEdit={this.handleEdit}
-        handleDelete={this.handleDelete}
-      />
-    );
-  }
-
-  private Body = (value: ImageInterface) => (
+  const Body = (image: ImageInterface) => (
     <>
-      <td>{value.id}</td>
+      <td>{image.id}</td>
       <td>
         <s.ImageDesktop
-          style={{ backgroundImage: `url(${value.desktopSrc})` }}
+          style={{ backgroundImage: `url(${image.desktopSrc})` }}
         />
       </td>
       <td>
-        <s.ImageMobile style={{ backgroundImage: `url(${value.mobileSrc})` }} />
+        <s.ImageMobile style={{ backgroundImage: `url(${image.mobileSrc})` }} />
       </td>
-      <td>{value.href}</td>
-      <td>{value.alt}</td>
-      {this.props.type === 'news' && (
+      <td>{image.href}</td>
+      <td>{image.alt}</td>
+      {type === 'news' && (
         <>
-          <td>{value.title}</td>
-          <td>{value.content}</td>
+          <td>{image.title}</td>
+          <td>{image.content}</td>
         </>
       )}
     </>
   );
 
-  private handleEdit = (
+  const handleEdit = (
     e: React.FormEvent<HTMLButtonElement>,
     value: ImageInterface
   ) => {
     e.preventDefault();
-    this.props.showModal(
-      '슬라이드 편집',
-      <ImageEdit type={this.props.type} {...value} />
-    );
+    showModal('슬라이드 편집', <ImageEdit type={type} {...value} />);
   };
 
-  private handleDelete = (
-    e: React.FormEvent<HTMLButtonElement>,
-    id: string
-  ) => {
+  const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
     deleteImage(id);
   };
-}
+
+  return (
+    <Table
+      header={header}
+      list={list}
+      body={Body}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+    />
+  );
+};
 
 export default connect(
   () => ({}),
