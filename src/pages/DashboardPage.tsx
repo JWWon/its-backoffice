@@ -18,6 +18,10 @@ const ClinicList = Loadable({
   loader: () => import('containers/dashboard/ClinicListContainer'),
   loading: Spinner,
 });
+const RegisterList = Loadable({
+  loader: () => import('containers/dashboard/ClinicRegistrationContainer'),
+  loading: Spinner,
+});
 const MainNews = Loadable({
   loader: () => import('../containers/dashboard/MainNewsContainer'),
   loading: Spinner,
@@ -49,8 +53,8 @@ class DashboardPage extends Component<RouteComponentProps> {
         return <MainNews params={match.params} />;
       case '/clinic/lists':
         return <ClinicList params={match.params} />;
-      case '/clinic/proposals':
-        return <ClinicList params={match.params} />;
+      case '/clinic/registrations':
+        return <RegisterList params={match.params} />;
       case '/notice/lists':
         return <NoticeList params={match.params} />;
       case '/other/about':

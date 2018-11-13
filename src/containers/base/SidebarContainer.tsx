@@ -32,7 +32,7 @@ class SidebarContainer extends Component<Props> {
         },
         {
           pageName: '입점 신청 목록',
-          link: '/clinic/proposals',
+          link: '/clinic/registrations',
         },
       ],
     },

@@ -4,7 +4,6 @@ import ReactPaginate from 'react-paginate';
 import * as s from './Table.styled';
 
 interface Data {
-  id: string;
   [x: string]: any;
 }
 

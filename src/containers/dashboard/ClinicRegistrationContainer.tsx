@@ -1,9 +1,9 @@
 import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 
-import ClinicTable from 'components/dashboard/ClinicTable';
+import RegisterTable from 'components/dashboard/RegisterTable';
 import Template from 'components/dashboard/Template';
-import { ClinicInterface, getCount, getList } from 'lib/networks/clinic';
+import { getRegistrations, RegisterInterface } from 'lib/networks/registration';
 import { IParams } from 'pages/DashboardPage';
 import { show } from 'store/modules/modal';
 
@@ -13,7 +13,7 @@ interface Props extends IParams {
 
 interface State {
   count: number;
-  list: ClinicInterface[];
+  list: RegisterInterface[];
 }
 
 class ClinicListContainer extends Component<Props, State> {
@@ -26,8 +26,8 @@ class ClinicListContainer extends Component<Props, State> {
   }
 
   public async componentDidMount() {
-    const count = await getCount();
-    const list = await getList();
+    const list = await getRegistrations();
+    const count = list.length;
     this.setState({ count, list });
   }
 
@@ -36,10 +36,10 @@ class ClinicListContainer extends Component<Props, State> {
 
     return (
       <Template
-        label={`병원 목록 (${count}개)`}
+        label={`입점 신청 목록 (${count}개)`}
         buttonText="생성하기"
         handleClick={this.handleClick}>
-        <ClinicTable count={count} list={list} />
+        <RegisterTable count={count} list={list} />
       </Template>
     );
   }
