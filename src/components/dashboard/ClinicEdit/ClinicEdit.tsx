@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import * as s from './ClinicEdit.styled';
 
+import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
 import { ClinicInterface, InputInterface } from 'lib/networks/clinic';
 
-class ClinicEdit extends Component<ClinicInterface, InputInterface> {
+class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
   public constructor(props: ClinicInterface) {
     super(props);
     const { association, invisalign, specialist } = props.certificates;
@@ -36,7 +37,6 @@ class ClinicEdit extends Component<ClinicInterface, InputInterface> {
           image: specialist.image || '',
         },
       },
-      hits: props.hits || 0,
       grade: props.grade || 0, // 2: A, 1: B, 0: C, -1: D
       hidden: props.hidden || false,
     };
@@ -95,13 +95,33 @@ class ClinicEdit extends Component<ClinicInterface, InputInterface> {
             handleChange={this.handleChange}
           />
         </s.RowWrapper>
+        <s.RowWrapper>
+          <InputObjects
+            label="영업시간"
+            name="timetable"
+            objs={this.state.timetable}
+            handleChange={this.handleObjChange}
+          />
+          <InputObjects
+            label="찾아오는길"
+            name="directions"
+            objs={this.state.directions}
+            handleChange={this.handleObjChange}
+          />
+        </s.RowWrapper>
       </s.Form>
     );
   }
 
   private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const { name, value } = e.currentTarget;
+    this.setState(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  private handleObjChange = (
+    name: string,
+    value: { [key: string]: string }
+  ) => {
     this.setState(prevState => ({ ...prevState, [name]: value }));
   };
 }

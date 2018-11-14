@@ -27,7 +27,6 @@ export interface InputInterface {
       image: string;
     };
   };
-  hits: number;
   grade: number; // 2: A, 1: B, 0: C, -1: D
   hidden: boolean;
 }
@@ -35,6 +34,7 @@ export interface InputInterface {
 export interface ClinicInterface extends InputInterface {
   id: string;
   createdAt: string;
+  hits: number;
 }
 
 export const getCount = async () => {

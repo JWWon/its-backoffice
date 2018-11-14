@@ -15,7 +15,7 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   width: 90rem;
-  max-height: 100%;
+  max-height: 92%;
   background: ${({ theme }) => theme.color.white};
   box-sizing: border-box;
   padding: ${({ theme }) => theme.space.narrow}rem;

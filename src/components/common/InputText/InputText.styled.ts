@@ -7,7 +7,7 @@ export const Container = styled.div`
 export const Label = styled.h5`
   font-size: ${({ theme }) => theme.font.normal};
   color: ${({ theme }) => theme.color.darkGray};
-  margin-bottom: ${({ theme }) => theme.space.normal}rem;
+  margin-bottom: ${({ theme }) => theme.space.small}rem;
 `;
 
 export const Input = styled.input.attrs({
