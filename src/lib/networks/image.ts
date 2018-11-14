@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export interface InputInterface {
+  id?: string;
+  type?: 'slide' | 'news';
   alt?: string;
   href?: string;
-  type?: 'slide' | 'news';
-  id?: string;
   desktopSrc?: string;
   mobileSrc?: string;
   // only on news
@@ -15,10 +15,11 @@ export interface InputInterface {
 export interface ImageInterface {
   id: string; // Primary key
   type: 'slide' | 'news';
-  desktopSrc: string;
-  mobileSrc: string;
   alt: string;
   href: string;
+  desktopSrc: string;
+  mobileSrc: string;
+  // only on news
   title?: string;
   content?: string;
 }

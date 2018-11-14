@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 
 import Table from 'components/base/Table';
+import ClinicEdit from 'components/dashboard/ClinicEdit';
 import { show } from 'store/modules/modal';
 import * as s from './ClinicTable.styled';
 
@@ -71,7 +72,7 @@ const ClinicTable: React.SFC<Props> = ({ count, list, showModal }) => {
     clinic: ClinicInterface
   ) => {
     e.preventDefault();
-    console.log(clinic);
+    showModal('병원 편집', <ClinicEdit {...clinic} />);
   };
 
   const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
