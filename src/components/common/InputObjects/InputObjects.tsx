@@ -43,23 +43,23 @@ class InputObjects extends Component<Props, State> {
 
   private handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const { objs } = this.state;
-    this.setState({ objs: { ...objs, ['제목']: '' } });
+    this.setState({ objs: { ...this.state.objs, ['']: '' } });
   };
 
-  private handleObjChange = (obj: Param) => {
-    const { objs, name, handleChange } = this.props;
-    const nextObjs = {};
+  private handleObjChange = async (obj: Param) => {
+    const { name, handleChange } = this.props;
+    const objs = {};
 
-    Object.keys(objs).forEach((key, index) => {
+    Object.keys(this.state.objs).forEach((key, index) => {
       if (index === obj.index) {
-        nextObjs[obj.objKey] = obj.objValue;
+        objs[obj.objKey] = obj.objValue;
       } else {
-        nextObjs[key] = objs[key];
+        objs[key] = this.state.objs[key];
       }
     });
 
-    handleChange(name, nextObjs);
+    await this.setState({ objs });
+    handleChange(name, this.state.objs);
   };
 }
 
