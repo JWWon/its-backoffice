@@ -3,6 +3,7 @@ import * as s from './ClinicEdit.styled';
 
 import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
+import Select from 'components/common/Select';
 import { ClinicInterface, InputInterface } from 'lib/networks/clinic';
 
 class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
@@ -52,11 +53,17 @@ class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
             value={this.state.name}
             handleChange={this.handleChange}
           />
-          <InputText
-            label="랜드마크"
-            name="landmark"
-            value={this.state.landmark}
-            handleChange={this.handleChange}
+          <Select
+            label="등급"
+            name="grade"
+            value={this.state.grade}
+            options={[
+              { value: 2, name: 'A' },
+              { value: 1, name: 'B' },
+              { value: 0, name: 'C' },
+              { value: -1, name: 'D' },
+            ]}
+            handleChange={this.handleSelectChange}
           />
         </s.RowWrapper>
         <s.RowWrapper>
@@ -78,6 +85,12 @@ class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
             label="주소"
             name="address"
             value={this.state.address}
+            handleChange={this.handleChange}
+          />
+          <InputText
+            label="랜드마크"
+            name="landmark"
+            value={this.state.landmark}
             handleChange={this.handleChange}
           />
         </s.RowWrapper>
@@ -114,6 +127,11 @@ class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
   }
 
   private handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    this.setState(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  private handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.currentTarget;
     this.setState(prevState => ({ ...prevState, [name]: value }));
   };
