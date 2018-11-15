@@ -56,7 +56,6 @@ export const getList = async () => {
 };
 
 // export const create = async () => {
-
 // }
 
 export const deleteClinic = async (id: string) => {

@@ -1,4 +1,4 @@
-import ic_delete from 'lib/icons/ic_delete.svg';
+import icClose from 'lib/icons/ic_close.svg';
 import styled from 'styled-components';
 
 export const Background = styled.div`
@@ -36,7 +36,7 @@ export const Label = styled.h2`
 `;
 
 export const DismissButton = styled.button`
-  background: url(${ic_delete});
+  background: url(${icClose});
   width: 2.4rem;
   height: 2.4rem;
   border: none;

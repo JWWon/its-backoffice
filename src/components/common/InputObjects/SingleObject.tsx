@@ -12,9 +12,22 @@ export interface Param extends State {
 
 interface ObjectInterface extends Param {
   handleObjChange: (obj: Param) => void;
+  handleObjDelete: (index: number) => void;
 }
 
 class SingleObject extends Component<ObjectInterface, State> {
+  public static getDerivedStateFromProps(
+    nextProps: ObjectInterface,
+    prevState: State
+  ) {
+    const { objKey, objValue } = nextProps;
+    if (objKey !== prevState.objKey && objValue !== prevState.objValue) {
+      console.log('triggered');
+      return { objKey, objValue };
+    }
+    return null;
+  }
+
   public constructor(props: ObjectInterface) {
     super(props);
     this.state = {
@@ -38,6 +51,9 @@ class SingleObject extends Component<ObjectInterface, State> {
           value={this.state.objValue}
           onChange={this.handleChange}
         />
+        <s.Delete onClick={this.handleDelete}>
+          <s.DeleteIcon />
+        </s.Delete>
       </s.InputContainer>
     );
   }
@@ -48,6 +64,11 @@ class SingleObject extends Component<ObjectInterface, State> {
     await this.setState(prevState => ({ ...prevState, [name]: value }));
 
     handleObjChange({ ...this.state, index });
+  };
+
+  private handleDelete = () => {
+    const { handleObjDelete, index } = this.props;
+    handleObjDelete(index);
   };
 }
 
