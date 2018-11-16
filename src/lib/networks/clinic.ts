@@ -29,6 +29,7 @@ export interface InputInterface {
   };
   grade: number; // 2: A, 1: B, 0: C, -1: D
   hidden: boolean;
+  tags: string[];
 }
 
 export interface SubmitInterface extends InputInterface {

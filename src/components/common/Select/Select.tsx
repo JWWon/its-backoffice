@@ -14,10 +14,16 @@ interface Props {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Select: React.SFC<Props> = ({ label, options, value, handleChange }) => (
+const Select: React.SFC<Props> = ({
+  label,
+  name,
+  options,
+  value,
+  handleChange,
+}) => (
   <s.Container>
     <s.Label>{label}</s.Label>
-    <select onChange={handleChange} defaultValue={value.toString()}>
+    <select name={name} onChange={handleChange} defaultValue={value.toString()}>
       {options.map(option => (
         <option key={option.value} value={option.value}>
           {option.name}

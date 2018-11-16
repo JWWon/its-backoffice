@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import * as s from './ClinicEdit.styled';
 import InputSpecialist from './InputSpecialist';
 
+import InputArray from 'components/common/InputArray';
 import InputImage from 'components/common/InputImage';
 import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
@@ -63,6 +64,7 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
       },
       grade: props.grade || 0, // 2: A, 1: B, 0: C, -1: D
       hidden: props.hidden || false,
+      tags: props.tags || [],
     };
   }
 
@@ -151,6 +153,12 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
             value={specialist}
             handleChange={this.handleSpecialistChange}
           />
+          <InputArray
+            label="키워드"
+            name="tags"
+            value={this.state.tags}
+            handleChange={this.handleArrayChange}
+          />
         </s.RowWrapper>
         <s.RowWrapper>
           <InputImage
@@ -187,6 +195,17 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
 
   private handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.currentTarget;
+    this.setState(prevState => ({ ...prevState, [name]: parseInt(value, 10) }));
+  };
+
+  private handleArrayChange = (name: string, value: string[]) => {
+    this.setState(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  private handleObjChange = (
+    name: string,
+    value: { [key: string]: string }
+  ) => {
     this.setState(prevState => ({ ...prevState, [name]: value }));
   };
 
@@ -203,13 +222,6 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
         };
       })
     );
-  };
-
-  private handleObjChange = (
-    name: string,
-    value: { [key: string]: string }
-  ) => {
-    this.setState(prevState => ({ ...prevState, [name]: value }));
   };
 
   private handleImageChange = (e: React.ChangeEvent<any>) => {

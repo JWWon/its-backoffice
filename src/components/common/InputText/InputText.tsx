@@ -4,8 +4,8 @@ import * as s from './InputText.styled';
 interface Props {
   label: string;
   name: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   [x: string]: any;
 }
 

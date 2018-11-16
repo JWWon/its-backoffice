@@ -25,7 +25,17 @@ class Table extends Component<Props, State> {
 
   public render() {
     const { header, count, list } = this.props;
-    const slicedList = count ? list.slice(this.state.startNum, 10) : list;
+    let slicedList;
+    if (count) {
+      const startCount = this.state.startNum * 10;
+      if (count === this.state.startNum + 1) {
+        slicedList = list.slice(startCount, list.length);
+      } else {
+        slicedList = list.slice(startCount, startCount + 10);
+      }
+    } else {
+      slicedList = list;
+    }
 
     return (
       <s.Container>
