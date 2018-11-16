@@ -23,10 +23,10 @@ interface State extends InputInterface {
   };
 }
 
-class ClinicEdit extends Component<ClinicInterface, State> {
+class ClinicEdit extends Component<ClinicInterface | any, State> {
   public constructor(props: ClinicInterface) {
     super(props);
-    const { association, invisalign, specialist } = props.certificates;
+    const certificates = props.certificates || null;
 
     this.state = {
       name: props.name || '',
@@ -40,19 +40,19 @@ class ClinicEdit extends Component<ClinicInterface, State> {
       directions: props.directions || {},
       certificates: {
         association: {
-          image: association.image || '',
+          image: certificates ? certificates.association.image : '',
         },
         invisalign: {
-          image: invisalign.image || '',
+          image: certificates ? certificates.invisalign.image : '',
         },
         specialist: {
-          chief: specialist.chief || '',
-          school: specialist.school || '',
+          chief: certificates ? certificates.specialist.chief : '',
+          school: certificates ? certificates.specialist.school : '',
           period: {
-            startAt: specialist.period.startAt || '',
-            endAt: specialist.period.endAt || '',
+            startAt: certificates ? certificates.specialist.period.startAt : '',
+            endAt: certificates ? certificates.specialist.period.endAt : '',
           },
-          image: specialist.image || '',
+          image: certificates ? certificates.specialist.image : '',
         },
       },
       files: {
@@ -200,13 +200,20 @@ class ClinicEdit extends Component<ClinicInterface, State> {
 
   private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { files, ...other } = this.state;
-    const { id } = this.props;
-
     try {
-      if (files.specialist) this.uploadImage(files.specialist, 'specialist');
-      if (files.association) this.uploadImage(files.association, 'association');
-      if (files.invisalign) this.uploadImage(files.invisalign, 'invisalign');
+      const prevFiles = this.state.files;
+      if (prevFiles.specialist) {
+        await this.uploadImage(prevFiles.specialist, 'specialist');
+      }
+      if (prevFiles.association) {
+        await this.uploadImage(prevFiles.association, 'association');
+      }
+      if (prevFiles.invisalign) {
+        await this.uploadImage(prevFiles.invisalign, 'invisalign');
+      }
+
+      const { files, ...other } = this.state;
+      const { id } = this.props;
 
       const data: SubmitInterface = { ...other };
       // ** APPEND REQUEST DATA

@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { connect } from 'react-redux';
 
+import ClinicEdit from 'components/dashboard/ClinicEdit';
 import ClinicTable from 'components/dashboard/ClinicTable';
 import Template from 'components/dashboard/Template';
 import { ClinicInterface, getCount, getList } from 'lib/networks/clinic';
@@ -46,7 +47,7 @@ class ClinicListContainer extends Component<Props, State> {
 
   private handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    this.props.showModal('병원 생성', <div />);
+    this.props.showModal('병원 생성', <ClinicEdit />);
   };
 }
 
