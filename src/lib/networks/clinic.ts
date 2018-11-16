@@ -54,7 +54,22 @@ export const getCount = async () => {
 export const getList = async () => {
   try {
     const response = await axios.get('/clinics');
-    return response.data;
+    const data: ClinicInterface[] = response.data;
+    // 오름차순 정렬
+    data.sort((x, y) => (x.name < y.name ? -1 : x.name > y.name ? 1 : 0));
+    return data;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const searchList = async (keyword: string) => {
+  try {
+    const response = await axios.get('/clinics', { params: { keyword } });
+    const data: ClinicInterface[] = response.data;
+    // 오름차순 정렬
+    data.sort((x, y) => (x.name < y.name ? -1 : x.name > y.name ? 1 : 0));
+    return data;
   } catch (e) {
     throw e;
   }

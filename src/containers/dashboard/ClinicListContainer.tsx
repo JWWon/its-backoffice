@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import ClinicEdit from 'components/dashboard/ClinicEdit';
 import ClinicTable from 'components/dashboard/ClinicTable';
 import Template from 'components/dashboard/Template';
-import { ClinicInterface, getCount, getList } from 'lib/networks/clinic';
+import {
+  ClinicInterface,
+  getCount,
+  getList,
+  searchList,
+} from 'lib/networks/clinic';
 import { IParams } from 'pages/DashboardPage';
 import { show } from 'store/modules/modal';
 
@@ -14,6 +19,7 @@ interface Props extends IParams {
 
 interface State {
   count: number;
+  search: string;
   list: ClinicInterface[];
 }
 
@@ -22,6 +28,7 @@ class ClinicListContainer extends Component<Props, State> {
     super(props);
     this.state = {
       count: 0,
+      search: '',
       list: [],
     };
   }
@@ -33,13 +40,15 @@ class ClinicListContainer extends Component<Props, State> {
   }
 
   public render() {
-    const { count, list } = this.state;
-
+    const { count, list, search } = this.state;
     return (
       <Template
         label={`병원 목록 (${count}개)`}
         buttonText="생성하기"
-        handleClick={this.handleClick}>
+        search={search}
+        handleClick={this.handleClick}
+        handleSearch={this.handleSearch}
+        handleSubmit={this.handleSubmit}>
         <ClinicTable count={count} list={list} />
       </Template>
     );
@@ -48,6 +57,17 @@ class ClinicListContainer extends Component<Props, State> {
   private handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     this.props.showModal('병원 생성', <ClinicEdit />);
+  };
+
+  private handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    this.setState({ search: e.currentTarget.value });
+  };
+
+  private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const list = await searchList(this.state.search);
+    this.setState({ list, count: list.length, search: '' });
   };
 }
 

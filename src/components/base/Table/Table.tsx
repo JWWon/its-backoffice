@@ -57,7 +57,7 @@ class Table extends Component<Props, State> {
           <ReactPaginate
             pageCount={count}
             breakLabel={<a href="">...</a>}
-            pageRangeDisplayed={10}
+            pageRangeDisplayed={8}
             marginPagesDisplayed={2}
             onPageChange={this.handlePageClick}
             containerClassName="page-container"

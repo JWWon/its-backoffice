@@ -27,7 +27,8 @@ export interface ImageInterface {
 export const getSlides = async () => {
   try {
     const response = await axios.get('/images', { params: { type: 'slide' } });
-    return response.data;
+    const data: ImageInterface[] = response.data;
+    return data;
   } catch (e) {
     throw e;
   }
@@ -36,7 +37,8 @@ export const getSlides = async () => {
 export const getNews = async () => {
   try {
     const response = await axios.get('/images', { params: { type: 'news' } });
-    return response.data;
+    const data: ImageInterface[] = response.data;
+    return data;
   } catch (e) {
     throw e;
   }
