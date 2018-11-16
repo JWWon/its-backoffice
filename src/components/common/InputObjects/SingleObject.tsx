@@ -22,7 +22,6 @@ class SingleObject extends Component<ObjectInterface, State> {
   ) {
     const { objKey, objValue } = nextProps;
     if (objKey !== prevState.objKey && objValue !== prevState.objValue) {
-      console.log('triggered');
       return { objKey, objValue };
     }
     return null;

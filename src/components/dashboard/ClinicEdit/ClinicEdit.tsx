@@ -195,7 +195,6 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
     school: string;
     period: { startAt: string; endAt: string };
   }) => {
-    console.log(data);
     this.setState(state =>
       produce(state, draft => {
         draft.certificates.specialist = {

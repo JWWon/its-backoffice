@@ -54,7 +54,6 @@ const RegisterTable: React.SFC<Props> = ({ count, list, showModal }) => {
     clinic: RegisterInterface
   ) => {
     e.preventDefault();
-    console.log(clinic);
   };
 
   const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {

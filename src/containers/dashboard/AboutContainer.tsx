@@ -1,4 +1,4 @@
-import { convertToRaw, EditorState } from 'draft-js';
+import { EditorState } from 'draft-js';
 import React, { Component } from 'react';
 
 import Template from 'components/dashboard/Template';
@@ -44,10 +44,9 @@ class AboutContainer extends Component<IParams, State> {
 
   private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const contentHTML = convertToRaw(
-      this.state.editorState.getCurrentContent()
-    );
-    console.log(contentHTML);
+    // const contentHTML = convertToRaw(
+    //   this.state.editorState.getCurrentContent()
+    // );
     if (false) {
       deleteState(MAIN_ABOUT);
     }

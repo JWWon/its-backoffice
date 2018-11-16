@@ -57,7 +57,6 @@ class TextEditor extends Component<Props> {
   private handleUploadImage = (file: FileList) =>
     new Promise<any>((resolve, reject) => {
       const previewSrc = URL.createObjectURL(file);
-      console.log(previewSrc);
       const response = { data: { link: previewSrc } };
       resolve(response);
     });
