@@ -1,12 +1,29 @@
+import AWS from 'aws-sdk';
+import produce from 'immer';
 import React, { Component } from 'react';
+
 import * as s from './ClinicEdit.styled';
 
+import InputImage from 'components/common/InputImage';
 import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
 import Select from 'components/common/Select';
-import { ClinicInterface, InputInterface } from 'lib/networks/clinic';
+import {
+  ClinicInterface,
+  InputInterface,
+  SubmitInterface,
+  updateClinic,
+} from 'lib/networks/clinic';
 
-class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
+interface State extends InputInterface {
+  files: {
+    association: File | null;
+    specialist: File | null;
+    invisalign: File | null;
+  };
+}
+
+class ClinicEdit extends Component<ClinicInterface, State> {
   public constructor(props: ClinicInterface) {
     super(props);
     const { association, invisalign, specialist } = props.certificates;
@@ -38,14 +55,20 @@ class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
           image: specialist.image || '',
         },
       },
+      files: {
+        association: null,
+        specialist: null,
+        invisalign: null,
+      },
       grade: props.grade || 0, // 2: A, 1: B, 0: C, -1: D
       hidden: props.hidden || false,
     };
   }
 
   public render() {
+    const { specialist, invisalign, association } = this.state.certificates;
     return (
-      <s.Form>
+      <s.Form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
           <InputText
             label="병원명"
@@ -122,6 +145,29 @@ class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
             handleChange={this.handleObjChange}
           />
         </s.RowWrapper>
+        <s.RowWrapper>
+          <InputImage
+            label="치과교정전문의"
+            name="specialist"
+            defaultSrc={specialist.image}
+            handleImageChange={this.handleImageChange}
+          />
+          <InputImage
+            label="대한치과교정학회"
+            name="association"
+            defaultSrc={association.image}
+            handleImageChange={this.handleImageChange}
+          />
+          <InputImage
+            label="인비절라인인증의"
+            name="invisalign"
+            defaultSrc={invisalign.image}
+            handleImageChange={this.handleImageChange}
+          />
+        </s.RowWrapper>
+        <s.ButtonWrapper>
+          <s.SubmitButton>등록</s.SubmitButton>
+        </s.ButtonWrapper>
       </s.Form>
     );
   }
@@ -142,6 +188,64 @@ class ClinicEdit extends Component<ClinicInterface | {}, InputInterface> {
   ) => {
     this.setState(prevState => ({ ...prevState, [name]: value }));
   };
+
+  private handleImageChange = (e: React.ChangeEvent<any>) => {
+    const { name, files } = e.target;
+    this.setState(state =>
+      produce(state, draft => {
+        draft.files[name] = files[0];
+      })
+    );
+  };
+
+  private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { files, ...other } = this.state;
+    const { id } = this.props;
+
+    try {
+      if (files.specialist) this.uploadImage(files.specialist, 'specialist');
+      if (files.association) this.uploadImage(files.association, 'association');
+      if (files.invisalign) this.uploadImage(files.invisalign, 'invisalign');
+
+      const data: SubmitInterface = { ...other };
+      // ** APPEND REQUEST DATA
+      if (id) data.id = id;
+      // ** APPEND DATA END
+
+      await updateClinic(data);
+      alert('저장 완료');
+    } catch (e) {
+      throw e;
+    }
+  };
+
+  private uploadImage = (file: File, srcType: string) =>
+    new Promise((resolve, reject) => {
+      const bucket = new AWS.S3();
+      const params = {
+        Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME || '',
+        Key: `clinic/${this.state.name}/${srcType}/${file.name}`,
+        ContentType: file.type,
+        Body: file,
+        ACL: 'public-read',
+      };
+
+      bucket
+        .upload(params)
+        .on('httpUploadProgress', evt => {
+          console.log((evt.loaded * 100) / evt.total);
+        })
+        .send(async (e: any, data: { Location: string }) => {
+          if (e) throw e;
+          await this.setState(state =>
+            produce(state, draft => {
+              draft.certificates[srcType].image = data.Location;
+            })
+          );
+          resolve(data.Location);
+        });
+    });
 }
 
 export default ClinicEdit;
