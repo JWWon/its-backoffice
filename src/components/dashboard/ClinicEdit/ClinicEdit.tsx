@@ -3,6 +3,7 @@ import produce from 'immer';
 import React, { Component } from 'react';
 
 import * as s from './ClinicEdit.styled';
+import InputSpecialist from './InputSpecialist';
 
 import InputImage from 'components/common/InputImage';
 import InputObjects from 'components/common/InputObjects';
@@ -146,6 +147,12 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
           />
         </s.RowWrapper>
         <s.RowWrapper>
+          <InputSpecialist
+            value={specialist}
+            handleChange={this.handleSpecialistChange}
+          />
+        </s.RowWrapper>
+        <s.RowWrapper>
           <InputImage
             label="치과교정전문의"
             name="specialist"
@@ -165,6 +172,7 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
             handleImageChange={this.handleImageChange}
           />
         </s.RowWrapper>
+
         <s.ButtonWrapper>
           <s.SubmitButton>등록</s.SubmitButton>
         </s.ButtonWrapper>
@@ -180,6 +188,22 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
   private handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.currentTarget;
     this.setState(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  private handleSpecialistChange = (data: {
+    chief: string;
+    school: string;
+    period: { startAt: string; endAt: string };
+  }) => {
+    console.log(data);
+    this.setState(state =>
+      produce(state, draft => {
+        draft.certificates.specialist = {
+          ...draft.certificates.specialist,
+          ...data,
+        };
+      })
+    );
   };
 
   private handleObjChange = (
