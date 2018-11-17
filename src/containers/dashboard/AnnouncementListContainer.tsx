@@ -1,6 +1,7 @@
 import withModal, { ModalInterface } from 'containers/base/withModal';
 import React, { Component } from 'react';
 
+import AnnouncementEdit from 'components/dashboard/AnnouncementEdit';
 import AnnouncementTable from 'components/dashboard/AnnouncementTable';
 import Template from 'components/dashboard/Template';
 import {
@@ -31,10 +32,11 @@ class AnnouncementListContainer extends Component<ModalInterface, State> {
     const { count, list, search } = this.state;
     return (
       <Template
-        label={`잇츠교정의 선물 (${count}개)`}
+        label={`잇츠교정의 선물`}
+        count={count}
         buttonText="생성하기"
-        search={search}
         handleClick={this.handleClick}
+        search={search}
         handleSearch={this.handleSearch}
         handleSubmit={this.handleSubmit}>
         <AnnouncementTable count={count} list={list} />
@@ -44,7 +46,7 @@ class AnnouncementListContainer extends Component<ModalInterface, State> {
 
   private handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // this.props.showModal('병원 생성', <ClinicEdit />);
+    this.props.showModal('잇츠교정의 선물 생성', <AnnouncementEdit />);
   };
 
   private handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

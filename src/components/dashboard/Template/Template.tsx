@@ -31,7 +31,7 @@ const Template: React.SFC<Props> = ({
       <s.TextWrapper>
         <s.Label>
           {label}
-          {count ? `(${count}개)` : ''}
+          {count ? ` (${count}개)` : ''}
         </s.Label>
         {message && <s.Message>{message}</s.Message>}
       </s.TextWrapper>

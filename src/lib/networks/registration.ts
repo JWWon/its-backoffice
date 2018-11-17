@@ -20,7 +20,6 @@ export interface RegisterInterface {
 export const getRegistrations = async () => {
   try {
     const response = await axios.get('/registrations');
-    console.log(response.data);
     return response.data;
   } catch (e) {
     throw e;

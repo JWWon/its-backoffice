@@ -12,6 +12,7 @@ interface Props {
 
 class TextEditor extends Component<Props> {
   public render() {
+    const { editorState, handleChange } = this.props;
     const toolbar = {
       options: [
         'inline',
@@ -44,10 +45,10 @@ class TextEditor extends Component<Props> {
 
     return (
       <Editor
+        editorState={editorState}
         wrapperClassName="wrapperClass"
         editorClassName="editorClass"
-        editorState={this.props.editorState}
-        onEditorStateChange={this.props.handleChange}
+        onEditorStateChange={handleChange}
         localization={{ locale: 'ko' }}
         toolbar={toolbar}
       />

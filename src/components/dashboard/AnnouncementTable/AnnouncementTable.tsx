@@ -5,6 +5,7 @@ import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 
 import Table from 'components/base/Table';
+import AnnouncementEdit from 'components/dashboard/AnnouncementEdit';
 import {
   AnnouncementInterface,
   deleteAnnouncement,
@@ -25,12 +26,14 @@ const Body = (announcement: AnnouncementInterface) => (
 );
 
 const AnnouncementTable: React.SFC<Props> = ({ count, list, showModal }) => {
+  const pageLength = Math.ceil(count / 10);
+
   const handleEdit = (
     e: React.FormEvent<HTMLButtonElement>,
     announcement: AnnouncementInterface
   ) => {
     e.preventDefault();
-    showModal('잇츠교정의 선물 편집', <div />);
+    showModal('잇츠교정의 선물 편집', <AnnouncementEdit {...announcement} />);
   };
 
   const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
@@ -43,7 +46,7 @@ const AnnouncementTable: React.SFC<Props> = ({ count, list, showModal }) => {
       header={['고유번호', '제목', '생성일']}
       body={Body}
       list={list}
-      count={count}
+      count={pageLength}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
     />

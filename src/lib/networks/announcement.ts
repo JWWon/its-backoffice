@@ -1,9 +1,17 @@
 import axios from 'axios';
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
-export interface AnnouncementInterface {
-  id: string;
+export interface InputInterface {
   title: string;
-  content: string;
+  content: EditorState;
+}
+
+export interface SubmitInterface extends InputInterface {
+  id?: string;
+}
+
+export interface AnnouncementInterface extends InputInterface {
+  id: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -11,23 +19,36 @@ export interface AnnouncementInterface {
 export const getAnnouncement = async () => {
   try {
     const response = await axios.get('/announcements');
-    const data: AnnouncementInterface[] = response.data;
-    return data;
+    const data: any[] = response.data;
+    const nextData: AnnouncementInterface[] = data.map(item => {
+      if (item.content) {
+        const contentState = JSON.parse(item.content);
+        const editorState = convertFromRaw(contentState);
+        item.content = EditorState.createWithContent(editorState);
+      }
+      return item;
+    });
+    return nextData;
   } catch (e) {
     throw e;
   }
 };
 
-export const updateAnnouncement = async (
-  announcementData: AnnouncementInterface
-) => {
+export const updateAnnouncement = async (announcementData: SubmitInterface) => {
   try {
     const { id, ...data } = announcementData;
+    const contentState = data.content.getCurrentContent();
+    const nextData: any = {
+      title: data.title,
+      content: JSON.stringify(convertToRaw(contentState)),
+    };
+
+    console.log(nextData);
     let response;
     if (id) {
-      response = await axios.patch(`/announcement/${id}`, data);
+      response = await axios.patch(`/announcements/${id}`, nextData);
     } else {
-      response = await axios.post('/announcement', data);
+      response = await axios.post('/announcements', nextData);
     }
     alert('저장되었습니다');
     return response.data;

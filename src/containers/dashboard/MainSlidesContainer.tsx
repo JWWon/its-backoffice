@@ -22,7 +22,7 @@ class MainSlidesContainer extends Component<ModalInterface, State> {
     const { list } = this.state;
     return (
       <Template
-        label="슬라이드 목록"
+        label="슬라이드"
         buttonText="생성하기"
         count={list.length}
         handleClick={this.handleCreate}>
