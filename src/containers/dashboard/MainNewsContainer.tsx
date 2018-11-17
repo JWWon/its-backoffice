@@ -1,22 +1,16 @@
-import React, { Component, ReactNode } from 'react';
-import { connect } from 'react-redux';
+import withModal, { ModalInterface } from 'containers/base/withModal';
+import React, { Component } from 'react';
 
 import ImageEdit from 'components/dashboard/ImageEdit';
 import ImageTable from 'components/dashboard/ImageTable';
 import Template from 'components/dashboard/Template';
 import { getNews, ImageInterface } from 'lib/networks/image';
-import { IParams } from 'pages/DashboardPage';
-import { show } from 'store/modules/modal';
-
-interface Props extends IParams {
-  showModal: (label: string, component: ReactNode) => void;
-}
 
 interface State {
   list: ImageInterface[];
 }
 
-class MainNews extends Component<Props, State> {
+class MainNews extends Component<ModalInterface, State> {
   public state: State = { list: [] };
 
   public async componentDidMount() {
@@ -43,10 +37,4 @@ class MainNews extends Component<Props, State> {
   };
 }
 
-export default connect(
-  () => ({}),
-  dispatch => ({
-    showModal: (label: string, component: ReactNode) =>
-      show(label, component)(dispatch),
-  })
-)(MainNews);
+export default withModal(MainNews);

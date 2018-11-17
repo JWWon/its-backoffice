@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import Template from 'components/dashboard/Template';
 import TextEditor from 'components/dashboard/TextEditor';
 import { deleteState, loadState, saveState } from 'lib/storage/editor';
-import { IParams } from 'pages/DashboardPage';
 
 const MAIN_ABOUT = 'MAIN_ABOUT';
 
@@ -12,8 +11,8 @@ interface State {
   editorState: EditorState;
 }
 
-class AboutContainer extends Component<IParams, State> {
-  public constructor(props: IParams) {
+class AboutContainer extends Component<{}, State> {
+  public constructor(props: {}) {
     super(props);
     const editor = loadState(MAIN_ABOUT);
     if (editor) {

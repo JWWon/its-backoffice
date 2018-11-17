@@ -1,23 +1,17 @@
-import React, { Component, ReactNode } from 'react';
-import { connect } from 'react-redux';
+import withModal, { ModalInterface } from 'containers/base/withModal';
+import React, { Component } from 'react';
 
 import RegisterTable from 'components/dashboard/RegisterTable';
 import Template from 'components/dashboard/Template';
 import { getRegistrations, RegisterInterface } from 'lib/networks/registration';
-import { IParams } from 'pages/DashboardPage';
-import { show } from 'store/modules/modal';
-
-interface Props extends IParams {
-  showModal: (label: string, component: ReactNode) => void;
-}
 
 interface State {
   count: number;
   list: RegisterInterface[];
 }
 
-class ClinicListContainer extends Component<Props, State> {
-  public constructor(props: Props) {
+class ClinicListContainer extends Component<ModalInterface, State> {
+  public constructor(props: ModalInterface) {
     super(props);
     this.state = {
       count: 0,
@@ -50,10 +44,4 @@ class ClinicListContainer extends Component<Props, State> {
   };
 }
 
-export default connect(
-  () => ({}),
-  dispatch => ({
-    showModal: (label: string, component: ReactNode) =>
-      show(label, component)(dispatch),
-  })
-)(ClinicListContainer);
+export default withModal(ClinicListContainer);

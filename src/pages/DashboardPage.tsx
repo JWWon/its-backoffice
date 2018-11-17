@@ -8,11 +8,6 @@ export interface Param {
   type: 'main' | 'clinic' | 'notice' | 'other';
   detail: string;
 }
-export interface IParams {
-  params: {
-    [key: string]: Param;
-  };
-}
 
 const ClinicList = Loadable({
   loader: () => import('containers/dashboard/ClinicListContainer'),
@@ -45,22 +40,22 @@ const Footer = Loadable({
 
 class DashboardPage extends Component<RouteComponentProps> {
   public render() {
-    const { location, match } = this.props;
+    const { location } = this.props;
     switch (location.pathname) {
       case '/main/slides':
-        return <MainSlides params={match.params} />;
+        return <MainSlides />;
       case '/main/news':
-        return <MainNews params={match.params} />;
+        return <MainNews />;
       case '/clinic/lists':
-        return <ClinicList params={match.params} />;
+        return <ClinicList />;
       case '/clinic/registrations':
-        return <RegisterList params={match.params} />;
+        return <RegisterList />;
       case '/announcement/lists':
-        return <AnnouncementList params={match.params} />;
+        return <AnnouncementList />;
       case '/other/about':
-        return <About params={match.params} />;
+        return <About />;
       case '/other/footer':
-        return <Footer params={match.params} />;
+        return <Footer />;
       default:
         return null;
     }
