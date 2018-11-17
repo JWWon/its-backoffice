@@ -3,23 +3,16 @@ import React, { Component } from 'react';
 
 import Template from 'components/dashboard/Template';
 import TextEditor from 'components/dashboard/TextEditor';
-import { deleteState, loadState, saveState } from 'lib/storage/editor';
+import { Content, getContent, updateContent } from 'lib/networks/meta';
 
-const MAIN_ABOUT = 'MAIN_ABOUT';
+class AboutContainer extends Component<{}, Content> {
+  public state: Content = {
+    content: EditorState.createEmpty(),
+  };
 
-interface State {
-  editorState: EditorState;
-}
-
-class AboutContainer extends Component<{}, State> {
-  public constructor(props: {}) {
-    super(props);
-    const editor = loadState(MAIN_ABOUT);
-    if (editor) {
-      this.state = { editorState: EditorState.createWithContent(editor) };
-    } else {
-      this.state = { editorState: EditorState.createEmpty() };
-    }
+  public async componentDidMount() {
+    const content = await getContent();
+    this.setState({ content });
   }
 
   public render() {
@@ -31,26 +24,20 @@ class AboutContainer extends Component<{}, State> {
         <TextEditor
           label="about"
           id="single"
-          editorState={this.state.editorState}
+          editorState={this.state.content}
           handleChange={this.handleChange}
         />
       </Template>
     );
   }
 
-  private handleChange = (editorState: EditorState) => {
-    this.setState({ editorState });
-    saveState(MAIN_ABOUT, editorState);
+  private handleChange = (content: EditorState) => {
+    this.setState({ content });
   };
 
   private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // const contentHTML = convertToRaw(
-    //   this.state.editorState.getCurrentContent()
-    // );
-    if (false) {
-      deleteState(MAIN_ABOUT);
-    }
+    updateContent(this.state.content);
   };
 }
 

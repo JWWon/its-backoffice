@@ -42,8 +42,6 @@ export const updateAnnouncement = async (announcementData: SubmitInterface) => {
       title: data.title,
       content: JSON.stringify(convertToRaw(contentState)),
     };
-
-    console.log(nextData);
     let response;
     if (id) {
       response = await axios.patch(`/announcements/${id}`, nextData);

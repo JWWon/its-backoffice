@@ -81,6 +81,7 @@ export const updateClinic = async (clinicData: SubmitInterface) => {
     let response;
     if (id) {
       response = await axios.patch(`/clinics/${id}`, data);
+      alert('저장되었습니다');
       return response.data;
     } else if (window.confirm('병원을 추가하시겠습니까?')) {
       response = await axios.post('/clinics', data);
