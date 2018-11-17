@@ -128,7 +128,6 @@ class ImageEdit extends Component<SubmitInterface, State> {
       // ** APPEND DATA END
 
       await updateImage(data);
-      alert('저장 완료');
     } catch (e) {
       throw e;
     }

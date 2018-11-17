@@ -50,7 +50,7 @@ export const updateImage = async (imgData: InputInterface) => {
     const { id, ...data } = imgData;
     if (id) response = await axios.patch(`/images/${id}`, data);
     else response = await axios.post('/images', data);
-
+    alert('저장되었습니다');
     return response.data;
   } catch (e) {
     throw e;

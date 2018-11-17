@@ -263,7 +263,6 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
 
       await updateClinic(data);
       if (registerId) await deleteRegistration(registerId, true);
-      alert('저장 완료');
     } catch (e) {
       throw e;
     }

@@ -69,6 +69,8 @@ export const Body = styled.tbody`
 `;
 
 export const ButtonWrapper = styled.div`
+  max-width: 24rem;
+  margin-left: auto;
   display: flex;
   justify-content: space-around;
 `;
