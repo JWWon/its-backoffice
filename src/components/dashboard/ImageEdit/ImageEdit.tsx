@@ -43,7 +43,7 @@ class ImageEdit extends Component<SubmitInterface, State> {
       <s.Form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
           <InputText
-            label="하이퍼링크"
+            label={type === 'news' ? '링크 번호' : '하이퍼링크'}
             name="href"
             value={href}
             handleChange={this.handleChange}

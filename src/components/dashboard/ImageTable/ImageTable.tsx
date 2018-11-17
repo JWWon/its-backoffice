@@ -15,8 +15,10 @@ interface Props extends ModalInterface {
 }
 
 const ImageTable: React.SFC<Props> = ({ list, type, showModal }) => {
-  const header = ['데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
-  if (type === 'news') header.push('제목', '내용');
+  const header =
+    type === 'news'
+      ? ['데스크탑', '모바일', '링크 번호', 'SEO 텍스트', '제목', '내용']
+      : ['데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
 
   const Body = (image: ImageInterface) => (
     <>
