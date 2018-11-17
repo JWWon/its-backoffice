@@ -30,8 +30,8 @@ const MainSlides = Loadable({
   loader: () => import('../containers/dashboard/MainSlidesContainer'),
   loading: Spinner,
 });
-const NoticeList = Loadable({
-  loader: () => import('../containers/dashboard/NoticeListContainer'),
+const AnnouncementList = Loadable({
+  loader: () => import('../containers/dashboard/AnnouncementListContainer'),
   loading: Spinner,
 });
 const About = Loadable({
@@ -55,8 +55,8 @@ class DashboardPage extends Component<RouteComponentProps> {
         return <ClinicList params={match.params} />;
       case '/clinic/registrations':
         return <RegisterList params={match.params} />;
-      case '/notice/lists':
-        return <NoticeList params={match.params} />;
+      case '/announcement/lists':
+        return <AnnouncementList params={match.params} />;
       case '/other/about':
         return <About params={match.params} />;
       case '/other/footer':

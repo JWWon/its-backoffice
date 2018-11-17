@@ -37,11 +37,11 @@ class SidebarContainer extends Component<Props> {
       ],
     },
     {
-      label: '공지사항',
+      label: '잇츠교정의 선물',
       items: [
         {
-          pageName: '공지사항 목록',
-          link: '/notice/lists',
+          pageName: '잇츠교정의 선물 목록',
+          link: '/announcement/lists',
         },
       ],
     },

@@ -28,7 +28,7 @@ class MainNews extends Component<Props, State> {
     const { list } = this.state;
     return (
       <Template
-        label="잇츠교정 뉴스"
+        label="잇츠교정의 선물"
         buttonText="생성하기"
         count={list.length}
         handleClick={this.handleCreate}>
