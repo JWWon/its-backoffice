@@ -24,6 +24,7 @@ class AnnouncementEdit extends Component<AnnouncementInterface & any, State> {
 
   public render() {
     const { title, content } = this.state;
+    const { id } = this.props;
     return (
       <s.Form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
@@ -36,6 +37,8 @@ class AnnouncementEdit extends Component<AnnouncementInterface & any, State> {
         </s.RowWrapper>
         <s.Label>내용</s.Label>
         <TextEditor
+          label="announcements"
+          id={id}
           editorState={content}
           handleChange={this.handleEditorChange}
         />

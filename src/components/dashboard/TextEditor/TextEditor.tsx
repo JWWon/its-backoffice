@@ -1,11 +1,15 @@
 /* tslint:disable:variable-name */
+import AWS from 'aws-sdk';
 import { EditorState } from 'draft-js';
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './editor-style.css';
 
 interface Props {
+  label: string;
+  id: string;
   editorState: EditorState;
   handleChange: (e: EditorState) => void;
 }
@@ -55,11 +59,27 @@ class TextEditor extends Component<Props> {
     );
   }
 
-  private handleUploadImage = (file: FileList) =>
-    new Promise<any>((resolve, reject) => {
-      const previewSrc = URL.createObjectURL(file);
-      const response = { data: { link: previewSrc } };
-      resolve(response);
+  private handleUploadImage = (file: File) =>
+    new Promise((resolve, reject) => {
+      const { label, id } = this.props;
+      const bucket = new AWS.S3();
+      const params = {
+        Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME || '',
+        Key: `${label}/${id || moment().format('YYYY.MM.DD')}/${file.name}`,
+        ContentType: file.type,
+        Body: file,
+        ACL: 'public-read',
+      };
+
+      bucket
+        .upload(params)
+        .on('httpUploadProgress', evt => {
+          console.log((evt.loaded * 100) / evt.total);
+        })
+        .send((e: any, data: { Location: string }) => {
+          if (e) throw e;
+          resolve({ data: { link: data.Location } });
+        });
     });
 }
 

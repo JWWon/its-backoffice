@@ -29,6 +29,8 @@ class AboutContainer extends Component<{}, State> {
         buttonText="저장하기"
         handleClick={this.handleSubmit}>
         <TextEditor
+          label="about"
+          id="single"
           editorState={this.state.editorState}
           handleChange={this.handleChange}
         />
