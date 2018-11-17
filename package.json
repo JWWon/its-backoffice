@@ -27,7 +27,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "deploy": "npm run build && aws s3 sync build/ s3://its-backoffice",
+    "deploy": "npm run build && aws s3 sync build/ s3://admin.xn--9d0b301chmar3r.com",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
