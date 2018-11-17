@@ -16,6 +16,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const Title = styled.p`
+  flex-basis: 8rem;
   font-size: ${({ theme }) => theme.font.small};
   color: ${({ theme }) => theme.color.darkGray};
   margin-right: 1rem;

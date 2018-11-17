@@ -8,13 +8,12 @@ export const Container = styled.div`
 export const LabelContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: ${({ theme }) => theme.space.normal}rem;
+  margin-bottom: ${({ theme }) => theme.space.small}rem;
 `;
 
 export const Label = styled.h5`
   font-size: ${({ theme }) => theme.font.normal};
   color: ${({ theme }) => theme.color.darkGray};
-  margin-bottom: ${({ theme }) => theme.space.small}rem;
 `;
 
 export const AddButton = styled.button`
@@ -25,7 +24,7 @@ export const AddButton = styled.button`
 export const Input = styled.input.attrs({
   type: 'text',
 })`
-  width: 100%;
+  flex: 1;
   padding: ${({ theme }) => theme.space.small}rem 0;
   font-size: ${({ theme }) => theme.font.small};
   border-bottom: 1px solid ${({ theme }) => theme.color.darkGray};
@@ -53,5 +52,16 @@ export const DeleteIcon = styled.img.attrs({
   height: ${deleteSize * 0.52}rem;
   &:hover {
     cursor: pointer;
+  }
+`;
+
+export const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  &:hover {
+    ${Delete} {
+      visibility: visible;
+    }
   }
 `;

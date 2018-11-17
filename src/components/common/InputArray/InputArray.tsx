@@ -1,5 +1,5 @@
 /* tslint:disable:jsx-no-lambda */
-// import produce from 'immer';
+import produce from 'immer';
 import React, { Component } from 'react';
 import * as s from './InputArray.styled';
 
@@ -29,14 +29,18 @@ class InputArray extends Component<Props, State> {
           <s.AddButton onClick={this.handleAdd}>추가</s.AddButton>
         </s.LabelContainer>
         {array.map((item, index) => (
-          <s.Input
-            key={index}
-            name={index.toString()}
-            value={item}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              this.handleChange(e, index)
-            }
-          />
+          <s.InputContainer key={index}>
+            <s.Input
+              name={index.toString()}
+              value={item}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                this.handleChange(e, index)
+              }
+            />
+            <s.Delete onClick={() => this.handleDelete(index)}>
+              <s.DeleteIcon />
+            </s.Delete>
+          </s.InputContainer>
         ))}
       </s.Container>
     );
@@ -52,14 +56,25 @@ class InputArray extends Component<Props, State> {
     index: number
   ) => {
     const { value } = e.currentTarget;
-    const { handleChange } = this.props;
+    const { name, handleChange } = this.props;
 
-    this.setState(state => {
-      const nextArray = state.array;
-      nextArray[index] = value;
-      return { array: nextArray };
-    });
-    handleChange(this.props.name, this.state.array);
+    await this.setState(state =>
+      produce(state, draft => {
+        draft.array[index] = value;
+      })
+    );
+    handleChange(name, this.state.array);
+  };
+
+  private handleDelete = async (index: number) => {
+    const { name, handleChange } = this.props;
+
+    await this.setState(state =>
+      produce(state, draft => {
+        draft.array.splice(index, 1);
+      })
+    );
+    handleChange(name, this.state.array);
   };
 }
 
