@@ -14,11 +14,11 @@ class SidebarContainer extends Component<Props> {
       label: '메인',
       items: [
         {
-          pageName: '슬라이드 리스트',
+          pageName: '슬라이드 목록',
           link: '/main/slides',
         },
         {
-          pageName: '잇츠교정 뉴스',
+          pageName: '잇츠교정의 선물 목록',
           link: '/main/news',
         },
       ],

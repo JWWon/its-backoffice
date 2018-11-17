@@ -16,6 +16,7 @@ import {
   SubmitInterface,
   updateClinic,
 } from 'lib/networks/clinic';
+import { deleteRegistration } from 'lib/networks/registration';
 
 interface State extends InputInterface {
   files: {
@@ -25,7 +26,7 @@ interface State extends InputInterface {
   };
 }
 
-class ClinicEdit extends Component<ClinicInterface | any, State> {
+class ClinicEdit extends Component<ClinicInterface & any, State> {
   public constructor(props: ClinicInterface) {
     super(props);
     const certificates = props.certificates || null;
@@ -51,8 +52,14 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
           chief: certificates ? certificates.specialist.chief : '',
           school: certificates ? certificates.specialist.school : '',
           period: {
-            startAt: certificates ? certificates.specialist.period.startAt : '',
-            endAt: certificates ? certificates.specialist.period.endAt : '',
+            startAt:
+              certificates && certificates.specialist.period
+                ? certificates.specialist.period.startAt
+                : '',
+            endAt:
+              certificates && certificates.specialist.period
+                ? certificates.specialist.period.endAt
+                : '',
           },
           image: certificates ? certificates.specialist.image : '',
         },
@@ -248,7 +255,7 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
       }
 
       const { files, ...other } = this.state;
-      const { id } = this.props;
+      const { id, registerId } = this.props;
 
       const data: SubmitInterface = { ...other };
       // ** APPEND REQUEST DATA
@@ -256,6 +263,7 @@ class ClinicEdit extends Component<ClinicInterface | any, State> {
       // ** APPEND DATA END
 
       await updateClinic(data);
+      if (registerId) await deleteRegistration(registerId, true);
       alert('저장 완료');
     } catch (e) {
       throw e;

@@ -29,19 +29,11 @@ class ClinicListContainer extends Component<ModalInterface, State> {
     const { count, list } = this.state;
 
     return (
-      <Template
-        label={`입점 신청 목록 (${count}개)`}
-        buttonText="생성하기"
-        handleClick={this.handleClick}>
+      <Template label={`입점 신청 목록 (${count}개)`}>
         <RegisterTable count={count} list={list} />
       </Template>
     );
   }
-
-  private handleClick = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    this.props.showModal('병원 생성', <div />);
-  };
 }
 
 export default withModal(ClinicListContainer);

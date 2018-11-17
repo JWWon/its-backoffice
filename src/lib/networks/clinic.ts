@@ -77,12 +77,15 @@ export const searchList = async (keyword: string) => {
 
 export const updateClinic = async (clinicData: SubmitInterface) => {
   try {
-    let response;
     const { id, ...data } = clinicData;
-    if (id) response = await axios.patch(`/clinics/${id}`, data);
-    else response = await axios.post('/clinics', data);
-
-    return response.data;
+    let response;
+    if (id) {
+      response = await axios.patch(`/clinics/${id}`, data);
+      return response.data;
+    } else if (window.confirm('병원을 추가하시겠습니까?')) {
+      response = await axios.post('/clinics', data);
+      return response.data;
+    }
   } catch (e) {
     throw e;
   }

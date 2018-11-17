@@ -1,16 +1,19 @@
-import { RegisterInterface } from 'lib/networks/registration';
-import React, { ReactNode } from 'react';
+import { ModalInterface } from 'containers/base/withModal';
+import {
+  deleteRegistration,
+  RegisterInterface,
+} from 'lib/networks/registration';
+import React from 'react';
 import { connect } from 'react-redux';
+import { show } from 'store/modules/modal';
 
 import Table from 'components/base/Table';
-import { show } from 'store/modules/modal';
+import ClinicEdit from 'components/dashboard/ClinicEdit';
 import * as s from './RegisterTable.styled';
 
-interface Props {
+interface Props extends ModalInterface {
   count: number;
   list: RegisterInterface[];
-  // store
-  showModal: (label: string, component: ReactNode) => void;
 }
 
 const Body: React.SFC<RegisterInterface> = clinic => (
@@ -38,10 +41,10 @@ const Body: React.SFC<RegisterInterface> = clinic => (
         />
       </s.CertifWrapper>
     </td>
-    <td>{clinic.phone}</td>
     <td>{clinic.address}</td>
     <td>{clinic.manager.name}</td>
     <td>{clinic.manager.phone}</td>
+    <td>{clinic.manager.email}</td>
   </>
 );
 
@@ -54,15 +57,42 @@ const RegisterTable: React.SFC<Props> = ({ count, list, showModal }) => {
     clinic: RegisterInterface
   ) => {
     e.preventDefault();
+    const { manager, id, ...other } = clinic;
+    const convertToClinic = {
+      ...other,
+      certificates: {
+        association: {
+          image: other.certificates.association,
+        },
+        invisalign: {
+          image: other.certificates.invisalign,
+        },
+        specialist: {
+          image: other.certificates.specialist,
+        },
+      },
+    };
+    showModal(
+      '병원 승인 및 정보 편집',
+      <ClinicEdit registerId={id} {...convertToClinic} />
+    );
   };
 
   const handleDelete = (e: React.FormEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
+    deleteRegistration(id);
   };
 
   return (
     <Table
-      header={['병원명', '자격증', '연락처', '주소', '담당자', '담당자 연락처']}
+      header={[
+        '병원명',
+        '자격증',
+        '주소',
+        '담당자',
+        '담당자 연락처',
+        '담당자 이메일',
+      ]}
       list={list}
       body={Body}
       count={pageLength}
@@ -73,9 +103,9 @@ const RegisterTable: React.SFC<Props> = ({ count, list, showModal }) => {
 };
 
 export default connect(
-  () => ({}),
+  null,
   dispatch => ({
-    showModal: (label: string, component: ReactNode) =>
+    showModal: (label: string, component: React.ReactNode) =>
       show(label, component)(dispatch),
   })
 )(RegisterTable);
