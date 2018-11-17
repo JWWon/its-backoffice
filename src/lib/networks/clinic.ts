@@ -11,12 +11,8 @@ export interface InputInterface {
   timetable: { [x: string]: string };
   directions: { [x: string]: string };
   certificates: {
-    association: {
-      image: string;
-    };
-    invisalign: {
-      image: string;
-    };
+    association: boolean;
+    invisalign: boolean;
     specialist: {
       chief: string;
       school: string;

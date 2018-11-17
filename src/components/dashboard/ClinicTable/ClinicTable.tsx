@@ -44,13 +44,13 @@ const Body = (clinic: ClinicInterface) => {
           <s.CertifIcon
             theme={{
               type: 'association',
-              active: clinic.certificates.association.image,
+              active: clinic.certificates.association,
             }}
           />
           <s.CertifIcon
             theme={{
               type: 'invisalign',
-              active: clinic.certificates.invisalign.image,
+              active: clinic.certificates.invisalign,
             }}
           />
         </s.CertifWrapper>

@@ -24,19 +24,25 @@ const Body: React.SFC<RegisterInterface> = clinic => (
         <s.CertifIcon
           theme={{
             type: 'specialist',
-            active: clinic.certificates.specialist,
+            active: clinic.certificates
+              ? clinic.certificates.specialist
+              : false,
           }}
         />
         <s.CertifIcon
           theme={{
             type: 'association',
-            active: clinic.certificates.association,
+            active: clinic.certificates
+              ? clinic.certificates.association
+              : false,
           }}
         />
         <s.CertifIcon
           theme={{
             type: 'invisalign',
-            active: clinic.certificates.invisalign,
+            active: clinic.certificates
+              ? clinic.certificates.invisalign
+              : false,
           }}
         />
       </s.CertifWrapper>
@@ -61,14 +67,9 @@ const RegisterTable: React.SFC<Props> = ({ count, list, showModal }) => {
     const convertToClinic = {
       ...other,
       certificates: {
-        association: {
-          image: other.certificates.association,
-        },
-        invisalign: {
-          image: other.certificates.invisalign,
-        },
+        ...other.certificates,
         specialist: {
-          image: other.certificates.specialist,
+          image: other.certificates ? other.certificates.specialist : '',
         },
       },
     };

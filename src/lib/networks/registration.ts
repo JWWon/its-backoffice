@@ -11,15 +11,16 @@ export interface RegisterInterface {
     email: string;
   };
   certificates: {
-    association: string; // image url
+    association: boolean; // image url
     specialist: string;
-    invisalign: string;
+    invisalign: boolean;
   };
 }
 
 export const getRegistrations = async () => {
   try {
     const response = await axios.get('/registrations');
+    console.log(response.data);
     return response.data;
   } catch (e) {
     throw e;
@@ -33,7 +34,7 @@ export const deleteRegistration = async (
   try {
     if (skipPermission || window.confirm('정말 삭제하시겠습니까?')) {
       axios.delete(`/registrations/${id}`);
-      alert('삭제되었습니다');
+      if (!skipPermission) alert('삭제되었습니다');
     }
   } catch (e) {
     throw e;

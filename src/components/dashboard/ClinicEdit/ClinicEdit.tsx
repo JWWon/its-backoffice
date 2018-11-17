@@ -42,12 +42,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
       timetable: props.timetable || {},
       directions: props.directions || {},
       certificates: {
-        association: {
-          image: certificates ? certificates.association.image : '',
-        },
-        invisalign: {
-          image: certificates ? certificates.invisalign.image : '',
-        },
+        association: certificates ? certificates.association : false,
+        invisalign: certificates ? certificates.invisalign : false,
         specialist: {
           chief: certificates ? certificates.specialist.chief : '',
           school: certificates ? certificates.specialist.school : '',
@@ -76,7 +72,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
   }
 
   public render() {
-    const { specialist, invisalign, association } = this.state.certificates;
+    const { specialist } = this.state.certificates;
     return (
       <s.Form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
@@ -174,18 +170,6 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             defaultSrc={specialist.image}
             handleImageChange={this.handleImageChange}
           />
-          <InputImage
-            label="대한치과교정학회"
-            name="association"
-            defaultSrc={association.image}
-            handleImageChange={this.handleImageChange}
-          />
-          <InputImage
-            label="인비절라인인증의"
-            name="invisalign"
-            defaultSrc={invisalign.image}
-            handleImageChange={this.handleImageChange}
-          />
         </s.RowWrapper>
 
         <s.ButtonWrapper>
@@ -246,12 +230,6 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
       const prevFiles = this.state.files;
       if (prevFiles.specialist) {
         await this.uploadImage(prevFiles.specialist, 'specialist');
-      }
-      if (prevFiles.association) {
-        await this.uploadImage(prevFiles.association, 'association');
-      }
-      if (prevFiles.invisalign) {
-        await this.uploadImage(prevFiles.invisalign, 'invisalign');
       }
 
       const { files, ...other } = this.state;
