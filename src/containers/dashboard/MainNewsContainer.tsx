@@ -33,7 +33,7 @@ class MainNews extends Component<ModalInterface, State> {
 
   private handleCreate = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    this.props.showModal('뉴스 등록', <ImageEdit type="news" />);
+    this.props.showModal('잇츠교정의 선물 등록', <ImageEdit type="news" />);
   };
 }
 

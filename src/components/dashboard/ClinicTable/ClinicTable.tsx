@@ -1,5 +1,7 @@
 /* tslint:disable:jsx-no-lambda */
+import { ModalInterface } from 'containers/base/withModal';
 import { ClinicInterface, deleteClinic } from 'lib/networks/clinic';
+import moment from 'moment';
 import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 
@@ -8,11 +10,9 @@ import ClinicEdit from 'components/dashboard/ClinicEdit';
 import { show } from 'store/modules/modal';
 import * as s from './ClinicTable.styled';
 
-interface Props {
+interface Props extends ModalInterface {
   count: number;
   list: ClinicInterface[];
-  // store
-  showModal: (label: string, component: ReactNode) => void;
 }
 
 const Body = (clinic: ClinicInterface) => {
@@ -56,7 +56,7 @@ const Body = (clinic: ClinicInterface) => {
         </s.CertifWrapper>
       </td>
       <td>{clinic.phone}</td>
-      <td>{clinic.createdAt}</td>
+      <td>{moment(clinic.createdAt).format('YYYY.MM.DD')}</td>
       <td>{clinic.hits}</td>
       <td>{clinic.hidden ? 'false' : 'true'}</td>
     </>
@@ -101,7 +101,7 @@ const ClinicTable: React.SFC<Props> = ({ count, list, showModal }) => {
 };
 
 export default connect(
-  () => ({}),
+  null,
   dispatch => ({
     showModal: (label: string, component: ReactNode) =>
       show(label, component)(dispatch),

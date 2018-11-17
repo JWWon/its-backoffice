@@ -1,4 +1,5 @@
 /* tslint:disable:jsx-no-lambda */
+import { ModalInterface } from 'containers/base/withModal';
 import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import * as s from './ImageTable.styled';
@@ -8,19 +9,17 @@ import ImageEdit from 'components/dashboard/ImageEdit';
 import { deleteImage, ImageInterface } from 'lib/networks/image';
 import { show } from 'store/modules/modal';
 
-interface Props {
+interface Props extends ModalInterface {
   list: ImageInterface[];
   type: 'slide' | 'news';
-  showModal: (label: string, component: ReactNode) => void;
 }
 
 const ImageTable: React.SFC<Props> = ({ list, type, showModal }) => {
-  const header = ['번호', '데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
+  const header = ['데스크탑', '모바일', '하이퍼링크', 'SEO 텍스트'];
   if (type === 'news') header.push('제목', '내용');
 
   const Body = (image: ImageInterface) => (
     <>
-      <td>{image.id}</td>
       <td>
         <s.ImageDesktop
           style={{ backgroundImage: `url(${image.desktopSrc})` }}
@@ -65,7 +64,7 @@ const ImageTable: React.SFC<Props> = ({ list, type, showModal }) => {
 };
 
 export default connect(
-  () => ({}),
+  null,
   dispatch => ({
     showModal: (label: string, component: ReactNode) =>
       show(label, component)(dispatch),

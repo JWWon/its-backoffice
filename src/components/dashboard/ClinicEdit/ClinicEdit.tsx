@@ -6,6 +6,7 @@ import * as s from './ClinicEdit.styled';
 import InputSpecialist from './InputSpecialist';
 
 import InputArray from 'components/common/InputArray';
+import InputCheck from 'components/common/InputCheck';
 import InputImage from 'components/common/InputImage';
 import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
@@ -72,7 +73,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
   }
 
   public render() {
-    const { specialist } = this.state.certificates;
+    const { specialist, association, invisalign } = this.state.certificates;
     return (
       <s.Form onSubmit={this.handleSubmit}>
         <s.RowWrapper>
@@ -170,6 +171,18 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             defaultSrc={specialist.image}
             handleImageChange={this.handleImageChange}
           />
+          <InputCheck
+            label="대한치과교정학회"
+            name="association"
+            checked={association}
+            handleChange={this.handleCheckChange}
+          />
+          <InputCheck
+            label="인비절라인인증의"
+            name="invisalign"
+            checked={invisalign}
+            handleChange={this.handleCheckChange}
+          />
         </s.RowWrapper>
 
         <s.ButtonWrapper>
@@ -187,6 +200,14 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
   private handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.currentTarget;
     this.setState(prevState => ({ ...prevState, [name]: parseInt(value, 10) }));
+  };
+
+  private handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.currentTarget;
+    this.setState(prevState => ({
+      ...prevState,
+      certificates: { ...this.state.certificates, [name]: checked },
+    }));
   };
 
   private handleArrayChange = (name: string, value: string[]) => {

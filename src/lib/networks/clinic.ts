@@ -40,16 +40,20 @@ export interface ClinicInterface extends InputInterface {
 
 export const getCount = async () => {
   try {
-    const response = await axios.get('/clinics', { params: { count: true } });
+    const response = await axios.get('/clinics', {
+      params: { count: true },
+    });
     return response.data;
   } catch (e) {
     throw e;
   }
 };
 
-export const getList = async () => {
+export const getList = async (id?: string) => {
   try {
-    const response = await axios.get('/clinics');
+    let response;
+    if (id) response = await axios.get('/clinics', { params: { id } });
+    else response = await axios.get('/clinics');
     const data: ClinicInterface[] = response.data;
     // 오름차순 정렬
     data.sort((x, y) => (x.name < y.name ? -1 : x.name > y.name ? 1 : 0));
