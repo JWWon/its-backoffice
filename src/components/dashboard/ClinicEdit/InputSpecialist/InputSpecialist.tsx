@@ -52,10 +52,10 @@ class InputSpecialist extends Component<Props, State> {
           />
         </s.InputWrapper>
         <s.InputWrapper>
-          <s.Title>수련기관</s.Title>
+          <s.Title>면허번호</s.Title>
           <s.Input
             name="school"
-            placeholder="수련기관"
+            placeholder="면허번호"
             value={school}
             onChange={this.handleChange}
           />
