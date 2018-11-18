@@ -1,4 +1,5 @@
 import React from 'react';
+import InputWrapper from '../InputWrapper';
 import * as s from './InputCheck.styled';
 
 interface Props {
@@ -14,10 +15,9 @@ const InputCheck: React.SFC<Props> = ({
   checked,
   handleChange,
 }) => (
-  <s.Container>
-    <s.Label>{label}</s.Label>
+  <InputWrapper label={label}>
     <s.Input name={name} checked={checked} onChange={handleChange} />
-  </s.Container>
+  </InputWrapper>
 );
 
 export default InputCheck;

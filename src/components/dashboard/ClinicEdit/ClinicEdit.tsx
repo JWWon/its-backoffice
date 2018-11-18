@@ -9,8 +9,8 @@ import InputArray from 'components/common/InputArray';
 import InputCheck from 'components/common/InputCheck';
 import InputImage from 'components/common/InputImage';
 import InputObjects from 'components/common/InputObjects';
+import InputSelect from 'components/common/InputSelect';
 import InputText from 'components/common/InputText';
-import Select from 'components/common/Select';
 import {
   ClinicInterface,
   InputInterface,
@@ -83,7 +83,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             value={this.state.name}
             handleChange={this.handleChange}
           />
-          <Select
+          <InputSelect
             label="등급"
             name="grade"
             value={this.state.grade}

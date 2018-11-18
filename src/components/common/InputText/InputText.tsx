@@ -1,4 +1,5 @@
 import React from 'react';
+import InputWrapper from '../InputWrapper';
 import * as s from './InputText.styled';
 
 interface Props {
@@ -16,8 +17,7 @@ const InputText: React.SFC<Props> = ({
   value,
   ...option
 }) => (
-  <s.Container>
-    <s.Label>{label}</s.Label>
+  <InputWrapper label={label}>
     <s.Input
       name={name}
       placeholder="입력하세요"
@@ -25,7 +25,7 @@ const InputText: React.SFC<Props> = ({
       onChange={handleChange}
       {...option}
     />
-  </s.Container>
+  </InputWrapper>
 );
 
 export default InputText;

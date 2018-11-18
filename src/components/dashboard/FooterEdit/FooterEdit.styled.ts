@@ -17,6 +17,7 @@ export const Form = styled.form`
 export const RowWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-top: ${({ theme }) => theme.space.normal}rem;
   &:first-of-type {
     margin-top: 0;

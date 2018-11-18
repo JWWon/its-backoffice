@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InputWrapper from '../InputWrapper';
 import * as s from './InputImage.styled';
 
 interface Props {
@@ -22,11 +23,10 @@ class InputImage extends Component<Props, State> {
     const { label, name } = this.props;
     const { previewSrc } = this.state;
     return (
-      <s.Container>
-        <s.Label>{label}</s.Label>
+      <InputWrapper label={label}>
         <s.Input name={name} onChange={this.handleChange} />
         {previewSrc && <s.Preview src={previewSrc} />}
-      </s.Container>
+      </InputWrapper>
     );
   }
 

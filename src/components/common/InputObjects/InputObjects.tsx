@@ -1,6 +1,6 @@
 import produce from 'immer';
 import React, { Component } from 'react';
-import * as s from './InputObjects.styled';
+import InputWrapper from '../InputWrapper';
 import SingleObject, { Param } from './SingleObject';
 
 interface Props {
@@ -35,15 +35,10 @@ class InputObjects extends Component<Props, State> {
     const { disabled, label } = this.props;
     const { objs } = this.state;
     return (
-      <s.Container>
-        {disabled ? (
-          <s.Label>{label}</s.Label>
-        ) : (
-          <s.LabelContainer>
-            <s.Label>{label}</s.Label>
-            <s.AddButton onClick={this.handleAdd}>추가</s.AddButton>
-          </s.LabelContainer>
-        )}
+      <InputWrapper
+        label={label}
+        handleAdd={this.handleAdd}
+        disabled={disabled}>
         {objs.map((obj, index) => (
           <SingleObject
             disabled={disabled}
@@ -55,7 +50,7 @@ class InputObjects extends Component<Props, State> {
             handleObjDelete={this.handleObjDelete}
           />
         ))}
-      </s.Container>
+      </InputWrapper>
     );
   }
 

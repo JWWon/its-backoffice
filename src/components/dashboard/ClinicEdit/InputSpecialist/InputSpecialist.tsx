@@ -1,3 +1,4 @@
+import InputWrapper from 'components/common/InputWrapper';
 import produce from 'immer';
 import React, { Component } from 'react';
 import * as s from './InputSpecialist.styled';
@@ -40,8 +41,7 @@ class InputSpecialist extends Component<Props, State> {
   public render() {
     const { chief, school, period } = this.state;
     return (
-      <s.Container>
-        <s.Label>병원장 정보</s.Label>
+      <InputWrapper label="병원장 정보">
         <s.InputWrapper>
           <s.Title>이름</s.Title>
           <s.Input
@@ -78,7 +78,7 @@ class InputSpecialist extends Component<Props, State> {
             onChange={this.handlePeriodChange}
           />
         </s.InputWrapper>
-      </s.Container>
+      </InputWrapper>
     );
   }
 

@@ -1,6 +1,7 @@
 /* tslint:disable:jsx-no-lambda */
 import produce from 'immer';
 import React, { Component } from 'react';
+import InputWrapper from '../InputWrapper';
 import * as s from './InputArray.styled';
 
 interface Props {
@@ -23,11 +24,7 @@ class InputArray extends Component<Props, State> {
   public render() {
     const { array } = this.state;
     return (
-      <s.Container>
-        <s.LabelContainer>
-          <s.Label>{this.props.label}</s.Label>
-          <s.AddButton onClick={this.handleAdd}>추가</s.AddButton>
-        </s.LabelContainer>
+      <InputWrapper label={this.props.label} handleAdd={this.handleAdd}>
         {array.map((item, index) => (
           <s.InputContainer key={index}>
             <s.Input
@@ -42,7 +39,7 @@ class InputArray extends Component<Props, State> {
             </s.Delete>
           </s.InputContainer>
         ))}
-      </s.Container>
+      </InputWrapper>
     );
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as s from './Select.styled';
+import InputWrapper from '../InputWrapper';
 
 interface OptionInterface {
   value: number;
@@ -14,15 +14,14 @@ interface Props {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Select: React.SFC<Props> = ({
+const InputSelect: React.SFC<Props> = ({
   label,
   name,
   options,
   value,
   handleChange,
 }) => (
-  <s.Container>
-    <s.Label>{label}</s.Label>
+  <InputWrapper label={label}>
     <select name={name} onChange={handleChange} defaultValue={value.toString()}>
       {options.map(option => (
         <option key={option.value} value={option.value}>
@@ -30,7 +29,7 @@ const Select: React.SFC<Props> = ({
         </option>
       ))}
     </select>
-  </s.Container>
+  </InputWrapper>
 );
 
-export default Select;
+export default InputSelect;

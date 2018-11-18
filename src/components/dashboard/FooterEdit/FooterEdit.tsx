@@ -26,8 +26,6 @@ const FooterEdit: React.SFC<Props> = props => (
           value={props.manager}
           handleChange={props.handleChange}
         />
-      </s.RowWrapper>
-      <s.RowWrapper>
         <InputText
           label="사업자번호"
           name="registration"
@@ -48,8 +46,6 @@ const FooterEdit: React.SFC<Props> = props => (
           value={props.phone}
           handleChange={props.handleChange}
         />
-      </s.RowWrapper>
-      <s.RowWrapper>
         <InputText
           label="주소"
           name="address"
