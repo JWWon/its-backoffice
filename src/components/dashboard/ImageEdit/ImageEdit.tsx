@@ -4,6 +4,7 @@ import * as s from './ImageEdit.styled';
 
 import InputImage from 'components/common/InputImage';
 import InputText from 'components/common/InputText';
+import { RowWrapper } from 'components/common/InputWrapper';
 import {
   InputInterface as SubmitInterface,
   updateImage,
@@ -41,7 +42,7 @@ class ImageEdit extends Component<SubmitInterface, State> {
 
     return (
       <s.Form onSubmit={this.handleSubmit}>
-        <s.RowWrapper>
+        <RowWrapper>
           <InputText
             label={type === 'news' ? '링크 번호' : '하이퍼링크'}
             name="href"
@@ -54,9 +55,9 @@ class ImageEdit extends Component<SubmitInterface, State> {
             value={alt}
             handleChange={this.handleChange}
           />
-        </s.RowWrapper>
+        </RowWrapper>
         {type === 'news' && (
-          <s.RowWrapper>
+          <RowWrapper>
             <InputText
               label="제목"
               name="title"
@@ -69,9 +70,9 @@ class ImageEdit extends Component<SubmitInterface, State> {
               value={content}
               handleChange={this.handleChange}
             />
-          </s.RowWrapper>
+          </RowWrapper>
         )}
-        <s.RowWrapper>
+        <RowWrapper>
           <InputImage
             label="데스크탑 이미지"
             name="desktopFile"
@@ -84,7 +85,7 @@ class ImageEdit extends Component<SubmitInterface, State> {
             defaultSrc={mobileSrc}
             handleImageChange={this.handleImageChange}
           />
-        </s.RowWrapper>
+        </RowWrapper>
         <s.ButtonWrapper>
           <s.SubmitButton>등록</s.SubmitButton>
         </s.ButtonWrapper>

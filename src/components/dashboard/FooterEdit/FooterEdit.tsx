@@ -2,6 +2,7 @@ import React from 'react';
 
 import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
+import { RowWrapper } from 'components/common/InputWrapper';
 import { Footer } from 'lib/networks/meta';
 import * as s from './FooterEdit.styled';
 
@@ -13,7 +14,7 @@ interface Props extends Footer {
 const FooterEdit: React.SFC<Props> = props => (
   <s.Container>
     <s.Form>
-      <s.RowWrapper>
+      <RowWrapper>
         <InputText
           label="대표"
           name="president"
@@ -32,8 +33,8 @@ const FooterEdit: React.SFC<Props> = props => (
           value={props.registration}
           handleChange={props.handleChange}
         />
-      </s.RowWrapper>
-      <s.RowWrapper>
+      </RowWrapper>
+      <RowWrapper>
         <InputText
           label="이메일"
           name="email"
@@ -52,8 +53,8 @@ const FooterEdit: React.SFC<Props> = props => (
           value={props.address}
           handleChange={props.handleChange}
         />
-      </s.RowWrapper>
-      <s.RowWrapper>
+      </RowWrapper>
+      <RowWrapper>
         <InputObjects
           disabled
           label="소셜 링크"
@@ -61,7 +62,7 @@ const FooterEdit: React.SFC<Props> = props => (
           objs={props.social}
           handleChange={props.handleObjChange}
         />
-      </s.RowWrapper>
+      </RowWrapper>
     </s.Form>
   </s.Container>
 );

@@ -7,15 +7,6 @@ export const Form = styled.form`
   flex-direction: column;
 `;
 
-export const RowWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: ${({ theme }) => theme.space.normal}rem;
-  &:first-of-type {
-    margin-top: 0;
-  }
-`;
-
 export const Label = styled.h5`
   font-size: ${({ theme }) => theme.font.normal};
   color: ${({ theme }) => theme.color.darkGray};

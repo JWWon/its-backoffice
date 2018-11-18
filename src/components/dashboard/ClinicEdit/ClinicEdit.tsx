@@ -11,6 +11,7 @@ import InputImage from 'components/common/InputImage';
 import InputObjects from 'components/common/InputObjects';
 import InputSelect from 'components/common/InputSelect';
 import InputText from 'components/common/InputText';
+import { RowWrapper } from 'components/common/InputWrapper';
 import {
   ClinicInterface,
   InputInterface,
@@ -76,7 +77,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
     const { specialist, association, invisalign } = this.state.certificates;
     return (
       <s.Form onSubmit={this.handleSubmit}>
-        <s.RowWrapper>
+        <RowWrapper>
           <InputText
             label="병원명"
             name="name"
@@ -95,8 +96,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             ]}
             handleChange={this.handleSelectChange}
           />
-        </s.RowWrapper>
-        <s.RowWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <InputText
             label="도/특별시"
             name="province"
@@ -109,8 +110,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             value={this.state.city}
             handleChange={this.handleChange}
           />
-        </s.RowWrapper>
-        <s.RowWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <InputText
             label="주소"
             name="address"
@@ -123,8 +124,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             value={this.state.landmark}
             handleChange={this.handleChange}
           />
-        </s.RowWrapper>
-        <s.RowWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <InputText
             label="연락처"
             name="phone"
@@ -137,8 +138,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             value={this.state.webpage}
             handleChange={this.handleChange}
           />
-        </s.RowWrapper>
-        <s.RowWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <InputObjects
             label="영업시간"
             name="timetable"
@@ -151,8 +152,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             objs={this.state.directions}
             handleChange={this.handleObjChange}
           />
-        </s.RowWrapper>
-        <s.RowWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <InputSpecialist
             value={specialist}
             handleChange={this.handleSpecialistChange}
@@ -163,8 +164,8 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             value={this.state.tags}
             handleChange={this.handleArrayChange}
           />
-        </s.RowWrapper>
-        <s.RowWrapper>
+        </RowWrapper>
+        <RowWrapper>
           <InputImage
             label="치과교정전문의"
             name="specialist"
@@ -183,7 +184,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
             checked={invisalign}
             handleChange={this.handleCheckChange}
           />
-        </s.RowWrapper>
+        </RowWrapper>
 
         <s.ButtonWrapper>
           <s.SubmitButton>등록</s.SubmitButton>

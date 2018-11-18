@@ -7,6 +7,7 @@ import {
 } from 'lib/networks/announcement';
 
 import InputText from 'components/common/InputText';
+import { RowWrapper } from 'components/common/InputWrapper';
 import TextEditor from 'components/dashboard/TextEditor';
 import React, { Component } from 'react';
 import * as s from './AnnouncementEdit.styled';
@@ -27,14 +28,14 @@ class AnnouncementEdit extends Component<AnnouncementInterface & any, State> {
     const { id } = this.props;
     return (
       <s.Form onSubmit={this.handleSubmit}>
-        <s.RowWrapper>
+        <RowWrapper>
           <InputText
             label="제목"
             name="title"
             value={title}
             handleChange={this.handleChange}
           />
-        </s.RowWrapper>
+        </RowWrapper>
         <s.Label>내용</s.Label>
         <TextEditor
           label="announcements"

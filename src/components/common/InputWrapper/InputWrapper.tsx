@@ -8,6 +8,10 @@ interface Props {
   disabled?: boolean;
 }
 
+export const RowWrapper: React.SFC<{ children: ReactNode }> = ({
+  children,
+}) => <s.RowWrapper>{children}</s.RowWrapper>;
+
 const InputWrapper: React.SFC<Props> = ({
   children,
   label,

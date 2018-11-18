@@ -1,8 +1,18 @@
 import styled from 'styled-components';
 
+export const RowWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: ${({ theme }) => theme.space.normal}rem -${({ theme }) =>
+      theme.space.smaller}rem 0;
+  &:first-of-type {
+    margin-top: 0;
+  }
+`;
+
 export const Container = styled.div`
   flex-basis: 40rem;
-  margin: 0 1rem;
+  margin: 0 ${({ theme }) => theme.space.smaller}rem;
 `;
 
 export const LabelContainer = styled.div`
