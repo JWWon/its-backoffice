@@ -8,6 +8,7 @@ interface Props {
   name: string;
   objs: { [key: string]: string };
   handleChange: (name: string, value: { [key: string]: string }) => void;
+  disabled?: boolean;
 }
 
 interface ObjectInterface {
@@ -31,15 +32,21 @@ class InputObjects extends Component<Props, State> {
   }
 
   public render() {
+    const { disabled, label } = this.props;
     const { objs } = this.state;
     return (
       <s.Container>
-        <s.LabelContainer>
-          <s.Label>{this.props.label}</s.Label>
-          <s.AddButton onClick={this.handleAdd}>추가</s.AddButton>
-        </s.LabelContainer>
+        {disabled ? (
+          <s.Label>{label}</s.Label>
+        ) : (
+          <s.LabelContainer>
+            <s.Label>{label}</s.Label>
+            <s.AddButton onClick={this.handleAdd}>추가</s.AddButton>
+          </s.LabelContainer>
+        )}
         {objs.map((obj, index) => (
           <SingleObject
+            disabled={disabled}
             key={index}
             index={index}
             objKey={obj.key}

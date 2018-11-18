@@ -25,6 +25,16 @@ export const getFooter = async () => {
   return other;
 };
 
+export const updateFooter = async (footer: Footer) => {
+  try {
+    const response = await axios.patch('/meta', footer);
+    alert('저장되었습니다');
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const getContent = async () => {
   const response = await axios.get('/meta');
   const { content } = response.data;

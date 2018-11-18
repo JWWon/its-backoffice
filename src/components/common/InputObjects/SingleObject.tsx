@@ -8,6 +8,7 @@ interface State {
 
 export interface Param extends State {
   index: number;
+  disabled?: boolean;
 }
 
 interface ObjectInterface extends Param {
@@ -36,9 +37,11 @@ class SingleObject extends Component<ObjectInterface, State> {
   }
 
   public render() {
+    const { disabled } = this.props;
     return (
       <s.InputContainer>
         <s.Key
+          disabled={disabled}
           name="objKey"
           placeholder="제목"
           value={this.state.objKey}
@@ -50,9 +53,11 @@ class SingleObject extends Component<ObjectInterface, State> {
           value={this.state.objValue}
           onChange={this.handleChange}
         />
-        <s.Delete onClick={this.handleDelete}>
-          <s.DeleteIcon />
-        </s.Delete>
+        {!disabled && (
+          <s.Delete onClick={this.handleDelete}>
+            <s.DeleteIcon />
+          </s.Delete>
+        )}
       </s.InputContainer>
     );
   }
