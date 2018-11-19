@@ -5,8 +5,9 @@ import * as s from './InputImage.styled';
 interface Props {
   label: string;
   name: string;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImageChange: (name: string, file: File | null) => void;
   defaultSrc: string | null;
+  disabled?: boolean;
 }
 
 interface State {
@@ -20,10 +21,14 @@ class InputImage extends Component<Props, State> {
   }
 
   public render() {
-    const { label, name } = this.props;
+    const { label, name, disabled } = this.props;
     const { previewSrc } = this.state;
     return (
-      <InputWrapper label={label}>
+      <InputWrapper
+        disabled={disabled}
+        label={label}
+        buttonText="이미지 삭제"
+        handleClick={this.handleDelete}>
         <s.Input name={name} onChange={this.handleChange} />
         {previewSrc && <s.Preview src={previewSrc} />}
       </InputWrapper>
@@ -32,8 +37,17 @@ class InputImage extends Component<Props, State> {
 
   private handleChange = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    this.setState({ previewSrc: URL.createObjectURL(e.target.files[0]) });
-    this.props.handleImageChange(e);
+    const { name, handleImageChange } = this.props;
+    const file = e.target.files[0];
+    this.setState({ previewSrc: URL.createObjectURL(file) });
+    handleImageChange(name, file);
+  };
+
+  private handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const { name, handleImageChange } = this.props;
+    this.setState({ ...this.state, previewSrc: null });
+    handleImageChange(name, null);
   };
 }
 

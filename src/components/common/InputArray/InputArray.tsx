@@ -24,7 +24,10 @@ class InputArray extends Component<Props, State> {
   public render() {
     const { array } = this.state;
     return (
-      <InputWrapper label={this.props.label} handleAdd={this.handleAdd}>
+      <InputWrapper
+        label={this.props.label}
+        buttonText="추가"
+        handleClick={this.handleAdd}>
         {array.map((item, index) => (
           <s.InputContainer key={index}>
             <s.Input

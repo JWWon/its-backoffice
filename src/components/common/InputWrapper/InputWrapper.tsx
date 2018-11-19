@@ -4,7 +4,8 @@ import * as s from './InputWrapper.styled';
 interface Props {
   children: ReactNode;
   label: string;
-  handleAdd?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  buttonText?: string;
+  handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }
 
@@ -15,16 +16,17 @@ export const RowWrapper: React.SFC<{ children: ReactNode }> = ({
 const InputWrapper: React.SFC<Props> = ({
   children,
   label,
-  handleAdd,
+  buttonText,
+  handleClick,
   disabled,
 }) => (
   <s.Container>
-    {disabled || !handleAdd ? (
+    {disabled || !handleClick ? (
       <s.Label>{label}</s.Label>
     ) : (
       <s.LabelContainer>
         <s.Label>{label}</s.Label>
-        <s.AddButton onClick={handleAdd}>추가</s.AddButton>
+        <s.AddButton onClick={handleClick}>{buttonText}</s.AddButton>
       </s.LabelContainer>
     )}
     {children}

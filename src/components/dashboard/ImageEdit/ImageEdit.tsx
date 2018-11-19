@@ -74,12 +74,14 @@ class ImageEdit extends Component<SubmitInterface, State> {
         )}
         <RowWrapper>
           <InputImage
+            disabled
             label="데스크탑 이미지"
             name="desktopFile"
             defaultSrc={desktopSrc}
             handleImageChange={this.handleImageChange}
           />
           <InputImage
+            disabled
             label="모바일 이미지"
             name="mobileFile"
             defaultSrc={mobileSrc}
@@ -99,9 +101,8 @@ class ImageEdit extends Component<SubmitInterface, State> {
     this.setState(prevState => ({ ...prevState, [name]: value }));
   };
 
-  private handleImageChange = (e: React.ChangeEvent<any>) => {
-    const { name, files } = e.target;
-    this.setState(state => ({ ...state, [name]: files[0] }));
+  private handleImageChange = (name: string, file: File | null) => {
+    this.setState(state => ({ ...state, [name]: file }));
   };
 
   private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

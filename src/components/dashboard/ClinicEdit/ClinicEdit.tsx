@@ -21,10 +21,8 @@ import {
 import { deleteRegistration } from 'lib/networks/registration';
 
 interface State extends InputInterface {
-  files: {
-    association: File | null;
+  file: {
     specialist: File | null;
-    invisalign: File | null;
   };
 }
 
@@ -62,11 +60,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
           image: certificates ? certificates.specialist.image : '',
         },
       },
-      files: {
-        association: null,
-        specialist: null,
-        invisalign: null,
-      },
+      file: { specialist: null },
       grade: props.grade || 0, // 2: A, 1: B, 0: C, -1: D
       hidden: props.hidden || false,
       tags: props.tags || [],
@@ -237,11 +231,11 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
     );
   };
 
-  private handleImageChange = (e: React.ChangeEvent<any>) => {
-    const { name, files } = e.target;
+  private handleImageChange = (name: string, file: File | null) => {
     this.setState(state =>
       produce(state, draft => {
-        draft.files[name] = files[0];
+        if (!file) draft.certificates[name].image = '';
+        draft.file[name] = file;
       })
     );
   };
@@ -249,12 +243,12 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
   private handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const prevFiles = this.state.files;
+      const prevFiles = this.state.file;
       if (prevFiles.specialist) {
         await this.uploadImage(prevFiles.specialist, 'specialist');
       }
 
-      const { files, ...other } = this.state;
+      const { file, ...other } = this.state;
       const { id, registerId } = this.props;
 
       const data: SubmitInterface = { ...other };

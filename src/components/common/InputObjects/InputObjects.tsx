@@ -37,7 +37,8 @@ class InputObjects extends Component<Props, State> {
     return (
       <InputWrapper
         label={label}
-        handleAdd={this.handleAdd}
+        buttonText="추가"
+        handleClick={this.handleAdd}
         disabled={disabled}>
         {objs.map((obj, index) => (
           <SingleObject
