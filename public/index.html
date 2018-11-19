@@ -9,19 +9,21 @@
     <meta name="theme-color" content="#000000" />
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!-- <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"> -->
+    <link rel="shortcut icon" href="%PUBLIC_URL%/logo_itso_o.png" />
 
-    <title>It's 교정 ADMIN</title>
+    <title>잇츠교정 ADMIN</title>
   </head>
 
   <body>
-    <div id="root"></div>
     <script>
-      if (!String.prototype.startsWith)
-        String.prototype.startsWith = function(searchString, position) {
-          position = position || 0;
-          return this.indexOf(searchString, position) === position;
+      if (!String.prototype.startsWith) {
+        String.prototype.startsWith = function(search, pos) {
+          return (
+            this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search
+          );
         };
+      }
     </script>
+    <div id="root"></div>
   </body>
 </html>
