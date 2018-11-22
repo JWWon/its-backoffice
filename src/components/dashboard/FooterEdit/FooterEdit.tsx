@@ -3,10 +3,10 @@ import React from 'react';
 import InputObjects from 'components/common/InputObjects';
 import InputText from 'components/common/InputText';
 import { RowWrapper } from 'components/common/InputWrapper';
-import { Footer } from 'lib/networks/meta';
+import { Base } from 'lib/networks/meta';
 import * as s from './FooterEdit.styled';
 
-interface Props extends Footer {
+interface Props extends Base {
   handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
   handleObjChange: (name: string, value: { [key: string]: string }) => void;
 }

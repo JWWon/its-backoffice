@@ -36,7 +36,5 @@ export default connect(
   ({ modal }: StoreState) => ({ modal }),
   null,
   null,
-  {
-    pure: false,
-  }
+  { pure: false }
 )(App);

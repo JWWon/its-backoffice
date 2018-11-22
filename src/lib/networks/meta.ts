@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
-export interface Footer {
+export interface Base {
   president: string;
   manager: string;
   registration: string;
@@ -15,19 +15,27 @@ export interface Footer {
   };
 }
 
-export interface Content {
+export interface RawMeta extends Base {
+  content: string;
+}
+
+export interface ParsedMeta extends Base {
   content: EditorState;
 }
 
-export const getFooter = async () => {
-  const response = await axios.get('/meta');
-  const { content, ...other } = response.data;
-  return other;
+export const getRawMeta = async () => {
+  try {
+    const response = await axios.get('/meta');
+    const data: RawMeta = response.data;
+    return data;
+  } catch (e) {
+    throw e;
+  }
 };
 
-export const updateFooter = async (footer: Footer) => {
+export const updateFooter = async (meta: RawMeta) => {
   try {
-    const response = await axios.patch('/meta', footer);
+    const response = await axios.patch('/meta', meta);
     alert('저장되었습니다');
     return response.data;
   } catch (e) {
@@ -35,22 +43,34 @@ export const updateFooter = async (footer: Footer) => {
   }
 };
 
-export const getContent = async () => {
-  const response = await axios.get('/meta');
-  const { content } = response.data;
-  if (content) {
-    const rawContent = JSON.parse(content);
-    const contentState = convertFromRaw(rawContent);
-    return EditorState.createWithContent(contentState);
-  } else {
-    return EditorState.createEmpty();
+export const getParsedMeta = async () => {
+  try {
+    const data = await getRawMeta();
+
+    let content: EditorState;
+    if (data.content) {
+      const rawContent = JSON.parse(data.content);
+      const contentState = convertFromRaw(rawContent);
+      content = EditorState.createWithContent(contentState);
+    } else {
+      content = EditorState.createEmpty();
+    }
+    const parsedData: ParsedMeta = { ...data, content };
+    return parsedData;
+  } catch (e) {
+    throw e;
   }
 };
 
-export const updateContent = async (content: EditorState) => {
-  const contentState = content.getCurrentContent();
-  const nextData = { content: JSON.stringify(convertToRaw(contentState)) };
-  const response = await axios.patch('/meta', nextData);
-  alert('저장되었습니다');
-  return response.data;
+export const updateContent = async (meta: ParsedMeta) => {
+  try {
+    const contentState = meta.content.getCurrentContent();
+    const content: string = JSON.stringify(convertToRaw(contentState));
+
+    const response = await axios.patch('/meta', { ...meta, content });
+    alert('저장되었습니다');
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
 };

@@ -3,16 +3,27 @@ import React, { Component } from 'react';
 
 import Template from 'components/dashboard/Template';
 import TextEditor from 'components/dashboard/TextEditor';
-import { Content, getContent, updateContent } from 'lib/networks/meta';
+import { getParsedMeta, ParsedMeta, updateContent } from 'lib/networks/meta';
 
-class AboutContainer extends Component<{}, Content> {
-  public state: Content = {
+class AboutContainer extends Component<{}, ParsedMeta> {
+  public state: ParsedMeta = {
+    president: '',
+    manager: '',
+    registration: '',
+    email: '',
+    phone: '',
+    address: '',
+    social: {
+      facebook: '',
+      instagram: '',
+      blog: '',
+    },
     content: EditorState.createEmpty(),
   };
 
   public async componentDidMount() {
-    const content = await getContent();
-    this.setState({ content });
+    const data: ParsedMeta = await getParsedMeta();
+    this.setState({ ...this.state, ...data });
   }
 
   public render() {
@@ -37,7 +48,7 @@ class AboutContainer extends Component<{}, Content> {
 
   private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    updateContent(this.state.content);
+    updateContent(this.state);
   };
 }
 
