@@ -1,4 +1,6 @@
 import AWS from 'aws-sdk';
+import 'core-js/fn/object/assign';
+import 'core-js/fn/promise';
 import setAxios from 'lib/networks/axios';
 import { Component } from 'react';
 import { connect } from 'react-redux';
