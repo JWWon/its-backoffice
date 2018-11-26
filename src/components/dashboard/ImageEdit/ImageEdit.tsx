@@ -130,6 +130,7 @@ class ImageEdit extends Component<SubmitInterface, State> {
       // ** APPEND DATA END
 
       await updateImage(data);
+      window.location.reload();
     } catch (e) {
       throw e;
     }

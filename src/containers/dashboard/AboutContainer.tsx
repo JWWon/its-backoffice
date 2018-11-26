@@ -46,9 +46,14 @@ class AboutContainer extends Component<{}, ParsedMeta> {
     this.setState({ content });
   };
 
-  private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  private handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    updateContent(this.state);
+    try {
+      await updateContent(this.state);
+      window.location.reload();
+    } catch (e) {
+      throw e;
+    }
   };
 }
 

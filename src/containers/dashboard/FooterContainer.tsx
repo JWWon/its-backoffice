@@ -62,9 +62,14 @@ class FooterContainer extends Component<{}, RawMeta> {
     );
   };
 
-  private handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  private handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    updateFooter(this.state);
+    try {
+      await updateFooter(this.state);
+      window.location.reload();
+    } catch (e) {
+      throw e;
+    }
   };
 }
 

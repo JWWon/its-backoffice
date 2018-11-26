@@ -67,6 +67,7 @@ class AnnouncementEdit extends Component<AnnouncementInterface & any, State> {
       if (id) data.id = id;
 
       await updateAnnouncement(data);
+      window.location.reload();
     } catch (e) {
       throw e;
     }

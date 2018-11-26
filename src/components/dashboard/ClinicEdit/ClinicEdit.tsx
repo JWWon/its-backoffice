@@ -258,6 +258,7 @@ class ClinicEdit extends Component<ClinicInterface & any, State> {
 
       await updateClinic(data);
       if (registerId) await deleteRegistration(registerId, true);
+      window.location.reload();
     } catch (e) {
       throw e;
     }
