@@ -26,7 +26,8 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "rm -rf build && react-scripts-ts build",
-    "deploy": "npm run build && aws s3 sync build/ s3://admin-xn--9d0b301chmar3r",
+    "upload": "aws s3 sync build/ s3://admin-xn--9d0b301chmar3r --delete --profile itso-o",
+    "deploy": "npm run build && npm run upload",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
